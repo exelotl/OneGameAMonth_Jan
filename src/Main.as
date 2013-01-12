@@ -1,20 +1,35 @@
 package {
 	import flash.display.Sprite;
 	import flash.events.Event;
+	import net.flashpunk.Engine;
+	import net.flashpunk.FP;
+	import states.MenuWorld;
+	import states.PlayWorld;
+	
+	[SWF(width='600', height='400', frameRate='60')]
 	
 	/**
 	 * ...
 	 * @author SimonM, geckojsc, allyally
 	 */
-	public class Main extends Sprite {
+	public class Main extends Engine {
 		
-		public function Main():void {
-			if (stage) init();
-			else addEventListener(Event.ADDED_TO_STAGE, init);
+		private var
+			menuWorld:MenuWorld = new MenuWorld(),
+			playWorld:PlayWorld = new PlayWorld();
+		
+		public function Main() {
+			super(600, 400, 60);
 		}
 		
-		private function init(e:Event = null):void {
-			removeEventListener(Event.ADDED_TO_STAGE, init);
+		override public function init():void {
+			menuWorld.onPlay.add(switchToPlayWorld);
+			FP.world = playWorld;
 		}
+		
+		private function switchToPlayWorld():void {
+			FP.world = playWorld;
+		}
+		
 	}
 }
