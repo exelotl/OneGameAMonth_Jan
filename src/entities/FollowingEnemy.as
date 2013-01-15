@@ -1,18 +1,18 @@
 package entities {
 	import comps.Physics;
-	import comps.RandomAI;
+	import comps.FollowAI;
 	import net.flashpunk.graphics.Image;
-
-	public class Enemy extends LivingEntity {
+	
+	public class FollowingEnemy extends LivingEntity {
 		
 		[Embed(source="../assets/enemy.png")]
 		private static const IMG_ENEMY:Class;
 		
 		private var
 			physics:Physics,
-			ai:RandomAI;
+			ai:FollowAI;
 		
-		public function Enemy(x:Number = 0, y:Number = 0) {
+		public function FollowingEnemy(x:Number = 0, y:Number = 0, following:LivingEntity = null) {
 			super(x, y);
 			width = 20;
 			height = 20;
@@ -23,7 +23,7 @@ package entities {
 			physics.maxVelX = 2;
 			addComponent("physics", physics);
 			
-			ai = new RandomAI();
+			ai = new FollowAI(following);
 			addComponent("ai", ai);
 			
 			graphic = new Image(IMG_ENEMY);

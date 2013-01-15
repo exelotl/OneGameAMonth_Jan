@@ -1,5 +1,6 @@
 package states {
 	import entities.Enemy;
+	import entities.FollowingEnemy;
 	import entities.Ground;
 	import entities.Player;
 	import net.flashpunk.World;
@@ -16,6 +17,8 @@ package states {
 			add(player);
 			var enemy:Enemy = new Enemy(150, 100);
 			add(enemy);
+			var enemy2:FollowingEnemy = new FollowingEnemy(200, 200, player);
+			add(enemy2);
 			for (var i:int = 0; i < 20; i++) {
 				add(new Ground(i * 20, 300));
 			}
