@@ -1,4 +1,5 @@
 package comps {
+	import entities.LivingEntity;
 	import net.flashpunk.Component;
 	import net.flashpunk.utils.Input;
 	import net.flashpunk.utils.Key;
@@ -9,25 +10,27 @@ package comps {
 	 */
 	public class MovementControl extends Component{
 		
-		private var physics:Physics;
+		private var livingEntity:LivingEntity;
 		
 		public function MovementControl() { }
 		
-		override public funtion added():void {
-			physics = entity.getComponent("physics");
+		override public function added():void {
+			if (entity is LivingEntity)
+				livingEntity = entity as LivingEntity;
 		}
 		
 		override public function update():void {
-			if (physics) {
-				if (Input.pressed(Key.left)) {
-					physics.accX = -5;
-				}
-				if (Input.pressed(Key.RIGHT)) {
-					physics.accX = 5;
-				}
-				if (Input.pressed(Key.UP)) {
-					physics.velX = -8;
-				}
+			if (Input.pressed(Key.LEFT)) {
+				livingEntity.runLeft()
+			}
+			if (Input.pressed(Key.RIGHT)) {
+				livingEntity.runRight();
+			}
+			if (Input.released(Key.LEFT) || Input.released(Key.RIGHT)) {
+				livingEntity.stopRunning();
+			}
+			if (Input.pressed(Key.UP)) {
+				livingEntity.jump();
 			}
 		}
 	}
