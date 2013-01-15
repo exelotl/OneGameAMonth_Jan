@@ -25,7 +25,7 @@ package entities
 			width = 20;
 			height = 20;
 			
-			physics = new Physics();
+			physics = new Physics(["ground"]);
 			physics.accY = 1;
 			physics.dragX = 6;
 			physics.maxVelX = 4;
