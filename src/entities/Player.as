@@ -10,7 +10,7 @@ package entities
 	 * ...
 	 * @author geckojsc
 	 */
-	public class Player extends Entity {
+	public class Player extends LivingEntity {
 		
 		[Embed(source="../assets/player.png")]
 		private static const IMG_PLAYER:Class;
