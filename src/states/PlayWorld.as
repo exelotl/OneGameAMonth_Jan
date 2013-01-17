@@ -3,6 +3,7 @@ package states {
 	import entities.FollowingEnemy;
 	import entities.Ground;
 	import entities.Player;
+	import net.flashpunk.FP;
 	import net.flashpunk.World;
 	
 	/**
@@ -13,6 +14,7 @@ package states {
 		private var player:Player;
 		
 		public function PlayWorld() {
+			FP.screen.color = 0xbada55;
 			player = new Player(100, 100);
 			add(player);
 			var enemy:Enemy = new Enemy(150, 100);

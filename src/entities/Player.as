@@ -7,10 +7,6 @@ package entities
 	import net.flashpunk.graphics.Image;
 	import net.flashpunk.Mask;
 	
-	/**
-	 * ...
-	 * @author geckojsc
-	 */
 	public class Player extends LivingEntity {
 		
 		[Embed(source="../assets/player.png")]

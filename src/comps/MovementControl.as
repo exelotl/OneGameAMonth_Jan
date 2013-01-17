@@ -6,7 +6,6 @@ package comps {
 	
 	/**
 	 * Simple movement control component, with jumps and moving to right and left.
-	 * Uses the physics component.
 	 */
 	public class MovementControl extends Component{
 		

@@ -15,14 +15,16 @@ package {
 	public class Main extends Engine {
 		
 		private var
-			menuWorld:MenuWorld = new MenuWorld(),
-			playWorld:PlayWorld = new PlayWorld();
+			menuWorld:MenuWorld,
+			playWorld:PlayWorld;
 		
 		public function Main() {
 			super(600, 400, 60);
 		}
 		
 		override public function init():void {
+			menuWorld = new MenuWorld();
+			playWorld = new PlayWorld();
 			menuWorld.onPlay.add(switchToPlayWorld);
 			FP.world = playWorld;
 		}
