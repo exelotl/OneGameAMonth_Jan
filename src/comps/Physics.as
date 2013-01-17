@@ -84,7 +84,5 @@ package comps {
 		public function collidesWithType(type:String):Boolean {
 			return collideTypes.indexOf(type) !== -1;
 		}
-		
 	}
-
 }

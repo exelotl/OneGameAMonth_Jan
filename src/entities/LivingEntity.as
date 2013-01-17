@@ -7,9 +7,9 @@ package entities {
 			super(x, y);
 		}
 		
-		public function jump():void {}
-		public function runRight():void {}
-		public function runLeft():void {}
-		public function stopRunning():void {}
+		public function jump():void { }
+		public function runRight():void { }
+		public function runLeft():void { }
+		public function stopRunning():void { }
 	}
 }

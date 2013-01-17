@@ -1,5 +1,4 @@
-package entities 
-{
+package entities {
 	import comps.MovementControl;
 	import comps.Physics;
 	import net.flashpunk.Entity;
@@ -48,7 +47,5 @@ package entities
 		override public function stopRunning():void {
 			physics.accX = 0;
 		}
-		
 	}
-
 }

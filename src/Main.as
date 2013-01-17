@@ -32,6 +32,5 @@ package {
 		private function switchToPlayWorld():void {
 			FP.world = playWorld;
 		}
-		
 	}
 }
