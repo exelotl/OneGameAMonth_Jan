@@ -1,10 +1,12 @@
 package comps {
+	import entities.LivingEntity;
+	import flash.sampler.NewObjectSample;
 	import net.flashpunk.Component;
 	import net.flashpunk.utils.Input;
 	
 	public class Weapon extends Component{
 		
-		private var 
+		protected var 
 			user:LivingEntity,
 			key:int;
 		
