@@ -24,7 +24,7 @@ package entities {
 			setHitbox(80, 40);
 		}
 		
-		public function damage(damage:uint)uint {
+		public function damage(damage:uint):uint {
 			health -= damage;
 			return health;
 		}

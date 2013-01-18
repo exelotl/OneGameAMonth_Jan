@@ -9,10 +9,12 @@ package {
 	[SWF(width='600', height='400', frameRate='60')]
 	
 	/**
-	 * ...
 	 * @author SimonM, geckojsc, allyally
 	 */
 	public class Main extends Engine {
+		
+		[Embed(source="assets/tarzeau_-_Atari_Small.ttf", fontFamily="atari", embedAsCFF="false")]
+		public static var atari:String;
 		
 		private var
 			menuWorld:MenuWorld,
