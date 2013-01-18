@@ -13,8 +13,10 @@ package {
 	 */
 	public class Main extends Engine {
 		
-		[Embed(source="assets/tarzeau_-_Atari_Small.ttf", fontFamily="atari", embedAsCFF="false")]
-		public static var atari:String;
+		[Embed(source="assets/Schoenecker1055.ttf", fontFamily="title_font", embedAsCFF="false")]
+		public static const TITLE_FONT:String;
+		[Embed(source="assets/Mono0755.ttf", fontFamily="normal_font", embedAsCFF="false")]
+		public static const NORMAL_FONT:String;
 		
 		private var
 			menuWorld:MenuWorld,

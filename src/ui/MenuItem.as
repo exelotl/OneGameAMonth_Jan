@@ -7,11 +7,11 @@ package ui {
 	public class MenuItem {
 		
 		public var text:String;
-		public var onSelect:Signal;
+		public var onSelect:Signal = new Signal();
 		
 		public function MenuItem(text:String, callback:Function=null) {
 			this.text = text;
-			if (callback)
+			if (callback !== null)
 				onSelect.add(callback);
 		}
 		

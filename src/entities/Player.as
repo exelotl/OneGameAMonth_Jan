@@ -20,7 +20,7 @@ package entities {
 			width = 20;
 			height = 20;
 			
-			physics = new Physics(["ground"]);
+			physics = new Physics(EntityTypes.SOLIDS);
 			physics.accY = 1;
 			physics.dragX = 6;
 			physics.maxVelX = 4;
