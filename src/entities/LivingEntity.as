@@ -11,5 +11,6 @@ package entities {
 		public function runRight():void { }
 		public function runLeft():void { }
 		public function stopRunning():void { }
+		public function knockBack(amount:int) { }
 	}
 }

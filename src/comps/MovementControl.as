@@ -14,8 +14,7 @@ package comps {
 		public function MovementControl() { }
 		
 		override public function added():void {
-			if (entity is LivingEntity)
-				livingEntity = entity as LivingEntity;
+			if (entity is LivingEntity) livingEntity = entity as LivingEntity;
 		}
 		
 		override public function update():void {
