@@ -7,6 +7,10 @@ package entities {
 			super(x, y);
 		}
 		
+		public function isOnFloor():Boolean {
+			return collideTypes(EntityTypes.SOLIDS, x, y+2) !== null;
+		}
+		
 		public function jump():void { }
 		public function runRight():void { }
 		public function runLeft():void { }

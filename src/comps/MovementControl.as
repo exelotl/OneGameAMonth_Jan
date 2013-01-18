@@ -25,9 +25,12 @@ package comps {
 				livingEntity.runRight();
 			}
 			if (Input.released(Key.LEFT) || Input.released(Key.RIGHT)) {
-				livingEntity.stopRunning();
+				if (Input.check(Key.LEFT)) livingEntity.runLeft()
+				else if (Input.check(Key.RIGHT)) livingEntity.runRight();
+				else livingEntity.stopRunning();
 			}
-			if (Input.pressed(Key.UP)) {
+			
+			if (Input.check(Key.UP) && livingEntity.isOnFloor()) {
 				livingEntity.jump();
 			}
 		}
