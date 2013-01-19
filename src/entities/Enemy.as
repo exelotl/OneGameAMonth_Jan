@@ -9,7 +9,6 @@ package entities {
 		private static const IMG_ENEMY:Class;
 		
 		private var
-			physics:Physics,
 			ai:RandomAI;
 		
 		public function Enemy(x:Number = 0, y:Number = 0) {
@@ -17,11 +16,7 @@ package entities {
 			width = 20;
 			height = 20;
 			
-			physics = new Physics(["ground"]);
-			physics.accY = 1;
-			physics.dragX = 6;
 			physics.maxVelX = 2;
-			addComponent("physics", physics);
 			
 			ai = new RandomAI();
 			addComponent("ai", ai);

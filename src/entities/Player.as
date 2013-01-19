@@ -1,9 +1,10 @@
 package entities {
 	import comps.MovementControl;
-	import comps.Physics;
+	import fp.MultiSpritemap;
 	import net.flashpunk.Entity;
 	import net.flashpunk.Graphic;
 	import net.flashpunk.graphics.Image;
+	import net.flashpunk.graphics.Spritemap;
 	import net.flashpunk.Mask;
 	
 	public class Player extends LivingEntity {
@@ -12,7 +13,8 @@ package entities {
 		private static const IMG_PLAYER:Class;
 		
 		private var
-			physics:Physics,
+			sprites:MultiSpritemap = new MultiSpritemap(),
+			anim:Spritemap,
 			control:MovementControl;
 		
 		public function Player(x:Number=0, y:Number=0) {
@@ -20,32 +22,49 @@ package entities {
 			width = 20;
 			height = 20;
 			
-			physics = new Physics(EntityTypes.SOLIDS);
-			physics.accY = 1;
-			physics.dragX = 6;
-			physics.maxVelX = 4;
-			addComponent("physics", physics);
-			
 			control = new MovementControl();
 			addComponent("control", control);
 			
-			graphic = new Image(IMG_PLAYER);
+			anim = new Spritemap(IMG_PLAYER, 20, 20);
+			anim.add("idle_l", [0], 30, false);
+			anim.add("idle_r", [4], 30, false);
+			anim.add("run_l", [0,1,2,3], 15, true);
+			anim.add("run_r", [4,5,6,7], 15, true);
+			anim.add("jump_l", [1], 30, false);
+			anim.add("jump_r", [5], 30, false);
+			sprites.addMid(anim);
+			graphic = sprites;
+			
 		}
 		
 		override public function jump():void {
 			physics.velY = -8;
+			sprites.play("jump_"+direction);
+		}
+		
+		override public function land():void {
+			if (physics.accX === 0) {
+				sprites.play("idle_"+direction);
+			} else {
+				sprites.play("run_"+direction);
+			}
 		}
 		
 		override public function runRight():void {
+			super.runRight();
 			physics.accX = 5;
+			sprites.play("run_r");
 		}
 		
 		override public function runLeft():void {
+			super.runLeft();
 			physics.accX = -5;
+			sprites.play("run_l");
 		}
 		
 		override public function stopRunning():void {
 			physics.accX = 0;
+			sprites.play("idle_"+direction);
 		}
 	}
 }

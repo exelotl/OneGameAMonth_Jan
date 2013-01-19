@@ -30,7 +30,7 @@ package comps {
 				else livingEntity.stopRunning();
 			}
 			
-			if (Input.check(Key.UP) && livingEntity.isOnFloor()) {
+			if (Input.check(Key.UP) && livingEntity.isOnFloor) {
 				livingEntity.jump();
 			}
 		}
