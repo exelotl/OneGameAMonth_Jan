@@ -5,6 +5,7 @@ package entities {
 		
 		public function LivingEntity(x:Number = 0, y:Number = 0) {
 			super(x, y);
+			layer = Layers.LIVING_ENTITIES;
 		}
 		
 		public function isOnFloor():Boolean {
