@@ -18,16 +18,18 @@ package comps {
 		}
 		
 		override public function update():void {
-			if (Input.pressed(Key.LEFT)) {
-				livingEntity.runLeft()
-			}
-			if (Input.pressed(Key.RIGHT)) {
-				livingEntity.runRight();
-			}
+			
 			if (Input.released(Key.LEFT) || Input.released(Key.RIGHT)) {
-				if (Input.check(Key.LEFT)) livingEntity.runLeft()
-				else if (Input.check(Key.RIGHT)) livingEntity.runRight();
-				else livingEntity.stopRunning();
+				livingEntity.stopRunning();
+			}
+			if (!livingEntity.isRunning) {
+				if (Input.check(Key.LEFT)) livingEntity.runLeft();
+				if (Input.check(Key.RIGHT)) livingEntity.runRight();
+			
+				if (Input.pressed(Key.Z) && entity.getComponent("sword")) {
+					livingEntity.stopRunning();
+					livingEntity.strike();
+				}
 			}
 			
 			if (Input.check(Key.UP) && livingEntity.isOnFloor) {

@@ -6,6 +6,7 @@ package entities {
 	public class LivingEntity extends Entity {
 		
 		public var
+			isRunning:Boolean = false,
 			isOnFloor:Boolean = false,
 			wasOnFloor:Boolean = false,
 			direction:String = "r",
@@ -32,11 +33,19 @@ package entities {
 		public function land():void { }
 		public function runRight():void {
 			direction = "r";
+			isRunning = true;
 		}
 		public function runLeft():void {
 			direction = "l";
+			isRunning = true;
 		}
-		public function stopRunning():void { }
+		public function stopRunning():void {
+			isRunning = false;
+		}
 		public function knockback(amount:int):void { }
+		
+		public function strike():void { } /// Use a melee weapon
+		public function fire():void { } /// Use a ranged weapon
+		
 	}
 }

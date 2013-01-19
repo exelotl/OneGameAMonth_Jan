@@ -32,6 +32,8 @@ package entities {
 			anim.add("run_r", [4,5,6,7], 15, true);
 			anim.add("jump_l", [1], 30, false);
 			anim.add("jump_r", [5], 30, false);
+			anim.add("strike_l", [8,9,10,11], 15, false);
+			anim.add("strike_r", [12,13,14,15], 15, false);
 			sprites.addMid(anim);
 			graphic = sprites;
 			
@@ -63,8 +65,17 @@ package entities {
 		}
 		
 		override public function stopRunning():void {
+			super.stopRunning();
 			physics.accX = 0;
 			sprites.play("idle_"+direction);
+		}
+		
+		override public function strike():void {
+			sprites.play("strike_"+direction);
+		}
+		
+		override public function fire():void {
+			
 		}
 	}
 }

@@ -1,4 +1,5 @@
 package states {
+	import comps.Sword;
 	import entities.Ground;
 	import entities.Player;
 	import entities.slots.*;
@@ -21,7 +22,9 @@ package states {
 			for (i = -5; i < 0; i++) add(new FillerSlot(i*200, 200));
 			for (i = 0; i < 4; i++) add(slots[i] = new Land(i*200, 200));
 			for (i = 4; i < 9; i++) add(new FillerSlot(i*200, 200));
+			
 			add(player = new Player(100, 100));
+			player.addComponent("sword", new Sword());
 			
 			// upgrade a slot (test)
 			remove(slots[2]);
@@ -34,13 +37,13 @@ package states {
 			upgrades.addItem(new MenuItem("foo", function(){ trace("foo"); } ));
 			upgrades.addItem(new MenuItem("bar", function(){ trace("bar"); } ));
 			upgrades.addItem(new MenuItem("herp", function(){ trace("derp"); } ));
-			//add(upgrades);
+			add(upgrades);
 		}
 		
 		override public function update():void {
 			super.update();
 			FP.camera.x = Math.floor(FP.camera.x - ((FP.camera.x+FP.halfWidth) - player.x) / 14);
-			FP.camera.y = Math.floor(FP.camera.y - ((FP.camera.y+FP.halfHeight) - player.y) / 34);
+			FP.camera.y = Math.floor(FP.camera.y - ((FP.camera.y+FP.halfHeight) - player.y) / 40);
 		}
 	}
 }
