@@ -46,6 +46,8 @@ package entities {
 			sprites.addMid(anim);
 			graphic = sprites;
 			
+			name = "player";
+			type = "player";
 		}
 		
 		override public function jump():void {

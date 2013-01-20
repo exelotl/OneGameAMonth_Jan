@@ -15,10 +15,10 @@ package entities.slots {
 		
 		public function Land(x:Number = 0, y:Number = 0, health:uint = 0) {
 			super(x, y);
+			currentUpgrade = Upgrade.LAND;
 			image = new Image(IMG_LAND_SLOT);
 			graphic = image;
 			setHitbox(200, 200);
-			type = "ground";
 		}
 		
 		override public function get upgrades():Array {

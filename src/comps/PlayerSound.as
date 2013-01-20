@@ -8,6 +8,9 @@ package comps {
 		[Embed(source="../assets/sfx_footstep.mp3")]
 		private static const SFX_FOOTSTEP:Class;
 		
+		[Embed(source="../assets/sfx_jump.mp3")]
+		private static const SFX_JUMP:Class;
+		
 		[Embed(source="../assets/sfx_swipe_1.mp3")]
 		private static const SFX_SWIPE_1:Class;
 		
@@ -23,6 +26,7 @@ package comps {
 		private var
 			player:Player,
 			sfxFootstep:Sfx = new Sfx(SFX_FOOTSTEP),
+			sfxJump:Sfx = new Sfx(SFX_JUMP),
 			sfxSwipe:/*Sfx*/Array = [
 				new Sfx(SFX_SWIPE_1),
 				new Sfx(SFX_SWIPE_2),
@@ -39,7 +43,9 @@ package comps {
 			player = entity as Player;
 		}
 		
-		private var playingSwipe:Boolean = false;
+		private var
+			playingJump:Boolean = false,
+			playingSwipe:Boolean = false;
 		
 		override public function update():void {
 			var canPlayFootsteps:Boolean = (player.flags & Flags.RUNNING) && !(player.flags & Flags.JUMPING);
@@ -50,6 +56,15 @@ package comps {
 			} else {
 				if (canPlayFootsteps)
 					sfxFootstep.loop(0.2);
+			}
+			
+			if (player.flags & Flags.JUMPING) {
+				if (!playingJump) {
+					sfxJump.play(0.3);
+					playingJump = true;
+				}
+			} else {
+				if (playingJump) playingJump = false;
 			}
 			
 			if (player.flags & Flags.ATTACKING) {

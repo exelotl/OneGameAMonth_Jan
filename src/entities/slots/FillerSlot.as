@@ -13,7 +13,6 @@ package entities.slots {
 			super(x, y)
 			setHitbox(200, 200);
 			graphic = new Image(IMG_LAND_EMPTY);
-			type = "ground";
 		}
 		
 	}

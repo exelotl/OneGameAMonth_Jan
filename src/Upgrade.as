@@ -10,6 +10,7 @@ package {
 		
 		public static const
 			LAND:Upgrade = new Upgrade("Land", 0, "You probably want to upgrade this."),
+			CASTLE:Upgrade = new Upgrade("Castle", 0, "You probably want to defend this."),
 			TOWER:Upgrade = new Upgrade("Tower", 10, "Provides shelter for knights!");
 		
 		public static function createSlot(prev:Slot, upgrade:Upgrade):Slot {

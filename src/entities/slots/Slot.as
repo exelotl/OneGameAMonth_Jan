@@ -1,5 +1,7 @@
 package entities.slots {
+	import comps.SlotControl;
 	import net.flashpunk.Entity;
+	import net.flashpunk.Signal;
 	
 	/**
 	 * Base class for all upgradable structures.
@@ -7,6 +9,8 @@ package entities.slots {
 	public class Slot extends Entity {
 		
 		public var
+			currentUpgrade:Upgrade,
+			onEdit:Signal = new Signal(),
 			health:uint,
 			maxHealth:uint;
 		
@@ -15,6 +19,8 @@ package entities.slots {
 			this.health = health;
 			this.maxHealth = health;
 			layer = Layers.SLOT;
+			addComponent("control", new SlotControl());
+			type = "ground";
 		}
 		
 		/**

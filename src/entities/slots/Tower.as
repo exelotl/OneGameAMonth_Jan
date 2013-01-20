@@ -8,11 +8,11 @@ package entities.slots {
 		
 		public function Tower(x:Number = 0, y:Number = 0, health:uint = 0) {
 			super(x, y, health);
+			currentUpgrade = Upgrade.TOWER;
 			graphic = new Image(IMG_TOWER);
 			graphic.y = -200;
 			width = 200;
 			height = 200;
-			type = "ground";
 		}
 		
 	}

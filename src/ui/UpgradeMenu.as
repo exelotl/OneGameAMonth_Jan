@@ -1,4 +1,5 @@
 package ui {
+	import entities.slots.Slot;
 	import flash.geom.Rectangle;
 	import net.flashpunk.Entity;
 	import net.flashpunk.FP;
@@ -8,7 +9,7 @@ package ui {
 	import net.flashpunk.graphics.Text;
 	import net.flashpunk.utils.Input;
 
-	public class UpgradeSelector extends Entity {
+	public class UpgradeMenu extends Entity {
 		
 		private static const
 			MARGIN_TOP:int = 54,
@@ -16,6 +17,8 @@ package ui {
 			LINE_HEIGHT:int = 17;
 		
 		private var
+			slot:Slot,
+			currentUpgrade:Upgrade,
 			graphicList:Graphiclist,
 			background:Canvas,
 			highlight:Canvas,
@@ -24,8 +27,9 @@ package ui {
 			items:/*MenuItem*/Array = [],
 			textGraphics:/*Text*/Array = [];
 			
-		public function UpgradeSelector(x:Number=0, y:Number=0, title:String="", comment:String="") {
-			super(x, y);
+		public function UpgradeMenu(slot:Slot) {
+			this.slot = slot;
+			currentUpgrade = slot.currentUpgrade;
 			width = 160;
 			height = 160;
 			graphicList = new Graphiclist();
@@ -37,7 +41,7 @@ package ui {
 			highlight = new Canvas(width, LINE_HEIGHT);
 			highlight.fill(new Rectangle(0,0,width,LINE_HEIGHT), 0xcccccc);
 			
-			titleText = new Text(title, 0, 0, {
+			titleText = new Text(currentUpgrade.name, 0, 0, {
 				font: "title_font",
 				size: 8,
 				align: "center",
@@ -47,7 +51,7 @@ package ui {
 				color: 0x444444,
 				alpha: 1
 			});
-			commentText = new Text(comment, 6, 20, {
+			commentText = new Text(currentUpgrade.description, 6, 20, {
 				font: "normal_font",
 				size: 8,
 				align: "left",
@@ -64,6 +68,15 @@ package ui {
 			graphicList.add(titleText);
 			graphicList.add(commentText);
 		}
+		
+		//public function disable():void {
+			//active = false;
+			//visible = false;
+		//}
+		//public function enable(slot:Slot):void {
+			//active = true;
+			//visible = true;
+		//}
 		
 		public function get title():String {
 			return titleText.text;
