@@ -1,6 +1,7 @@
 package ui {
 	import flash.geom.Rectangle;
 	import net.flashpunk.Entity;
+	import net.flashpunk.FP;
 	import net.flashpunk.Graphic;
 	import net.flashpunk.graphics.Canvas;
 	import net.flashpunk.graphics.Graphiclist;
@@ -78,17 +79,16 @@ package ui {
 		}
 		
 		override public function update():void {
-			var line:int = ((Input.mouseY + y) - MARGIN_TOP) / LINE_HEIGHT
+			var mX:Number = Input.mouseX + FP.camera.x;
+			var mY:Number = Input.mouseY + FP.camera.y - MARGIN_TOP;
+			var line:int = (mY + y) / LINE_HEIGHT
 			
-			if (Input.mouseX > x && Input.mouseX < x+width
-			&& line >= 0 && line < items.length) {
-				
+			if (mX > x && mX < x+width && line >= 0 && line < items.length) {
 				highlight.visible = true;
 				highlight.y = MARGIN_TOP + line*LINE_HEIGHT;
 				if (Input.mousePressed) {
 					items[line].select();
 				}
-				
 			} else {
 				highlight.visible = false;
 			}

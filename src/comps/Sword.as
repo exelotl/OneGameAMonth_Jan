@@ -18,8 +18,8 @@ package comps {
 			anim.add("run_r", [4,5,6,7], 15, true);
 			anim.add("jump_l", [1], 30, false);
 			anim.add("jump_r", [5], 30, false);
-			anim.add("strike_l", [8,9,10,9,11], 30, false);
-			anim.add("strike_r", [12,13,14,13,15], 30, false);
+			anim.add("strike_l", [8,9,10,10,11], 30, false);
+			anim.add("strike_r", [12,13,14,14,15], 30, false);
 		}
 		
 		override public function added():void {

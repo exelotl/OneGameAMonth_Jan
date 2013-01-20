@@ -2,11 +2,15 @@ package entities {
 	import comps.Physics;
 	import fp.MultiSpritemap;
 	import net.flashpunk.Entity;
-
+	
+	/**
+	 * Base for players, NPCs, enemies, etc.
+	 */
 	public class LivingEntity extends Entity {
 		
 		public var
-			isRunning:Boolean = false,
+			health:int = 0,
+			maxHealth:int = 0,
 			isOnFloor:Boolean = false,
 			wasOnFloor:Boolean = false,
 			direction:String = "r",
@@ -18,7 +22,7 @@ package entities {
 			
 			physics = new Physics(EntityTypes.SOLIDS);
 			physics.accY = 1;
-			physics.dragX = 6;
+			physics.dragX = 1;
 			physics.maxVelX = 4;
 			addComponent("physics", physics);
 		}
@@ -33,19 +37,34 @@ package entities {
 		public function land():void { }
 		public function runRight():void {
 			direction = "r";
-			isRunning = true;
+			flags |= Flags.RUNNING;
 		}
 		public function runLeft():void {
 			direction = "l";
-			isRunning = true;
+			flags |= Flags.RUNNING;
 		}
-		public function stopRunning():void {
-			isRunning = false;
+		public function idle():void {
+			flags &= ~Flags.RUNNING;
 		}
 		public function knockback(amount:int):void { }
 		
 		public function strike():void { } /// Use a melee weapon
 		public function fire():void { } /// Use a ranged weapon
+		
+		public function die():void { }
+		
+		public function damage(damage:uint):void {
+			health -= damage;
+			if (health < 0) {
+				health = 0;
+				die();
+			}
+		}
+		
+		public function repair(repair:uint):void {
+			health += repair;
+			if (health > maxHealth) health = maxHealth;
+		}
 		
 	}
 }

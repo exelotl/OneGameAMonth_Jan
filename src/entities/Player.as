@@ -6,6 +6,8 @@ package entities {
 	import net.flashpunk.graphics.Image;
 	import net.flashpunk.graphics.Spritemap;
 	import net.flashpunk.Mask;
+	import net.flashpunk.Tween;
+	import net.flashpunk.tweens.misc.Alarm;
 	
 	public class Player extends LivingEntity {
 		
@@ -64,14 +66,17 @@ package entities {
 			sprites.play("run_l");
 		}
 		
-		override public function stopRunning():void {
-			super.stopRunning();
+		override public function idle():void {
+			super.idle();
 			physics.accX = 0;
+			flags &= ~Flags.ATTACKING;
 			sprites.play("idle_"+direction);
 		}
 		
 		override public function strike():void {
 			sprites.play("strike_"+direction);
+			flags |= Flags.ATTACKING;
+			addTween(new Alarm(0.2, idle, Tween.ONESHOT), true);
 		}
 		
 		override public function fire():void {
