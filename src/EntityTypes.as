@@ -6,7 +6,7 @@ package {
 	public class EntityTypes {
 		
 		public static const
-			ENEMIES:Array = [],
+			ENEMIES:Array = ["enemy"],
 			SOLIDS:Array = ["ground"];
 			
 		

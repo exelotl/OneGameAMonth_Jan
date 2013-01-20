@@ -1,5 +1,6 @@
 package states {
 	import comps.Sword;
+	import entities.Enemy;
 	import entities.Ground;
 	import entities.Player;
 	import entities.slots.*;
@@ -25,6 +26,8 @@ package states {
 			
 			add(player = new Player(100, 100));
 			player.addComponent("sword", new Sword());
+			
+			add(new Enemy(100, 100));
 			
 			// upgrade a slot (test)
 			remove(slots[2]);

@@ -16,12 +16,24 @@ package entities {
 			width = 20;
 			height = 20;
 			
+			health = maxHealth = 50;
+			
+			type = "enemy";
+			
 			physics.maxVelX = 2;
 			
 			ai = new RandomAI();
-			addComponent("ai", ai);
+			//addComponent("ai", ai);
+			
+			runRight();
 			
 			graphic = new Image(IMG_ENEMY);
+		}
+		
+		override public function update():void 
+		{
+			super.updateLiving();
+			(graphic as Image).alpha = hitCooldown > 0 ? 0.5 : 1;
 		}
 		
 		override public function jump():void {
@@ -29,15 +41,29 @@ package entities {
 		}
 		
 		override public function runRight():void {
-			physics.accX = 5;
+			physics.accX = 2;
 		}
 		
 		override public function runLeft():void {
-			physics.accX = -5;
+			physics.accX = -2;
 		}
 		
 		override public function stopRunning():void {
 			physics.accX = 0;
+		}
+		
+		override public function die():void 
+		{
+			super.die();
+			physics.removeCollideType("ground");
+			removeComponent("ai");
+			(physics as Physics).accY = 0.2;
+			(physics as Physics).velY = -3;
+		}
+		
+		override public function updateDead():void 
+		{
+			(graphic as Image).angle += 2;
 		}
 	}
 }

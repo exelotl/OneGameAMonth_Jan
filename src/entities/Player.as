@@ -24,6 +24,8 @@ package entities {
 			width = 20;
 			height = 20;
 			
+			health = maxHealth = 100;
+			
 			control = new MovementControl();
 			addComponent("control", control);
 			
@@ -34,7 +36,7 @@ package entities {
 			anim.add("run_r", [4,5,6,7], 15, true);
 			anim.add("jump_l", [1], 30, false);
 			anim.add("jump_r", [5], 30, false);
-			anim.add("strike_l", [8,9,10,11], 15, false);
+			anim.add("strike5_l", [8,9,10,11], 15, false);
 			anim.add("strike_r", [12,13,14,15], 15, false);
 			sprites.addMid(anim);
 			graphic = sprites;
@@ -77,6 +79,11 @@ package entities {
 			sprites.play("strike_"+direction);
 			flags |= Flags.ATTACKING;
 			addTween(new Alarm(0.2, idle, Tween.ONESHOT), true);
+			
+			var e_list:Array = [];
+			collideTypesInto(EntityTypes.ENEMIES, x, y, e_list);
+			for each (var e:LivingEntity in e_list)
+				e.damage(10, this);
 		}
 		
 		override public function fire():void {
