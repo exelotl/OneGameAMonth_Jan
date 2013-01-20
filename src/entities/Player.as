@@ -1,5 +1,6 @@
 package entities {
 	import comps.MovementControl;
+	import comps.PlayerSound;
 	import fp.MultiSpritemap;
 	import net.flashpunk.Entity;
 	import net.flashpunk.Graphic;
@@ -17,7 +18,8 @@ package entities {
 		private var
 			sprites:MultiSpritemap = new MultiSpritemap(),
 			anim:Spritemap,
-			control:MovementControl;
+			control:MovementControl,
+			sound:PlayerSound;
 		
 		public function Player(x:Number=0, y:Number=0) {
 			super(x, y);
@@ -29,6 +31,9 @@ package entities {
 			control = new MovementControl();
 			addComponent("control", control);
 			
+			sound = new PlayerSound();
+			addComponent("sound", sound);
+			
 			anim = new Spritemap(IMG_PLAYER, 20, 20);
 			anim.add("idle_l", [0], 30, false);
 			anim.add("idle_r", [4], 30, false);
@@ -36,7 +41,7 @@ package entities {
 			anim.add("run_r", [4,5,6,7], 15, true);
 			anim.add("jump_l", [1], 30, false);
 			anim.add("jump_r", [5], 30, false);
-			anim.add("strike5_l", [8,9,10,11], 15, false);
+			anim.add("strike_l", [8,9,10,11], 15, false);
 			anim.add("strike_r", [12,13,14,15], 15, false);
 			sprites.addMid(anim);
 			graphic = sprites;
@@ -44,11 +49,13 @@ package entities {
 		}
 		
 		override public function jump():void {
+			super.jump();
 			physics.velY = -8;
 			sprites.play("jump_"+direction);
 		}
 		
 		override public function land():void {
+			super.land();
 			if (physics.accX === 0) {
 				sprites.play("idle_"+direction);
 			} else {

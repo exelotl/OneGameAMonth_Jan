@@ -30,20 +30,20 @@ package entities {
 		}
 		
 		override public function update():void {
-			if (!dead) updateLiving();
-			else updateDead();
+			if (!dead) {
+				isOnFloor = collideTypes(EntityTypes.SOLIDS, x, y+2) !== null;
+				if (isOnFloor && !wasOnFloor) land();
+				wasOnFloor = isOnFloor;
+				if (hitCooldown > 0) hitCooldown--;
+			}
 		}
 		
-		public function updateLiving():void {
-			isOnFloor = collideTypes(EntityTypes.SOLIDS, x, y+2) !== null;
-			if (isOnFloor && !wasOnFloor) land();
-			wasOnFloor = isOnFloor;
-			if (hitCooldown > 0) hitCooldown--;
+		public function jump():void {
+			flags |= Flags.JUMPING;
 		}
-		
-		public function updateDead():void { }
-		public function jump():void { }
-		public function land():void { }
+		public function land():void {
+			flags &= ~Flags.JUMPING;
+		}
 		public function runRight():void {
 			direction = "r";
 			flags |= Flags.RUNNING;

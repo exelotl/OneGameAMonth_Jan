@@ -31,19 +31,25 @@ package entities {
 		}
 		
 		override public function update():void {
-			super.updateLiving();
+			super.update();
 			(graphic as Image).alpha = hitCooldown > 0 ? 0.5 : 1;
+			if (dead) {
+				(graphic as Image).angle += 2;
+			}
 		}
 		
 		override public function jump():void {
+			super.jump();
 			physics.velY = -8;
 		}
 		
 		override public function runRight():void {
+			super.runRight();
 			physics.accX = 2;
 		}
 		
 		override public function runLeft():void {
+			super.runLeft();
 			physics.accX = -2;
 		}
 		
@@ -55,12 +61,8 @@ package entities {
 			super.die();
 			physics.removeCollideType("ground");
 			removeComponent("ai");
-			(physics as Physics).accY = 0.2;
-			(physics as Physics).velY = -3;
-		}
-		
-		override public function updateDead():void {
-			(graphic as Image).angle += 2;
+			physics.accY = 0.2;
+			physics.velY = -3;
 		}
 	}
 }
