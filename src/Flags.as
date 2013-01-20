@@ -11,8 +11,7 @@ package {
 	public class Flags {
 		
 		public static const
-		RUNNING:uint   = 0x00000001,
-		ATTACKING:uint = 0x00000002;
-		
+			RUNNING:uint   = 0x00000001,
+			ATTACKING:uint = 0x00000002;
 	}
 }

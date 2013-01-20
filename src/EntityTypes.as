@@ -8,8 +8,5 @@ package {
 		public static const
 			ENEMIES:Array = ["enemy"],
 			SOLIDS:Array = ["ground"];
-			
-		
 	}
-
 }

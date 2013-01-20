@@ -30,8 +30,7 @@ package entities {
 			graphic = new Image(IMG_ENEMY);
 		}
 		
-		override public function update():void 
-		{
+		override public function update():void {
 			super.updateLiving();
 			(graphic as Image).alpha = hitCooldown > 0 ? 0.5 : 1;
 		}
@@ -52,8 +51,7 @@ package entities {
 			physics.accX = 0;
 		}
 		
-		override public function die():void 
-		{
+		override public function die():void {
 			super.die();
 			physics.removeCollideType("ground");
 			removeComponent("ai");
@@ -61,8 +59,7 @@ package entities {
 			(physics as Physics).velY = -3;
 		}
 		
-		override public function updateDead():void 
-		{
+		override public function updateDead():void {
 			(graphic as Image).angle += 2;
 		}
 	}

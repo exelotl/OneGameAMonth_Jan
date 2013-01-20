@@ -35,7 +35,5 @@ package comps {
 				sprites.remove(anim);
 			}
 		}
-		
 	}
-
 }

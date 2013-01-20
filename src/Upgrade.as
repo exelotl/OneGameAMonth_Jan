@@ -28,6 +28,5 @@ package {
 			this.cost = cost;
 			this.description = desc;
 		}
-		
 	}
 }

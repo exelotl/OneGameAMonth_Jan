@@ -30,12 +30,11 @@ package entities {
 		}
 		
 		override public function update():void {
-			if (! dead) updateLiving();
+			if (!dead) updateLiving();
 			else updateDead();
 		}
 		
-		public function updateLiving():void
-		{
+		public function updateLiving():void {
 			isOnFloor = collideTypes(EntityTypes.SOLIDS, x, y+2) !== null;
 			if (isOnFloor && !wasOnFloor) land();
 			wasOnFloor = isOnFloor;
@@ -43,7 +42,6 @@ package entities {
 		}
 		
 		public function updateDead():void { }
-		
 		public function jump():void { }
 		public function land():void { }
 		public function runRight():void {
@@ -57,17 +55,14 @@ package entities {
 		public function idle():void {
 			flags &= ~Flags.RUNNING;
 		}
-		public function knockback(amount:int, damageSource:LivingEntity):void
-		{
+		public function knockback(amount:int, damageSource:LivingEntity):void {
 			physics.velY = -amount / 2;
 		}
 		
 		public function strike():void { } /// Use a melee weapon
-		
 		public function fire():void { } /// Use a ranged weapon
 		
-		public function die():void
-		{
+		public function die():void {
 			type = "dead";
 		}
 		
@@ -89,8 +84,7 @@ package entities {
 		
 		public function stopRunning():void { };
 		
-		public function get dead():Boolean
-		{
+		public function get dead():Boolean {
 			return health == 0;
 		}
 	}
