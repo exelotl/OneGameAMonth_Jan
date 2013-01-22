@@ -30,7 +30,7 @@ package fp {
 			bgMaps.push(map);
 		}
 		public function addFg(map:Spritemap):void {
-			bgMaps.push(map);
+			fgMaps.push(map);
 		}
 		
 		public function remove(map:Spritemap):void {

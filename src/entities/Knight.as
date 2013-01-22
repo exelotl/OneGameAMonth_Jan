@@ -1,4 +1,5 @@
 package entities {
+	import comps.Shield;
 	import comps.Sword;
 	import comps.WanderBehaviour;
 	import fp.MultiSpritemap;
@@ -37,6 +38,7 @@ package entities {
 			sprites.addMid(anim);
 			
 			addComponent("sword", new Sword());
+			addComponent("shield", new Shield());
 		}
 		
 		override public function jump():void {
