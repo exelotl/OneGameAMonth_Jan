@@ -36,7 +36,7 @@ package comps {
 				}
 			}
 			
-			if (Input.check(Key.UP) && livingEntity.isOnFloor) {
+			if (Input.pressed(Key.Z) && livingEntity.isOnFloor) {
 				livingEntity.jump();
 			}
 		}

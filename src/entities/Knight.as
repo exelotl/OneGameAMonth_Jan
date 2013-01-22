@@ -1,8 +1,10 @@
 package entities {
+	import comps.AttackNearestAI;
 	import comps.Shield;
 	import comps.Sword;
 	import comps.WanderBehaviour;
 	import fp.MultiSpritemap;
+	import net.flashpunk.FP;
 	import net.flashpunk.graphics.Spritemap;
 	import net.flashpunk.Tween;
 	import net.flashpunk.tweens.misc.Alarm;
@@ -25,6 +27,8 @@ package entities {
 			
 			addComponent("wander", new WanderBehaviour());
 			physics.maxVelX = 1;
+			
+			addComponent("attack ai", new AttackNearestAI());
 			
 			graphic = sprites;
 			anim.add("idle_l", [0], 30, false);

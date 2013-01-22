@@ -2,9 +2,10 @@ package {
 	public class Layers {
 		
 		public static const
-			PLAYER:int = 0,
-			LIVING_ENTITIES:int = 1,
-			SLOT:int = 2,
-			BACKGROUND:int = 3;
+			GUI:int = 0,
+			PLAYER:int = 1,
+			LIVING_ENTITIES:int = 2,
+			SLOT:int = 3,
+			BACKGROUND:int = 4;
 	}
 }

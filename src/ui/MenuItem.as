@@ -8,6 +8,7 @@ package ui {
 		
 		public var text:String;
 		public var isSelectable:Boolean;
+		public var cost:int;
 		public var onSelect:Signal = new Signal();
 		
 		public function MenuItem(text:String, callback:Function=null, isSelectable:Boolean=true) {
@@ -20,6 +21,11 @@ package ui {
 		public function select():void {
 			if (isSelectable)
 				onSelect.dispatch();
+		}
+		
+		public function setCost(val:int):MenuItem {
+			this.cost = val;
+			return this;
 		}
 		
 	}

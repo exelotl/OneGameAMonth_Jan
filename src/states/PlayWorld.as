@@ -2,6 +2,7 @@ package states {
 	import comps.Sword;
 	import entities.Enemy;
 	import entities.Ground;
+	import entities.GUI;
 	import entities.Knight;
 	import entities.Player;
 	import entities.slots.*;
@@ -15,11 +16,14 @@ package states {
 		private var
 			upgradeMenu:UpgradeMenu,
 			player:Player,
-			slots:/*Slot*/Array;
+			slots:/*Slot*/Array,
+			ui:GUI;
 		
 		public function PlayWorld() {
 			FP.screen.color = 0xccccff;
 			var i:int;
+			
+			add(new GUI());
 			
 			slots = [
 				new Land(0, 200),
