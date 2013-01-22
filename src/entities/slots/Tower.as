@@ -1,4 +1,5 @@
 package entities.slots {
+	import entities.Knight;
 	import net.flashpunk.graphics.Image;
 
 	public class Tower extends Slot {
@@ -13,6 +14,13 @@ package entities.slots {
 			graphic.y = -200;
 			width = 200;
 			height = 200;
+		}
+		
+		override public function update():void {
+			super.update();
+			if (Math.random() < 0.001) {
+				world.add(new Knight(x+width/2, y-21));
+			}
 		}
 		
 	}

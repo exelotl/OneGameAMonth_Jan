@@ -2,6 +2,7 @@ package states {
 	import comps.Sword;
 	import entities.Enemy;
 	import entities.Ground;
+	import entities.Knight;
 	import entities.Player;
 	import entities.slots.*;
 	import net.flashpunk.FP;
@@ -29,6 +30,7 @@ package states {
 			];
 			for each (var slot:Slot in slots) {
 				slot.onEdit.add(openUpgradeMenu);
+				slot.onRequestUpgrade.add(applyUpgrade);
 				add(slot);
 			}
 			for (i = -6; i < 0; i++) add(new FillerSlot(i*200, 200));
@@ -38,11 +40,7 @@ package states {
 			player.addComponent("sword", new Sword());
 			
 			add(new Enemy(100, 100));
-			
-			// upgrade a slot (test)
-			remove(slots[3]);
-			slots[3] = slots[3].upgrade(Upgrade.TOWER);
-			add(slots[3]);
+			add(new Knight(140, 100));
 			
 			//upgradeMenu = new UpgradeMenu(0,0);
 			//upgradeMenu.disable();
@@ -54,19 +52,30 @@ package states {
 			//add(upgradeMenu);
 		}
 		
+		override public function update():void {
+			super.update();
+			FP.camera.x = Math.floor(FP.camera.x - ((FP.camera.x+FP.halfWidth) - player.x) / 14);
+			FP.camera.y = Math.floor(FP.camera.y - ((FP.camera.y+FP.halfHeight) - player.y) / 40);
+		}
+		
 		private function openUpgradeMenu(slot:Slot):void {
 			if (upgradeMenu !== null)
 				remove(upgradeMenu);
 			upgradeMenu = new UpgradeMenu(slot);
 			add(upgradeMenu);
 			upgradeMenu.x = slot.x + 20;
-			upgradeMenu.y = slot.y - 200;
+			upgradeMenu.y = slot.y + -200;
 		}
 		
-		override public function update():void {
-			super.update();
-			FP.camera.x = Math.floor(FP.camera.x - ((FP.camera.x+FP.halfWidth) - player.x) / 14);
-			FP.camera.y = Math.floor(FP.camera.y - ((FP.camera.y+FP.halfHeight) - player.y) / 40);
+		private function applyUpgrade(slot:Slot, u:Upgrade):void {
+			var newSlot:Slot = Upgrade.createSlot(slot, u)
+			newSlot.inherit(slot);
+			newSlot.onEdit.add(openUpgradeMenu);
+			newSlot.onRequestUpgrade.add(applyUpgrade);
+			
+			remove(slot);
+			add(newSlot);
+			openUpgradeMenu(newSlot);
 		}
 	}
 }

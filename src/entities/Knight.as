@@ -1,40 +1,31 @@
 package entities {
-	import comps.MovementControl;
-	import comps.PlayerSound;
+	import comps.Sword;
+	import comps.WanderBehaviour;
 	import fp.MultiSpritemap;
-	import net.flashpunk.Entity;
-	import net.flashpunk.Graphic;
-	import net.flashpunk.graphics.Image;
 	import net.flashpunk.graphics.Spritemap;
-	import net.flashpunk.Mask;
 	import net.flashpunk.Tween;
 	import net.flashpunk.tweens.misc.Alarm;
 	
-	public class Player extends LivingEntity {
+	
+	public class Knight extends LivingEntity {
 		
-		[Embed(source="../assets/player.png")]
-		private static const IMG_PLAYER:Class;
+		[Embed(source="../assets/knight.png")]
+		private static const IMG_KNIGHT:Class;
 		
 		private var
-			sprites:MultiSpritemap = new MultiSpritemap(),
-			anim:Spritemap,
-			control:MovementControl,
-			sound:PlayerSound;
+			anim:Spritemap = new Spritemap(IMG_KNIGHT, 20, 20),
+			sprites:MultiSpritemap = new MultiSpritemap();
 		
-		public function Player(x:Number=0, y:Number=0) {
+		public function Knight(x:Number=0, y:Number=0) {
 			super(x, y);
+			
 			width = 20;
 			height = 20;
 			
-			health = maxHealth = 100;
+			addComponent("wander", new WanderBehaviour());
+			physics.maxVelX = 1;
 			
-			control = new MovementControl();
-			addComponent("control", control);
-			
-			sound = new PlayerSound();
-			addComponent("sound", sound);
-			
-			anim = new Spritemap(IMG_PLAYER, 20, 20);
+			graphic = sprites;
 			anim.add("idle_l", [0], 30, false);
 			anim.add("idle_r", [4], 30, false);
 			anim.add("run_l", [0,1,2,3], 15, true);
@@ -44,11 +35,8 @@ package entities {
 			anim.add("strike_l", [8,9,10,11], 15, false);
 			anim.add("strike_r", [12,13,14,15], 15, false);
 			sprites.addMid(anim);
-			graphic = sprites;
 			
-			layer = Layers.PLAYER;
-			name = "player";
-			type = "player";
+			addComponent("sword", new Sword());
 		}
 		
 		override public function jump():void {
@@ -96,8 +84,5 @@ package entities {
 				e.damage(10, this);
 		}
 		
-		override public function fire():void {
-			
-		}
 	}
 }

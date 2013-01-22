@@ -18,7 +18,6 @@ package comps {
 		
 		override public function added():void {
 			slot = entity as Slot;
-			slot.onEdit.add(function(s:Slot):void{trace(s.x);});
 		}
 		
 		override public function update():void {

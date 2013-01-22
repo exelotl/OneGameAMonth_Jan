@@ -3,6 +3,10 @@ package comps {
 	import net.flashpunk.Component;
 	import net.flashpunk.graphics.Spritemap;
 	
+	/**
+	 * Note that the entity's graphics component must be set to a
+	 * MultiSpritemap for the sword graphics to take effect.
+	 */
 	public class Sword extends Component {
 		
 		[Embed(source="../assets/sword.png")]

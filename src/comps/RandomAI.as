@@ -21,7 +21,7 @@ package comps {
 				if (chance <= 4) livingEntity.runRight();
 				else if (chance <= 9) livingEntity.runLeft();
 				else if (chance <= 12) livingEntity.jump();
-				else livingEntity.stopRunning();
+				else livingEntity.idle();
 			}
 		}
 	}

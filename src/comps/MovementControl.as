@@ -28,7 +28,7 @@ package comps {
 					if (Input.check(Key.LEFT)) livingEntity.runLeft();
 					if (Input.check(Key.RIGHT)) livingEntity.runRight();
 				}
-				if (Input.pressed(Key.Z)) {
+				if (Input.pressed(Key.C)) {
 					if (entity.getComponent("sword")) {
 						livingEntity.idle();
 						livingEntity.strike();

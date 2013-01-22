@@ -53,7 +53,7 @@ package entities {
 			physics.accX = -2;
 		}
 		
-		override public function stopRunning():void {
+		override public function idle():void {
 			physics.accX = 0;
 		}
 		

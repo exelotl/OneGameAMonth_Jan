@@ -7,8 +7,9 @@ package ui {
 	import net.flashpunk.graphics.Canvas;
 	import net.flashpunk.graphics.Graphiclist;
 	import net.flashpunk.graphics.Text;
+	import net.flashpunk.tweens.misc.NumTween;
 	import net.flashpunk.utils.Input;
-
+	
 	public class UpgradeMenu extends Entity {
 		
 		private static const
@@ -36,10 +37,10 @@ package ui {
 			graphic = graphicList;
 			
 			background = new Canvas(width, height);
-			background.fill(new Rectangle(0,0,width,height), 0xaaaaaa);
+			background.fill(new Rectangle(0,0,width,height), 0xaaaaff, 0.9);
 			
 			highlight = new Canvas(width, LINE_HEIGHT);
-			highlight.fill(new Rectangle(0,0,width,LINE_HEIGHT), 0xcccccc);
+			highlight.fill(new Rectangle(0,0,width,LINE_HEIGHT), 0xeeeeee, 0.5);
 			
 			titleText = new Text(currentUpgrade.name, 0, 0, {
 				font: "title_font",
@@ -48,8 +49,8 @@ package ui {
 				resizable: false,
 				width: width,
 				height: TITLE_HEIGHT,
-				color: 0x444444,
-				alpha: 1
+				color: 0x000000,
+				alpha: 0.8
 			});
 			commentText = new Text(currentUpgrade.description, 6, 20, {
 				font: "normal_font",
@@ -59,24 +60,20 @@ package ui {
 				resizable: false,
 				width: width-12,
 				height: LINE_HEIGHT*2,
-				color: 0x666666,
-				alpha: 1
+				color: 0x000000,
+				alpha: 0.6
 			});
 			
 			graphicList.add(background);
 			graphicList.add(highlight);
 			graphicList.add(titleText);
 			graphicList.add(commentText);
+			
+			for each (var u:Upgrade in slot.upgrades) {
+				addUpgrade(u);
+			}
+			
 		}
-		
-		//public function disable():void {
-			//active = false;
-			//visible = false;
-		//}
-		//public function enable(slot:Slot):void {
-			//active = true;
-			//visible = true;
-		//}
 		
 		public function get title():String {
 			return titleText.text;
@@ -91,6 +88,7 @@ package ui {
 			commentText.text = val;
 		}
 		
+		// TODO: keyboard-based input, move input to a separate component
 		override public function update():void {
 			var mX:Number = Input.mouseX + FP.camera.x;
 			var mY:Number = Input.mouseY + FP.camera.y - MARGIN_TOP;
@@ -105,6 +103,12 @@ package ui {
 			} else {
 				highlight.visible = false;
 			}
+		}
+		
+		public function addUpgrade(upgrade:Upgrade):void {
+			addItem(new MenuItem(upgrade.name, function ():void {
+				slot.requestUpgrade(upgrade);
+			}));
 		}
 		
 		public function addItem(item:MenuItem):void {

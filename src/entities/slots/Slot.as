@@ -11,6 +11,7 @@ package entities.slots {
 		public var
 			currentUpgrade:Upgrade,
 			onEdit:Signal = new Signal(),
+			onRequestUpgrade:Signal = new Signal(),
 			health:uint,
 			maxHealth:uint;
 		
@@ -40,10 +41,10 @@ package entities.slots {
 		}
 		
 		/**
-		 * @return a new slot, based on the given upgrade.
+		 * Dispatch a request for the current world to replace this slot with a new one.
 		 */
-		public function upgrade(u:Upgrade):Slot {
-			return Upgrade.createSlot(this, u);
+		public function requestUpgrade(u:Upgrade):void {
+			onRequestUpgrade.dispatch(this, u);
 		}
 		
 		public function damage(damage:uint):void {

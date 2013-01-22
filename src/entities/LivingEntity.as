@@ -82,8 +82,6 @@ package entities {
 			if (health > maxHealth) health = maxHealth;
 		}
 		
-		public function stopRunning():void { };
-		
 		public function get dead():Boolean {
 			return health == 0;
 		}
