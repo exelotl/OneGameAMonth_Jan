@@ -1,7 +1,9 @@
 package entities {
+	import comps.Impulse;
 	import comps.Physics;
 	import fp.MultiSpritemap;
 	import net.flashpunk.Entity;
+	import net.flashpunk.FP;
 	import net.flashpunk.graphics.Image;
 	
 	/**
@@ -23,7 +25,7 @@ package entities {
 			layer = Layers.LIVING_ENTITIES;
 			
 			physics = new Physics(EntityTypes.SOLIDS.concat());
-			physics.accY = 1;
+			physics.accY = 0.6;
 			physics.dragX = 1;
 			physics.maxVelX = 4;
 			addComponent("physics", physics);
@@ -55,8 +57,10 @@ package entities {
 		public function idle():void {
 			flags &= ~Flags.RUNNING;
 		}
-		public function knockback(amount:int, damageSource:LivingEntity):void {
-			physics.velY = -amount / 2;
+		public function knockback(amount:int, source:LivingEntity):void {
+			var forceX:Number = source.direction=="r" ? amount : -amount;
+			addComponent("knockback", new Impulse(forceX*0.5, -amount*0.5, 0.3, 0.2));
+			//physics.velY = -amount / 2;
 		}
 		
 		public function strike():void { } /// Use a melee weapon

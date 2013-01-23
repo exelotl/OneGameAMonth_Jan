@@ -1,26 +1,26 @@
-package comps {
+package comps.sound {
 	import entities.Player;
 	import net.flashpunk.Component;
 	import net.flashpunk.Sfx;
 	
 	public class PlayerSound extends Component {
 		
-		[Embed(source="../assets/sfx_footstep.mp3")]
+		[Embed(source="../../assets/sfx_footstep.mp3")]
 		private static const SFX_FOOTSTEP:Class;
 		
-		[Embed(source="../assets/sfx_jump.mp3")]
+		[Embed(source="../../assets/sfx_jump.mp3")]
 		private static const SFX_JUMP:Class;
 		
-		[Embed(source="../assets/sfx_swipe_1.mp3")]
+		[Embed(source="../../assets/sfx_swipe_1.mp3")]
 		private static const SFX_SWIPE_1:Class;
 		
-		[Embed(source="../assets/sfx_swipe_2.mp3")]
+		[Embed(source="../../assets/sfx_swipe_2.mp3")]
 		private static const SFX_SWIPE_2:Class;
 		
-		[Embed(source="../assets/sfx_swipe_3.mp3")]
+		[Embed(source="../../assets/sfx_swipe_3.mp3")]
 		private static const SFX_SWIPE_3:Class;
 		
-		[Embed(source="../assets/sfx_swipe_4.mp3")]
+		[Embed(source="../../assets/sfx_swipe_4.mp3")]
 		private static const SFX_SWIPE_4:Class;
 		
 		private var

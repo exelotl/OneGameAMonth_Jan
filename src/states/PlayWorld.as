@@ -1,15 +1,11 @@
 package states {
-	import comps.Sword;
-	import entities.Enemy;
-	import entities.Ground;
-	import entities.GUI;
-	import entities.Knight;
-	import entities.Player;
+	import comps.items.Sword;
+	import entities.*;
 	import entities.slots.*;
 	import net.flashpunk.FP;
 	import net.flashpunk.World;
-	import ui.MenuItem;
-	import ui.UpgradeMenu;
+	import entities.ui.MenuItem;
+	import entities.ui.UpgradeMenu;
 	
 	public class PlayWorld extends World {
 		
@@ -44,6 +40,7 @@ package states {
 			player.addComponent("sword", new Sword());
 			
 			add(new Enemy(100, 100));
+			add(new Archer(200, 100));
 			add(new Knight(140, 100));
 			
 			//upgradeMenu = new UpgradeMenu(0,0);
@@ -59,12 +56,17 @@ package states {
 		override public function update():void {
 			super.update();
 			FP.camera.x = Math.floor(FP.camera.x - ((FP.camera.x+FP.halfWidth) - player.x) / 14);
-			FP.camera.y = Math.floor(FP.camera.y - ((FP.camera.y+FP.halfHeight) - player.y) / 40);
+			FP.camera.y = Math.floor(FP.camera.y - ((FP.camera.y+FP.halfHeight) - player.y) / 80);
 		}
 		
 		private function openUpgradeMenu(slot:Slot):void {
-			if (upgradeMenu !== null)
+			if (upgradeMenu !== null) {
 				remove(upgradeMenu);
+				if (upgradeMenu.slot == slot) {
+					upgradeMenu = null;
+					return;
+				}
+			}
 			upgradeMenu = new UpgradeMenu(slot);
 			add(upgradeMenu);
 			upgradeMenu.x = slot.x + 20;

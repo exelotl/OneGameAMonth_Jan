@@ -1,16 +1,16 @@
-package comps {
+package comps.ai {
 	import entities.LivingEntity;
 	import net.flashpunk.Component;
 	
 	/**
 	 * Walking around aimlessly.
 	 */
-	public class WanderBehaviour extends Component {
+	public class WanderAI extends Component {
 		
 		private var livingEntity:LivingEntity;
 		private var count:int;
 		
-		public function WanderBehaviour() {
+		public function WanderAI() {
 			
 		}
 		

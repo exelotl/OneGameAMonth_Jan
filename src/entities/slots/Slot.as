@@ -1,5 +1,5 @@
 package entities.slots {
-	import comps.SlotControl;
+	import comps.input.SlotInput;
 	import net.flashpunk.Entity;
 	import net.flashpunk.Signal;
 	
@@ -20,7 +20,7 @@ package entities.slots {
 			this.health = health;
 			this.maxHealth = health;
 			layer = Layers.SLOT;
-			addComponent("control", new SlotControl());
+			addComponent("control", new SlotInput());
 			type = "ground";
 		}
 		

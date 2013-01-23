@@ -1,21 +1,18 @@
-package comps {
+package comps.items {
+	
 	import fp.MultiSpritemap;
 	import net.flashpunk.Component;
 	import net.flashpunk.graphics.Spritemap;
 	
-	/**
-	 * Note that the entity's graphics component must be set to a
-	 * MultiSpritemap for the sword graphics to take effect.
-	 */
-	public class Sword extends Component {
+	public class Shield extends Component {
 		
-		[Embed(source="../assets/sword.png")]
-		private static const IMG_SWORD:Class;
+		[Embed(source="../../assets/shield.png")]
+		private static const IMG_SHIELD:Class;
 		
 		private var
-			anim:Spritemap = new Spritemap(IMG_SWORD, 20, 20);
+			anim:Spritemap = new Spritemap(IMG_SHIELD, 20, 20);
 		
-		public function Sword() {
+		public function Shield() {
 			anim.add("idle_l", [0], 30, false);
 			anim.add("idle_r", [4], 30, false);
 			anim.add("run_l", [0,1,2,3], 15, true);
@@ -29,7 +26,7 @@ package comps {
 		override public function added():void {
 			if (entity.graphic is MultiSpritemap) {
 				var sprites:MultiSpritemap = entity.graphic as MultiSpritemap;
-				sprites.addBg(anim);
+				sprites.addFg(anim);
 			}
 		}
 		
@@ -39,5 +36,6 @@ package comps {
 				sprites.remove(anim);
 			}
 		}
+		
 	}
 }

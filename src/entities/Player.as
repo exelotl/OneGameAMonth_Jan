@@ -1,6 +1,6 @@
 package entities {
-	import comps.MovementControl;
-	import comps.PlayerSound;
+	import comps.input.PlayerInput;
+	import comps.sound.PlayerSound;
 	import fp.MultiSpritemap;
 	import net.flashpunk.Entity;
 	import net.flashpunk.Graphic;
@@ -18,7 +18,7 @@ package entities {
 		private var
 			sprites:MultiSpritemap = new MultiSpritemap(),
 			anim:Spritemap,
-			control:MovementControl,
+			control:PlayerInput,
 			sound:PlayerSound;
 		
 		public function Player(x:Number=0, y:Number=0) {
@@ -28,7 +28,7 @@ package entities {
 			
 			health = maxHealth = 100;
 			
-			control = new MovementControl();
+			control = new PlayerInput();
 			addComponent("control", control);
 			
 			sound = new PlayerSound();
@@ -53,7 +53,7 @@ package entities {
 		
 		override public function jump():void {
 			super.jump();
-			physics.velY = -8;
+			physics.velY = -6;
 			sprites.play("jump_"+direction);
 		}
 		

@@ -1,4 +1,5 @@
-package ui {
+package entities.ui {
+	import comps.input.UpgradeMenuInput;
 	import entities.slots.Slot;
 	import flash.geom.Rectangle;
 	import net.flashpunk.Entity;
@@ -8,23 +9,25 @@ package ui {
 	import net.flashpunk.graphics.Graphiclist;
 	import net.flashpunk.graphics.Text;
 	import net.flashpunk.tweens.misc.NumTween;
-	import net.flashpunk.utils.Input;
 	
 	public class UpgradeMenu extends Entity {
 		
+		public var
+			slot:Slot;
+			
 		private static const
 			MARGIN_TOP:int = 54,
 			TITLE_HEIGHT:int = 20,
 			LINE_HEIGHT:int = 17;
 		
 		private var
-			slot:Slot,
 			currentUpgrade:Upgrade,
 			graphicList:Graphiclist,
 			background:Canvas,
 			highlight:Canvas,
 			titleText:Text,
 			commentText:Text,
+			currentLine:int = 0,
 			items:/*MenuItem*/Array = [],
 			textGraphics:/*Text*/Array = [];
 			
@@ -73,6 +76,9 @@ package ui {
 				addUpgrade(u);
 			}
 			
+			highlightLine();
+			
+			addComponent("input", new UpgradeMenuInput());
 		}
 		
 		public function get title():String {
@@ -88,21 +94,34 @@ package ui {
 			commentText.text = val;
 		}
 		
-		// TODO: keyboard-based input, move input to a separate component
-		override public function update():void {
-			var mX:Number = Input.mouseX + FP.camera.x;
-			var mY:Number = Input.mouseY + FP.camera.y - MARGIN_TOP;
-			var line:int = (mY + y) / LINE_HEIGHT
-			
-			if (mX > x && mX < x+width && line >= 0 && line < items.length) {
-				highlight.visible = true;
-				highlight.y = MARGIN_TOP + line*LINE_HEIGHT;
-				if (Input.mousePressed) {
-					items[line].select();
-				}
-			} else {
-				highlight.visible = false;
-			}
+		public function next():void {
+			currentLine++;
+			if (currentLine >= items.length)
+				currentLine = 0;
+			highlightLine();
+		}
+		public function prev():void {
+			currentLine--;
+			if (currentLine < 0)
+				currentLine = items.length-1;
+			highlightLine();
+		}
+		public function select():void {
+			if (lineIsValid) items[currentLine].select();
+		}
+		public function close():void {
+			world.remove(this);
+		}
+		
+		private function highlightLine():void {
+			highlight.visible = lineIsValid;
+			highlight.y = MARGIN_TOP + currentLine*LINE_HEIGHT;
+		}
+		
+		private function get lineIsValid():Boolean {
+			return currentLine < items.length
+			    && currentLine >= 0
+			    && items[currentLine] != null;
 		}
 		
 		public function addUpgrade(upgrade:Upgrade):void {
@@ -127,6 +146,8 @@ package ui {
 			items.push(item);
 			textGraphics.push(text);
 			graphicList.add(text);
+			currentLine = 0;
+			highlightLine();
 		}
 		
 	}

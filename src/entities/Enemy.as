@@ -1,6 +1,7 @@
 package entities {
+	import comps.ai.WanderAI;
 	import comps.Physics;
-	import comps.RandomAI;
+	import comps.ai.RandomAI;
 	import net.flashpunk.graphics.Image;
 
 	public class Enemy extends LivingEntity {
@@ -9,7 +10,7 @@ package entities {
 		private static const IMG_ENEMY:Class;
 		
 		private var
-			ai:RandomAI;
+			wander:WanderAI;
 		
 		public function Enemy(x:Number = 0, y:Number = 0) {
 			super(x, y);
@@ -22,8 +23,8 @@ package entities {
 			
 			physics.maxVelX = 2;
 			
-			ai = new RandomAI();
-			//addComponent("ai", ai);
+			wander = new WanderAI();
+			addComponent("wander", wander);
 			
 			runRight();
 			
@@ -61,6 +62,7 @@ package entities {
 			super.die();
 			physics.removeCollideType("ground");
 			removeComponent("ai");
+			removeComponent("wander");
 			physics.accY = 0.2;
 			physics.velY = -3;
 		}
