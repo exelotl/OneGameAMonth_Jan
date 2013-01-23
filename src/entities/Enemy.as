@@ -24,9 +24,9 @@ package entities {
 			physics.maxVelX = 2;
 			
 			wander = new WanderAI();
-			addComponent("wander", wander);
+			//addComponent("wander", wander);
 			
-			runRight();
+			//runRight();
 			
 			graphic = new Image(IMG_ENEMY);
 		}
