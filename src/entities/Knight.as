@@ -31,7 +31,7 @@ package entities {
 			wander = new WanderAI();
 			addComponent("wander", wander);
 			
-			attackNearest = new AttackNearestAI();
+			attackNearest = new AttackNearestAI(EntityTypes.ENEMIES);
 			attackNearest.active = false;
 			addComponent("attack_nearest", attackNearest);
 			

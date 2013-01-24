@@ -1,21 +1,23 @@
-package comps.ai 
-{
-	import entities.Enemy;
+package comps.ai {
 	import entities.LivingEntity;
 	import net.flashpunk.Component;
 	import net.flashpunk.FP;
+	
 	/**
 	 * ...
 	 * @author Allyally
 	 */
 	public class AttackNearestAI extends Component {
 		
+		private var targetTypes:/*String*/Array;
 		private var livingEntity:LivingEntity;
-		private var target:Enemy;
+		private var target:LivingEntity;
 		private var tick:int = 0;
 		private var delay:int = 0;
 		
-		public function AttackNearestAI() { }
+		public function AttackNearestAI(types:/*String*/Array) {
+			targetTypes = types;
+		}
 		
 		override public function added():void {
 			if (entity is LivingEntity) livingEntity = entity as LivingEntity;
@@ -49,15 +51,15 @@ package comps.ai
 		}
 		
 		
-		private static var enemies:/*Enemy*/Array = [];
+		private static var enemies:/*LivingEntity*/Array = [];
 		
 		private function updateTarget():void {
 			var d:Number = 500;
 			
-			for each (var t:String in EntityTypes.ENEMIES)
+			for each (var t:String in targetTypes)
 				livingEntity.world.getType(t, enemies);
 				
-			for each (var e:Enemy in enemies) {
+			for each (var e:LivingEntity in enemies) {
 				var d1 = FP.distance(livingEntity.x, livingEntity.y, e.x, e.y);
 				if (d1 < d){
 					target = e;

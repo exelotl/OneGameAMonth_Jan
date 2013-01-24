@@ -10,6 +10,7 @@ package states {
 	public class PlayWorld extends World {
 		
 		private var
+			mobSpawner:MobSpawner,
 			upgradeMenu:UpgradeMenu,
 			player:Player,
 			slots:/*Slot*/Array,
@@ -42,6 +43,9 @@ package states {
 			add(new Enemy(100, 100));
 			add(new Archer(200, 100));
 			add(new Knight(140, 100));
+			
+			mobSpawner = new MobSpawner();
+			add(mobSpawner);
 			
 			//upgradeMenu = new UpgradeMenu(0,0);
 			//upgradeMenu.disable();
