@@ -1,5 +1,6 @@
 package entities {
 	import comps.ai.AttackNearestAI;
+	import comps.ai.RangeDetectAI;
 	import comps.ai.WanderAI;
 	import comps.items.Shield;
 	import comps.items.Sword;
@@ -16,19 +17,37 @@ package entities {
 		private static const IMG_KNIGHT:Class;
 		
 		private var
+			wander:WanderAI,
+			attackNearest:AttackNearestAI,
+			detectEnemy:RangeDetectAI,
 			anim:Spritemap = new Spritemap(IMG_KNIGHT, 20, 20),
 			sprites:MultiSpritemap = new MultiSpritemap();
 		
 		public function Knight(x:Number=0, y:Number=0) {
 			super(x, y);
-			
-			width = 20;
-			height = 20;
-			
-			addComponent("wander", new WanderAI());
+			setHitbox(20, 20);
 			physics.maxVelX = 1;
 			
-			addComponent("attack ai", new AttackNearestAI());
+			wander = new WanderAI();
+			addComponent("wander", wander);
+			
+			attackNearest = new AttackNearestAI();
+			attackNearest.active = false;
+			addComponent("attack_nearest", attackNearest);
+			
+			detectEnemy = new RangeDetectAI(EntityTypes.ENEMIES, 200, 50);
+			detectEnemy.onEnterRange.add(function():void {
+				wander.active = false;
+				attackNearest.active = true;
+				physics.maxVelX = 1.5;
+			});
+			detectEnemy.onLeaveRange.add(function():void {
+				wander.active = true;
+				attackNearest.active = false;
+				physics.maxVelX = 1;
+			});
+			addComponent("detect_enemy", detectEnemy);
+			
 			
 			graphic = sprites;
 			anim.add("idle_l", [0], 30, false);

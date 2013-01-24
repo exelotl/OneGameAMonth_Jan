@@ -8,6 +8,7 @@ package entities.ui {
 	import net.flashpunk.graphics.Canvas;
 	import net.flashpunk.graphics.Graphiclist;
 	import net.flashpunk.graphics.Text;
+	import net.flashpunk.Sfx;
 	import net.flashpunk.tweens.misc.NumTween;
 	
 	public class UpgradeMenu extends Entity {
@@ -30,6 +31,18 @@ package entities.ui {
 			currentLine:int = 0,
 			items:/*MenuItem*/Array = [],
 			textGraphics:/*Text*/Array = [];
+		
+		
+		// not worth setting up a sound component for these?
+		[Embed(source="../../assets/sfx_menu_open.mp3")]
+		private static const SFX_MENU_OPEN:Class;
+		[Embed(source="../../assets/sfx_menu_blip.mp3")]
+		private static const SFX_MENU_BLIP:Class;
+		
+		private static const
+			sfxMenuOpen:Sfx = new Sfx(SFX_MENU_OPEN),
+			sfxMenuBlip:Sfx = new Sfx(SFX_MENU_BLIP);
+		
 			
 		public function UpgradeMenu(slot:Slot) {
 			this.slot = slot;
@@ -77,7 +90,7 @@ package entities.ui {
 			}
 			
 			highlightLine();
-			
+			sfxMenuOpen.play();
 			addComponent("input", new UpgradeMenuInput());
 		}
 		
@@ -99,12 +112,16 @@ package entities.ui {
 			if (currentLine >= items.length)
 				currentLine = 0;
 			highlightLine();
+			
+			if (items.length > 1) sfxMenuBlip.play();
 		}
 		public function prev():void {
 			currentLine--;
 			if (currentLine < 0)
 				currentLine = items.length-1;
 			highlightLine();
+			
+			if (items.length > 1) sfxMenuBlip.play();
 		}
 		public function select():void {
 			if (lineIsValid) items[currentLine].select();

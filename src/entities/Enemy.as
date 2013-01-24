@@ -1,7 +1,6 @@
 package entities {
 	import comps.ai.WanderAI;
 	import comps.Physics;
-	import comps.ai.RandomAI;
 	import net.flashpunk.graphics.Image;
 
 	public class Enemy extends LivingEntity {
@@ -14,8 +13,7 @@ package entities {
 		
 		public function Enemy(x:Number = 0, y:Number = 0) {
 			super(x, y);
-			width = 20;
-			height = 20;
+			setHitbox(20, 20);
 			
 			health = maxHealth = 50;
 			
