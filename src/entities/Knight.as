@@ -4,6 +4,7 @@ package entities {
 	import comps.ai.WanderAI;
 	import comps.items.Shield;
 	import comps.items.Sword;
+	import comps.items.Weapon;
 	import fp.MultiSpritemap;
 	import net.flashpunk.FP;
 	import net.flashpunk.graphics.Spritemap;
@@ -25,7 +26,7 @@ package entities {
 		
 		public function Knight(x:Number=0, y:Number=0) {
 			super(x, y);
-			setHitbox(20, 20);
+			setHitbox(8, 12, -12, -8);
 			physics.maxVelX = 1;
 			
 			wander = new WanderAI();
@@ -64,8 +65,9 @@ package entities {
 			anim.add("firearrow_r", [23,22,15,4], 15, false);
 			sprites.addMid(anim);
 			
-			addComponent("sword", new Sword());
+			addComponent("weapon", new Sword());
 			addComponent("shield", new Shield());
+			type = "knight";
 		}
 		
 		override public function jump():void {
@@ -103,14 +105,24 @@ package entities {
 		}
 		
 		override public function strike():void {
+			var weapon:Weapon = getComponent("weapon");
+			if (weapon) weapon.strike();
+			
 			sprites.play("strike_"+direction);
 			flags |= Flags.ATTACKING;
 			addTween(new Alarm(0.2, idle, Tween.ONESHOT), true);
-			
-			var e_list:Array = [];
-			collideTypesInto(EntityTypes.ENEMIES, x, y, e_list);
-			for each (var e:LivingEntity in e_list)
-				e.damage(10, this);
+		}
+		
+		override public function die():void {
+			super.die();
+			anim.centerOrigin();
+			anim.angle = 90;
+			anim.y += 20;
+			removeComponent("wander");
+			removeComponent("attack_nearest");
+			removeComponent("detect_enemy");
+			physics.maxVelX = 0;
+			addTween(new Tween(2, Tween.ONESHOT, removeSelf), true);
 		}
 		
 	}

@@ -25,7 +25,7 @@ package entities {
 			layer = Layers.LIVING_ENTITIES;
 			
 			physics = new Physics(EntityTypes.SOLIDS.concat());
-			physics.accY = 0.6;
+			physics.accY = 0.5;
 			physics.dragX = 1;
 			physics.maxVelX = 4;
 			addComponent("physics", physics);
@@ -76,7 +76,6 @@ package entities {
 			if (health <= 0) {
 				health = 0;
 				die();
-				return;
 			}
 			knockback(damage, damageSource);
 		}
@@ -88,6 +87,10 @@ package entities {
 		
 		public function get dead():Boolean {
 			return health == 0;
+		}
+		
+		protected function removeSelf():void {
+			world.remove(this);
 		}
 	}
 }

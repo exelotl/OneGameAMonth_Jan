@@ -38,7 +38,7 @@ package states {
 			for (i = 5; i < 10; i++) add(new FillerSlot(i*200, 200));
 			
 			add(player = new Player(100, 100));
-			player.addComponent("sword", new Sword());
+			player.addComponent("weapon", new Sword());
 			
 			add(new Enemy(100, 100));
 			add(new Archer(200, 100));

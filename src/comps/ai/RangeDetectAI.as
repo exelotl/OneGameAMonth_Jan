@@ -33,7 +33,7 @@ package comps.ai {
 				e = entity.world.collideRect(t, entity.centerX-width/2, entity.centerY-height/2, width, height);
 				if (e != null && !inRange) {
 					inRange = true;
-					onEnterRange.dispatch(this, e);
+					onEnterRange.dispatch(entity, e);
 					return;
 				}
 			}

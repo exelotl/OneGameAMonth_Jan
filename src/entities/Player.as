@@ -1,6 +1,6 @@
 package entities {
 	import comps.input.PlayerInput;
-	import comps.sound.PlayerSound;
+	import comps.items.Weapon;
 	import fp.MultiSpritemap;
 	import net.flashpunk.Entity;
 	import net.flashpunk.Graphic;
@@ -18,21 +18,16 @@ package entities {
 		private var
 			sprites:MultiSpritemap = new MultiSpritemap(),
 			anim:Spritemap,
-			control:PlayerInput,
-			sound:PlayerSound;
+			control:PlayerInput;
 		
 		public function Player(x:Number=0, y:Number=0) {
 			super(x, y);
-			width = 20;
-			height = 20;
+			setHitbox(8, 12, -12, -8);
 			
 			health = maxHealth = 100;
 			
 			control = new PlayerInput();
 			addComponent("control", control);
-			
-			sound = new PlayerSound();
-			addComponent("sound", sound);
 			
 			anim = new Spritemap(IMG_PLAYER, 20, 20);
 			anim.add("idle_l", [0], 30, false);
@@ -53,8 +48,10 @@ package entities {
 		
 		override public function jump():void {
 			super.jump();
-			physics.velY = -6;
+			physics.velY = -5;
 			sprites.play("jump_"+direction);
+			Audio.stop(Audio.FOOTSTEP);
+			Audio.play(Audio.JUMP);
 		}
 		
 		override public function land():void {
@@ -63,6 +60,7 @@ package entities {
 				sprites.play("idle_"+direction);
 			} else {
 				sprites.play("run_"+direction);
+				Audio.loop(Audio.FOOTSTEP, 0.3);
 			}
 		}
 		
@@ -70,12 +68,14 @@ package entities {
 			super.runRight();
 			physics.accX = 5;
 			sprites.play("run_r");
+			Audio.loop(Audio.FOOTSTEP, 0.3);
 		}
 		
 		override public function runLeft():void {
 			super.runLeft();
 			physics.accX = -5;
 			sprites.play("run_l");
+			Audio.loop(Audio.FOOTSTEP, 0.3);
 		}
 		
 		override public function idle():void {
@@ -83,21 +83,32 @@ package entities {
 			physics.accX = 0;
 			flags &= ~Flags.ATTACKING;
 			sprites.play("idle_"+direction);
+			Audio.stop(Audio.FOOTSTEP);
 		}
 		
 		override public function strike():void {
+			var weapon:Weapon = getComponent("weapon");
+			if (weapon) weapon.strike();
+			
 			sprites.play("strike_"+direction);
 			flags |= Flags.ATTACKING;
 			addTween(new Alarm(0.2, idle, Tween.ONESHOT), true);
-			
-			var e_list:Array = [];
-			collideTypesInto(EntityTypes.ENEMIES, x, y, e_list);
-			for each (var e:LivingEntity in e_list)
-				e.damage(10, this);
 		}
 		
 		override public function fire():void {
 			
 		}
+		
+		override public function damage(amount:uint, source:LivingEntity):void {
+			super.damage(amount, source);
+			Audio.play(Audio.PLAYER_HURT);
+		}
+		
+		override public function die():void {
+			super.die();
+			Audio.stop(Audio.FOOTSTEP);
+			world.remove(this);
+		}
+		
 	}
 }

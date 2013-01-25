@@ -10,7 +10,7 @@ package {
 		}
 		
 		override public function update():void {
-			if (Math.random() < 0.001) {
+			if (Math.random() < 0.004) {
 				spawnAtEdge(new Zombie());
 			}
 		}

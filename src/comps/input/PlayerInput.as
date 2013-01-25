@@ -29,7 +29,7 @@ package comps.input {
 					if (Input.check(Key.RIGHT)) livingEntity.runRight();
 				}
 				if (Input.pressed(Key.C)) {
-					if (entity.getComponent("sword")) {
+					if (entity.getComponent("weapon")) {
 						livingEntity.idle();
 						livingEntity.strike();
 					}

@@ -14,10 +14,6 @@ package comps.items {
 			if (entity is LivingEntity) user = entity as LivingEntity;
 		}
 		
-		override public function update():void {
-			
-		}
-		
-		public function attack() { }
+		public function strike():void {}
 	}
 }

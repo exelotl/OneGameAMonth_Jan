@@ -1,4 +1,5 @@
 package comps.items {
+	import entities.LivingEntity;
 	import fp.MultiSpritemap;
 	import net.flashpunk.Component;
 	import net.flashpunk.graphics.Spritemap;
@@ -7,7 +8,7 @@ package comps.items {
 	 * Note that the entity's graphics component must be set to a
 	 * MultiSpritemap for the sword graphics to take effect.
 	 */
-	public class Sword extends Component {
+	public class Sword extends Weapon {
 		
 		[Embed(source="../../assets/sword.png")]
 		private static const IMG_SWORD:Class;
@@ -26,7 +27,25 @@ package comps.items {
 			anim.add("strike_r", [12,13,14,14,15], 30, false);
 		}
 		
+		private static var hitEntities:Array = [];
+		
+		override public function strike():void {
+			var offsetX:Number = user.direction=="r" ? 14 : -14;
+			entity.collideTypesInto(EntityTypes.ENEMIES, user.x+offsetX, user.y, hitEntities);
+			for each (var e:LivingEntity in hitEntities)
+				e.damage(10, user);
+			
+			hitEntities.length = 0;
+				
+			if (user.name=="player") {
+				Audio.play(Audio.SWIPE, Math.random()*0.4+0.6);
+			} else {
+				Audio.play(Audio.SWIPE, Math.random()*0.2+0.2);
+			}
+		}
+		
 		override public function added():void {
+			super.added();
 			if (entity.graphic is MultiSpritemap) {
 				var sprites:MultiSpritemap = entity.graphic as MultiSpritemap;
 				sprites.addBg(anim);
