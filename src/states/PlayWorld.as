@@ -46,15 +46,6 @@ package states {
 			
 			mobSpawner = new MobSpawner();
 			add(mobSpawner);
-			
-			//upgradeMenu = new UpgradeMenu(0,0);
-			//upgradeMenu.disable();
-			//upgradeMenu.title = "This is a test";
-			//upgradeMenu.comment = "Click an item below and check the debug console";
-			//upgradeMenu.addItem(new MenuItem("foo", function(){ trace("foo"); } ));
-			//upgradeMenu.addItem(new MenuItem("bar", function(){ trace("bar"); } ));
-			//upgradeMenu.addItem(new MenuItem("herp", function(){ trace("derp"); } ));
-			//add(upgradeMenu);
 		}
 		
 		override public function update():void {

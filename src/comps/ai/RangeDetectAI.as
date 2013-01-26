@@ -1,25 +1,29 @@
 package comps.ai {
 	import net.flashpunk.Component;
 	import net.flashpunk.Entity;
-	import net.flashpunk.Signal;
 	
 	/**
-	 * Dispatch signals when entities of certain types are detected within a certain range.
+	 * Trigger callbacks when entities of certain types are detected within a certain range.
 	 * Useful for toggling between different AI modes
 	 * (e.g. wander when there are no enemies nearby, attack when there are)
 	 */
 	public class RangeDetectAI extends Component {
 		
 		public var
-			onEnterRange:Signal = new Signal(),
-			onLeaveRange:Signal = new Signal();
+			inRange:Boolean = false,
+			onEnterRange:Function,
+			onLeaveRange:Function;
 		
 		private var
 			types:/*String*/Array,
-			inRange:Boolean = false,
 			width:Number,
 			height:Number;
 		
+		/**
+		 * @param	types	Array of entity type names
+		 * @param	w		Horizontal distance from entity to check
+		 * @param	h		Vertical distance from entity to check
+		 */
 		public function RangeDetectAI(types:Array, w:Number, h:Number) {
 			this.types = types;
 			width = w;
@@ -30,16 +34,16 @@ package comps.ai {
 			var e:Entity;
 			
 			for each (var t:String in types) {
-				e = entity.world.collideRect(t, entity.centerX-width/2, entity.centerY-height/2, width, height);
+				e = entity.world.collideRect(t, entity.centerX-width, entity.centerY-height, width*2, height*2);
 				if (e != null && !inRange) {
 					inRange = true;
-					onEnterRange.dispatch(entity, e);
+					if (onEnterRange) onEnterRange(entity, e);
 					return;
 				}
 			}
 			
 			if (inRange && e == null) {
-				onLeaveRange.dispatch(this, e);
+				if (onLeaveRange) onLeaveRange(entity);
 				inRange = false;
 			}
 		}

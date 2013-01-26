@@ -29,14 +29,18 @@ package comps.items {
 		
 		private static var hitEntities:Array = [];
 		
-		override public function strike():void {
-			var offsetX:Number = user.direction=="r" ? 14 : -14;
-			entity.collideTypesInto(EntityTypes.ENEMIES, user.x+offsetX, user.y, hitEntities);
-			for each (var e:LivingEntity in hitEntities)
-				e.damage(10, user);
-			
-			hitEntities.length = 0;
+		override public function update():void {
+			if (entity.flags & Flags.ATTACKING) {
+				var offsetX:Number = user.direction=="r" ? 8 : -8;
+				entity.collideTypesInto(EntityTypes.ENEMIES, user.x+offsetX, user.y, hitEntities);
+				for each (var e:LivingEntity in hitEntities)
+					e.damage(10, user);
 				
+				hitEntities.length = 0;
+			}
+		}
+		
+		override public function strike():void {
 			if (user.name=="player") {
 				Audio.play(Audio.SWIPE, Math.random()*0.4+0.6);
 			} else {

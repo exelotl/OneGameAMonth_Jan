@@ -44,6 +44,7 @@ package comps.ai {
 					livingEntity.idle();
 					livingEntity.strike();
 					delay = Math.random()*40;
+					updateTarget();
 				}
 				else if (target.x < entity.x) livingEntity.runLeft();
 				else if (target.x > entity.x) livingEntity.runRight();

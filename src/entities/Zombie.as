@@ -21,14 +21,14 @@ package entities {
 			strikeAlarm:Alarm,
 			idleAlarm:Alarm;
 		
-		public function Zombie(x:Number = 0, y:Number = 0) {
+		public function Zombie(x:Number=0, y:Number=0) {
 			super(x, y);
 			setHitbox(8, 12, -12, -8);
 			health = maxHealth = 20;
 			physics.maxVelX = 0.6;
 			
 			friendlyDetector = new RangeDetectAI(EntityTypes.FRIENDLY, 100, 40);
-			friendlyDetector.onEnterRange.add(pickTarget);
+			friendlyDetector.onEnterRange = pickTarget;
 			addComponent("friendlyDetector", friendlyDetector);
 			
 			anim.add("idle_l", [0], 30, false);
@@ -108,8 +108,10 @@ package entities {
 		}
 		
 		override public function damage(amount:uint, source:LivingEntity):void {
-			super.damage(amount, source);
-			Audio.play(Audio.ENEMY_HURT);
+			if (!getComponent("knockback")) {
+				super.damage(amount, source);
+				Audio.play(Audio.ENEMY_HURT);
+			}
 		}
 		
 		override public function die():void {
@@ -123,5 +125,4 @@ package entities {
 		}
 		
 	}
-
 }

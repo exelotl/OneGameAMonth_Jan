@@ -87,6 +87,8 @@ package entities {
 		}
 		
 		override public function strike():void {
+			if (flags & Flags.ATTACKING)
+				return;
 			var weapon:Weapon = getComponent("weapon");
 			if (weapon) weapon.strike();
 			

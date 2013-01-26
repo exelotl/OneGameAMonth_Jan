@@ -1,4 +1,5 @@
 package comps.items {
+	import entities.Arrow;
 	import fp.MultiSpritemap;
 	import net.flashpunk.graphics.Spritemap;
 	
@@ -36,14 +37,6 @@ package comps.items {
 			"firearrow_r": true
 		}
 		
-		override public function update():void {
-			if (inBg && fgNames[anim.currentAnim]) {
-				bringFront();
-			} else if (!inBg && !fgNames[anim.currentAnim]) {
-				sendBack();
-			}
-		}
-		
 		override public function added():void {
 			if (entity.graphic is MultiSpritemap) {
 				sprites = entity.graphic as MultiSpritemap;
@@ -54,6 +47,18 @@ package comps.items {
 		override public function removed():void {
 			if (sprites)
 				sprites.remove(anim);
+		}
+		
+		override public function update():void {
+			if (inBg && fgNames[anim.currentAnim]) {
+				bringFront();
+			} else if (!inBg && !fgNames[anim.currentAnim]) {
+				sendBack();
+			}
+		}
+		
+		public function fire(velX:Number, velY:Number):void {
+			entity.world.add(new Arrow(entity.centerX, entity.centerY, velX, velY));
 		}
 		
 		private function sendBack():void {

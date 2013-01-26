@@ -20,23 +20,17 @@ package {
 			}
 		}
 		
-		public function spawnAtTop(e:Entity):void
-		{
+		public function spawnAtTop(e:Entity):void {
 			e.x = 500 + (200 + Math.random() * 400) * FP.sign(Math.random() - 0.5);
 			e.y = -100;
 			world.add(e);
 		}
-		
-		/**
-		 * Add an entity at the edge of the world
-		 */
 		 
 		public function spawnAtEdge(e:Entity):void {
-			e.x = 1000*(Math.random() < 0.5 ? 1 : -1);
-			e.y = -e.height-2;
+			e.x = 250 + 1400*(Math.random() < 0.5 ? 1 : -1);
+			e.y = 190-e.height;
 			world.add(e);
 		}
 		
 	}
-
 }

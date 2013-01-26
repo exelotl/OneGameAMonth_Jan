@@ -37,16 +37,16 @@ package entities {
 			addComponent("attack_nearest", attackNearest);
 			
 			detectEnemy = new RangeDetectAI(EntityTypes.ENEMIES, 200, 50);
-			detectEnemy.onEnterRange.add(function():void {
+			detectEnemy.onEnterRange = function():void {
 				wander.active = false;
 				attackNearest.active = true;
 				physics.maxVelX = 1.5;
-			});
-			detectEnemy.onLeaveRange.add(function():void {
+			};
+			detectEnemy.onLeaveRange = function():void {
 				wander.active = true;
 				attackNearest.active = false;
 				physics.maxVelX = 1;
-			});
+			};
 			addComponent("detect_enemy", detectEnemy);
 			
 			

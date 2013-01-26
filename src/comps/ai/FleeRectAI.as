@@ -5,6 +5,7 @@ package comps.ai {
 	
 	/**
 	 * Causes an entity to run away until it is outside a given area.
+	 * Will deactivate itself and call onDone when this is complete.
 	 */
 	public class FleeRectAI extends Component {
 		
@@ -15,7 +16,11 @@ package comps.ai {
 			x:Number, y:Number,
 			w:Number, h:Number;
 		
-		public function FleeRectAI(x:Number, y:Number, w:Number, h:Number) {
+		public function FleeRectAI(x:Number=0, y:Number=0, w:Number=0, h:Number=0) {
+			setRect(x,y,w,h);
+		}
+		
+		public function setRect(x:Number, y:Number, w:Number, h:Number):void {
 			this.x = x;
 			this.y = y;
 			this.w = w;
@@ -34,9 +39,9 @@ package comps.ai {
 		
 		override public function update():void {
 			if (!entity.collideRect(entity.x, entity.y, x,y,w,h)) {
-				onDone();
 				livingEntity.idle();
-				entity.removeComponent(name);
+				if (onDone != null) onDone();
+				active = false;
 			}
 		}
 		
