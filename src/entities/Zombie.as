@@ -21,7 +21,8 @@ package entities {
 			strikeAlarm:Alarm,
 			idleAlarm:Alarm;
 		
-		public function Zombie() {
+		public function Zombie(x:Number = 0, y:Number = 0) {
+			super(x, y);
 			setHitbox(8, 12, -12, -8);
 			health = maxHealth = 20;
 			physics.maxVelX = 0.6;

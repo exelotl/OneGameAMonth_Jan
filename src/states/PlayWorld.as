@@ -9,7 +9,7 @@ package states {
 	
 	public class PlayWorld extends World {
 		
-		private var
+		public var
 			mobSpawner:MobSpawner,
 			upgradeMenu:UpgradeMenu,
 			player:Player,

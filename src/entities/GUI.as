@@ -45,6 +45,12 @@ package entities
 			super.added();
 			p_world = world as PlayWorld;
 		}
+		
+		override public function update():void 
+		{
+			super.update();
+			currencyTxt.text = (world as PlayWorld).player.x + " " +(world as PlayWorld).player.y;
+		}
 	}
 
 }
