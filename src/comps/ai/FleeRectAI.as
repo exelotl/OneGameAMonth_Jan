@@ -29,16 +29,26 @@ package comps.ai {
 		
 		override public function added():void {
 			livingEntity = entity as LivingEntity;
-			
-			if (livingEntity.centerX > x + w/2) {
-				livingEntity.runLeft();
-			} else {
+			flee();
+		}
+		
+		private function flee():void {
+			if (entity.centerX > x + w/2) {
 				livingEntity.runRight();
+			} else {
+				livingEntity.runLeft();
 			}
 		}
 		
+		private var t:int = 30;
+		
 		override public function update():void {
-			if (!entity.collideRect(entity.x, entity.y, x,y,w,h)) {
+			if (t-- === 0) t = 30;
+			
+			if (entity.collideRect(entity.x, entity.y, x,y,w,h)) {
+				if (t === 30)
+					flee();
+			} else {
 				livingEntity.idle();
 				if (onDone != null) onDone();
 				active = false;

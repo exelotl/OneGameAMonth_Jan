@@ -812,6 +812,17 @@ package net.flashpunk
 			return moveCollideY(e);
 		}
 		
+		// Extra collision stuff:
+		
+		private static var collidedEntities:Array = [];
+		
+		/// Collide against types calling f for each collision, with the collided entity as an argument each time.
+		public function collideEach(types:Array, x:Number, y:Number, f:Function):void {
+			collideTypesInto(types, x, y, collidedEntities);
+			for each (var e:Entity in collidedEntities) f(e);
+			collidedEntities.length = 0;
+		}
+		
 		public function getClass ():Class { return _class; }
 		
 		// Entity information.

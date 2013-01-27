@@ -6,9 +6,12 @@ package entities {
 	import comps.items.Bow;
 	import fp.MultiSpritemap;
 	import net.flashpunk.Entity;
+	import net.flashpunk.FP;
 	import net.flashpunk.graphics.Spritemap;
 	import net.flashpunk.Tween;
 	import net.flashpunk.tweens.misc.Alarm;
+	import net.flashpunk.utils.Input;
+	import net.flashpunk.utils.Key;
 	
 	public class Archer extends LivingEntity {
 		
@@ -18,11 +21,14 @@ package entities {
 		private var
 			target:LivingEntity,
 			bow:Bow,
-			enemyDetect:RangeDetectAI,
+			targetDetect:RangeDetectAI,
 			flee:FleeRectAI,
 			wander:WanderAI,
 			anim:Spritemap = new Spritemap(IMG_KNIGHT, 20, 20),
 			sprites:MultiSpritemap = new MultiSpritemap();
+		
+		private var
+			fireArrowTimer:Tween;
 		
 		public function Archer(x:Number=0, y:Number=0) {
 			super(x, y);
@@ -45,17 +51,14 @@ package entities {
 			addComponent("bow", bow = new Bow());
 			addComponent("wander", wander = new WanderAI());
 			
-			enemyDetect = new RangeDetectAI(EntityTypes.ENEMIES, 200, 100);
-			addComponent("detect", enemyDetect);
+			targetDetect = new RangeDetectAI(EntityTypes.ENEMIES, 200, 100);
+			addComponent("target_detect", targetDetect);
 			
-			enemyDetect.onEnterRange = function(self:Entity, e:Entity):void {
-				if (!(flags & Flags.FLEEING) && e is LivingEntity) {
-					trace("running away!");
-					flags |= Flags.FLEEING;
-					target = e as LivingEntity;
-					wander.active = false;
-					flee.setRect(e.centerX-250, e.centerY-40, 500, 80);
-					flee.active = true;
+			targetDetect.onEnterRange = function(self:Entity, e:Entity):void {
+				if (e is LivingEntity
+				&& !(flags & Flags.FLEEING)
+				&& !(flags & Flags.ATTACKING)) {
+					pickTarget(e as LivingEntity);
 				}
 			};
 			
@@ -67,28 +70,59 @@ package entities {
 				if (target && (flags & Flags.FLEEING)) {
 					trace("finished fleeing!");
 					flags &= ~Flags.FLEEING;
+					faceTowards(target);
 					drawArrow();
+					wander.active = false;
 				}
 			};
+			
+			addTween(fireArrowTimer = new Tween(1, 0, fireArrow));
 			
 			type = "archer";
 		}
 		
 		override public function update():void {
 			super.update();
+			if (Math.random()<0.01)
+				targetDetect.forceCheck();
+		}
+		
+		private function pickTarget(e:LivingEntity):void {
+			target = e;
+			wander.active = false;
+			flee.setRect(e.centerX-250, e.centerY-40, 500, 80);
+			flee.active = true;
+			flags |= Flags.FLEEING;
+			trace("found target "+target.toString());
 		}
 		
 		public function drawArrow():void {
 			trace("drawing arrow");
+			physics.accX = 0;
+			physics.sweep = true;
 			sprites.play("drawarrow_"+direction);
 			flags |= Flags.ATTACKING;
-			addTween(new Tween(1, Tween.ONESHOT, fireArrow), true);
+			fireArrowTimer.start();
 		}
+		
 		public function fireArrow():void {
+			trace("firing arrow!");
 			sprites.play("firearrow_"+direction);
+			
+			var gravity:Number = 0.5;
+			var diffX:Number = target.centerX - centerX;
+			var diffY:Number = target.centerY - centerY-2;
+			var velX:Number = FP.sign(diffX)*8;
+			var c:Number = diffX / velX;
+			var velY:Number = -(triangularNumber(c) * gravity - diffY) / c;
+			bow.fire(velX, velY);
+			
 			flags &= ~Flags.ATTACKING;
-			bow.fire(5, -5);
 			wander.active = true;
+		}
+		
+		private function triangularNumber(n:int):Number {
+			return (n * (n + 1) / 2);
 		}
 		
 		override public function runRight():void {

@@ -10,6 +10,7 @@ package comps.ai {
 	public class RangeDetectAI extends Component {
 		
 		public var
+			frequency:uint = 0,
 			inRange:Boolean = false,
 			onEnterRange:Function,
 			onLeaveRange:Function;
@@ -28,6 +29,12 @@ package comps.ai {
 			this.types = types;
 			width = w;
 			height = h;
+		}
+		
+		/// execute onEnterRange even if the entity was already in the range.
+		public function forceCheck():void {
+			inRange = false;
+			update();
 		}
 		
 		override public function update():void {

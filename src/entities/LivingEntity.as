@@ -57,27 +57,36 @@ package entities {
 		public function idle():void {
 			flags &= ~Flags.RUNNING;
 		}
-		public function knockback(amount:int, source:LivingEntity):void {
-			var forceX:Number = source.direction=="r" ? amount : -amount;
+		public function knockback(amount:int, source:Entity):void {
+			var forceX:Number = FP.sign(centerX - source.centerX) * amount;
+			//if (source is LivingEntity) {
+				//forceX = (source as LivingEntity).direction=="r" ? amount : -amount;
+			//} else {
+				//var p:Physics = source.getComponent("physics");
+				//if (p)
+			//}
 			addComponent("knockback", new Impulse(forceX*0.5, -amount*0.5, 0.3, 0.2));
-			//physics.velY = -amount / 2;
 		}
 		
 		public function strike():void { } /// Use a melee weapon
 		public function fire():void { } /// Use a ranged weapon
 		
+		public function faceTowards(e:Entity):void {
+			direction = centerX < e.centerX ? "r" : "l";
+		}
+		
 		public function die():void {
 			type = "dead";
 		}
 		
-		public function damage(damage:uint, damageSource:LivingEntity):void {
+		public function damage(damage:uint, source:Entity):void {
 			health -= damage;
 			hitCooldown = 10;
 			if (health <= 0) {
 				health = 0;
 				die();
 			}
-			knockback(damage, damageSource);
+			knockback(damage, source);
 		}
 		
 		public function repair(repair:uint):void {

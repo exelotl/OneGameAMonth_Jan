@@ -107,7 +107,7 @@ package entities {
 			idleAlarm.start();
 		}
 		
-		override public function damage(amount:uint, source:LivingEntity):void {
+		override public function damage(amount:uint, source:Entity):void {
 			if (!getComponent("knockback")) {
 				super.damage(amount, source);
 				Audio.play(Audio.ENEMY_HURT);

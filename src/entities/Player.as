@@ -101,7 +101,7 @@ package entities {
 			
 		}
 		
-		override public function damage(amount:uint, source:LivingEntity):void {
+		override public function damage(amount:uint, source:Entity):void {
 			super.damage(amount, source);
 			Audio.play(Audio.PLAYER_HURT);
 		}
