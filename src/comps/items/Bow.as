@@ -58,7 +58,7 @@ package comps.items {
 		}
 		
 		public function fire(velX:Number, velY:Number):void {
-			entity.world.add(new Arrow(entity.centerX, entity.centerY, velX, velY, EntityTypes.ENEMIES));
+			entity.world.add(new Arrow(entity.centerX, entity.centerY-6, velX, velY, EntityTypes.ENEMIES));
 		}
 		
 		private function sendBack():void {

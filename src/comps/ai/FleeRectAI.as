@@ -43,14 +43,15 @@ package comps.ai {
 		private var t:int = 30;
 		
 		override public function update():void {
-			if (t-- === 0) t = 30;
 			
 			if (entity.collideRect(entity.x, entity.y, x,y,w,h)) {
-				if (t === 30)
+				if (t-- === 0) {
+					t = 30;
 					flee();
+				}
 			} else {
 				livingEntity.idle();
-				if (onDone != null) onDone();
+				if (onDone != null) onDone.call(entity);
 				active = false;
 			}
 		}

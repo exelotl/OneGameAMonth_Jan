@@ -49,7 +49,6 @@ package entities {
 			};
 			addComponent("detect_enemy", detectEnemy);
 			
-			
 			graphic = sprites;
 			anim.add("idle_l", [0], 30, false);
 			anim.add("idle_r", [4], 30, false);
@@ -63,6 +62,8 @@ package entities {
 			anim.add("drawarrow_r", [20,20,21,22,23], 30, false);
 			anim.add("firearrow_l", [19,18,11,0], 15, false);
 			anim.add("firearrow_r", [23,22,15,4], 15, false);
+			anim.add("die_l", [25], 30, false);
+			anim.add("die_r", [27], 30, false);
 			sprites.addMid(anim);
 			
 			addComponent("weapon", new Sword());
@@ -115,13 +116,13 @@ package entities {
 		
 		override public function die():void {
 			super.die();
-			anim.centerOrigin();
-			anim.angle = 90;
-			anim.y += 20;
 			removeComponent("wander");
 			removeComponent("attack_nearest");
 			removeComponent("detect_enemy");
+			removeComponent("weapon");
+			removeComponent("shield");
 			physics.maxVelX = 0;
+			anim.play("die_"+direction);
 			addTween(new Tween(2, Tween.ONESHOT, removeSelf), true);
 		}
 		

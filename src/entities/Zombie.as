@@ -16,10 +16,10 @@ package entities {
 		
 		private var
 			sprites:MultiSpritemap = new MultiSpritemap(),
-			friendlyDetector:RangeDetectAI,
+			detectFriendly:RangeDetectAI,
 			anim:Spritemap = new Spritemap(IMG_ZOMBIE, 20, 20),
-			strikeAlarm:Alarm,
-			idleAlarm:Alarm;
+			strikeTimer:Tween,
+			idleTimer:Tween;
 		
 		public function Zombie(x:Number=0, y:Number=0) {
 			super(x, y);
@@ -27,9 +27,9 @@ package entities {
 			health = maxHealth = 20;
 			physics.maxVelX = 0.6;
 			
-			friendlyDetector = new RangeDetectAI(EntityTypes.FRIENDLY, 100, 40);
-			friendlyDetector.onEnterRange = pickTarget;
-			addComponent("friendlyDetector", friendlyDetector);
+			detectFriendly = new RangeDetectAI(EntityTypes.FRIENDLY, 100, 40);
+			detectFriendly.onEnterRange = pickTarget;
+			addComponent("detect_friendly", detectFriendly);
 			
 			anim.add("idle_l", [0], 30, false);
 			anim.add("idle_r", [4], 30, false);
@@ -44,8 +44,8 @@ package entities {
 			sprites.addMid(anim);
 			graphic = sprites;
 			
-			addTween(strikeAlarm = new Alarm(0.5, strike));
-			addTween(idleAlarm = new Alarm(1, idle));
+			addTween(strikeTimer = new Tween(0.5, 0, strike));
+			addTween(idleTimer = new Tween(1.6, 0, idle));
 			
 			type = "zombie";
 		}
@@ -75,6 +75,7 @@ package entities {
 			flags &= ~Flags.ATTACKING;
 			physics.accX = 0;
 			physics.maxVelX = 0.6;
+			detectFriendly.forceCheck();
 		}
 		
 		override public function runRight():void {
@@ -90,12 +91,12 @@ package entities {
 		}
 		
 		// Stare menacingly...
-		private function pickTarget(self:Entity, target:Entity):void {
+		private function pickTarget(target:Entity):void {
 			if (!(flags & Flags.ATTACKING)) {
 				flags |= Flags.ATTACKING;
 				physics.accX = 0;
 				sprites.play("target_"+direction);
-				strikeAlarm.start();
+				strikeTimer.start();
 			}
 		}
 		
@@ -104,7 +105,7 @@ package entities {
 			sprites.play("strike_"+direction);
 			physics.maxVelX = 1;
 			physics.accX = direction=="r" ? 5 : -5;
-			idleAlarm.start();
+			idleTimer.start();
 		}
 		
 		override public function damage(amount:uint, source:Entity):void {
@@ -120,7 +121,7 @@ package entities {
 			direction = Math.random()<0.5 ? "l" : "r";
 			anim.play("die_"+direction);
 			clearTweens();
-			removeComponent("friendlyDetector");
+			removeComponent("detect_friendly");
 			addTween(new Alarm(2, removeSelf), true);
 		}
 		

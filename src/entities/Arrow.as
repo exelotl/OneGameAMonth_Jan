@@ -14,39 +14,39 @@ package entities {
 		
 		private var
 			targetTypes:Array,
-			hasLanded:Boolean = false,
+			inAir:Boolean = true,
 			image:Image,
 			physics:Physics;
 		
 		public function Arrow(x:Number, y:Number, velX:Number, velY:Number, targetTypes:Array) {
 			super(x, y);
-			setHitbox(6, 6, -1, -1);
+			setHitbox(8, 4, -4, 0);
 			this.targetTypes = targetTypes;
 			
 			physics = new Physics(EntityTypes.SOLIDS);
+			physics.sweep = true;
 			physics.velX = velX;
 			physics.velY = velY;
 			physics.accY = 0.5;
 			addComponent("physics", physics);
 			
 			image = new Image(new BitmapData(1,8,false,0xff221100));
-			image.centerOrigin();
-			image.y += 4;
+			image.y = 3;
 			graphic = image;
 			
 			type = "arrow";
 		}
 		
 		override public function update():void {
-			if (!hasLanded) {
+			if (inAir) {
 				if (collideTypes(EntityTypes.SOLIDS, x, y+2)) {
 					removeComponent("physics");
 					addTween(new Tween(2, Tween.ONESHOT, removeSelf), true);
-					hasLanded = true;
+					inAir = false;
 				} else {
-					var hyp:Number = Math.sqrt(physics.velX*physics.velX + physics.velY*physics.velY);
-					image.angle = FP.DEG * Math.acos(physics.velY/hyp);
+					image.angle = 90 + FP.DEG * Math.atan2(physics.velY, physics.velX);
 					collideEach(targetTypes, x, y, onHit);
+					collideEach(targetTypes, x+physics.velX*0.5, y+physics.velY*0.5, onHit);
 				}
 			}
 		}

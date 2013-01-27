@@ -59,12 +59,6 @@ package entities {
 		}
 		public function knockback(amount:int, source:Entity):void {
 			var forceX:Number = FP.sign(centerX - source.centerX) * amount;
-			//if (source is LivingEntity) {
-				//forceX = (source as LivingEntity).direction=="r" ? amount : -amount;
-			//} else {
-				//var p:Physics = source.getComponent("physics");
-				//if (p)
-			//}
 			addComponent("knockback", new Impulse(forceX*0.5, -amount*0.5, 0.3, 0.2));
 		}
 		
@@ -80,8 +74,10 @@ package entities {
 		}
 		
 		public function damage(damage:uint, source:Entity):void {
-			health -= damage;
+			if (hitCooldown != 0)
+				return;
 			hitCooldown = 10;
+			health -= damage;
 			if (health <= 0) {
 				health = 0;
 				die();

@@ -793,7 +793,7 @@ package net.flashpunk
 		public function updateComponents():void {
 			if (_components === null) return;
 			for each (var comp:Component in _components)
-				if (comp.active) comp.update();
+				if (comp.active && comp.entity) comp.update();
 		}
 		
 		/// Call moveCollideX for the entity and its components

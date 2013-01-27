@@ -6,8 +6,8 @@ package {
 	public class EntityTypes {
 		
 		public static const
-			LIVING_ENTITIES:Array = ["enemy","zombie","player","knight"],
-			FRIENDLY:Array = ["player","knight"],
+			LIVING_ENTITIES:Array = ["enemy","zombie","player","knight","archer"],
+			FRIENDLY:Array = ["player","knight","archer"],
 			ENEMIES:Array = ["enemy","zombie"],
 			SOLIDS:Array = ["ground"];
 	}

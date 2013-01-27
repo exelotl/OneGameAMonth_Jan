@@ -10,9 +10,8 @@ package comps.ai {
 	public class RangeDetectAI extends Component {
 		
 		public var
-			frequency:uint = 0,
 			inRange:Boolean = false,
-			onEnterRange:Function,
+			onEnterRange:Function,  // called with current entity as context, nearest entity as parameter.
 			onLeaveRange:Function;
 		
 		private var
@@ -37,20 +36,25 @@ package comps.ai {
 			update();
 		}
 		
+		private static var entitiesInRange:Array = [];
+		
 		override public function update():void {
-			var e:Entity;
 			
 			for each (var t:String in types) {
-				e = entity.world.collideRect(t, entity.centerX-width, entity.centerY-height, width*2, height*2);
-				if (e != null && !inRange) {
-					inRange = true;
-					if (onEnterRange) onEnterRange(entity, e);
-					return;
-				}
+				entity.world.collideRectInto(t, entity.centerX-width, entity.centerY-height, width*2, height*2, entitiesInRange);
+			}
+			
+			var e:Entity = AIUtils.findNearest(entity, entitiesInRange);
+			entitiesInRange.length = 0;
+			
+			if (e != null && !inRange) {
+				inRange = true;
+				if (onEnterRange) onEnterRange.call(entity, e);
+				return;
 			}
 			
 			if (inRange && e == null) {
-				if (onLeaveRange) onLeaveRange(entity);
+				if (onLeaveRange) onLeaveRange.call(entity);
 				inRange = false;
 			}
 		}

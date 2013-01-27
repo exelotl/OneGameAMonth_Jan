@@ -60,13 +60,7 @@ package comps.ai {
 			for each (var t:String in targetTypes)
 				livingEntity.world.getType(t, enemies);
 				
-			for each (var e:LivingEntity in enemies) {
-				var d1 = FP.distance(livingEntity.x, livingEntity.y, e.x, e.y);
-				if (d1 < d){
-					target = e;
-					d = d1;
-				}
-			}
+			target = AIUtils.findNearest(entity, enemies) as LivingEntity;
 			enemies.length = 0;
 		}
 	}

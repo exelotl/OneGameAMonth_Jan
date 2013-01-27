@@ -1,4 +1,5 @@
 package entities {
+	import comps.ai.AIUtils;
 	import comps.ai.FleeRectAI;
 	import comps.ai.RangeDetectAI;
 	import comps.items.Bow;
@@ -21,19 +22,20 @@ package entities {
 		private var
 			target:LivingEntity,
 			bow:Bow,
-			targetDetect:RangeDetectAI,
-			flee:FleeRectAI,
+			detectEnemy:RangeDetectAI,
 			wander:WanderAI,
 			anim:Spritemap = new Spritemap(IMG_KNIGHT, 20, 20),
 			sprites:MultiSpritemap = new MultiSpritemap();
 		
 		private var
+			drawArrowTimer:Tween,
 			fireArrowTimer:Tween;
 		
 		public function Archer(x:Number=0, y:Number=0) {
 			super(x, y);
-			setHitbox(20, 20);
+			setHitbox(8, 12, -12, -8);
 			physics.maxVelX = 1.4;
+			health = maxHealth = 10;
 			
 			anim.add("idle_l", [0], 30, false);
 			anim.add("idle_r", [4], 30, false);
@@ -45,96 +47,93 @@ package entities {
 			anim.add("drawarrow_r", [20,20,21,22,23], 30, false);
 			anim.add("firearrow_l", [19,18,11,0], 15, false);
 			anim.add("firearrow_r", [23,22,15,4], 15, false);
+			anim.add("die_l", [25], 30, false);
+			anim.add("die_r", [27], 30, false);
 			sprites.addMid(anim);
 			graphic = sprites;
 			
-			addComponent("bow", bow = new Bow());
+			addComponent("weapon", bow = new Bow());
 			addComponent("wander", wander = new WanderAI());
 			
-			targetDetect = new RangeDetectAI(EntityTypes.ENEMIES, 200, 100);
-			addComponent("target_detect", targetDetect);
+			detectEnemy = new RangeDetectAI(EntityTypes.ENEMIES, 250, 100);
+			addComponent("detect_enemy", detectEnemy);
 			
-			targetDetect.onEnterRange = function(self:Entity, e:Entity):void {
+			detectEnemy.onEnterRange = function(e:Entity):void {
 				if (e is LivingEntity
 				&& !(flags & Flags.FLEEING)
 				&& !(flags & Flags.ATTACKING)) {
-					pickTarget(e as LivingEntity);
+					beginAttack(e as LivingEntity);
 				}
 			};
 			
-			flee = new FleeRectAI();
-			flee.active = false;
-			addComponent("flee", flee);
-			
-			flee.onDone = function():void {
-				if (target && (flags & Flags.FLEEING)) {
-					trace("finished fleeing!");
-					flags &= ~Flags.FLEEING;
-					faceTowards(target);
-					drawArrow();
-					wander.active = false;
-				}
-			};
-			
+			addTween(drawArrowTimer = new Tween(1, 0, drawArrow));
 			addTween(fireArrowTimer = new Tween(1, 0, fireArrow));
 			
 			type = "archer";
 		}
 		
-		override public function update():void {
-			super.update();
-			if (Math.random()<0.01)
-				targetDetect.forceCheck();
-		}
-		
-		private function pickTarget(e:LivingEntity):void {
+		private function beginAttack(e:LivingEntity):void {
 			target = e;
 			wander.active = false;
-			flee.setRect(e.centerX-250, e.centerY-40, 500, 80);
-			flee.active = true;
 			flags |= Flags.FLEEING;
-			trace("found target "+target.toString());
+			drawArrowTimer.start();
+			
+			if (target==null || target.type == "dead") {
+				endAttack();
+				return;
+			}
+			if (Math.abs(centerX - target.centerX) < 50) {
+				if (centerX > e.centerX) {
+					runRight();
+				} else {
+					runLeft();
+				}
+			}
+		}
+		
+		private function endAttack():void {
+			wander.active = true;
+			flags &= ~Flags.ATTACKING;
+			flags &= ~Flags.FLEEING;
+			drawArrowTimer.cancel();
+			fireArrowTimer.cancel();
+			addTween(drawArrowTimer);
+			addTween(fireArrowTimer);
+			idle();
 		}
 		
 		public function drawArrow():void {
-			trace("drawing arrow");
+			if (target==null || target.type == "dead") {
+				endAttack();
+				return;
+			}
 			physics.accX = 0;
-			physics.sweep = true;
+			faceTowards(target);
 			sprites.play("drawarrow_"+direction);
 			flags |= Flags.ATTACKING;
 			fireArrowTimer.start();
 		}
 		
 		public function fireArrow():void {
-			trace("firing arrow!");
 			sprites.play("firearrow_"+direction);
 			
+			if (target.centerX == centerX) {
+				endAttack();
+				return;
+			}
 			var gravity:Number = 0.5;
 			var diffX:Number = target.centerX - centerX;
-			var diffY:Number = target.centerY - centerY-2;
-			var velX:Number = FP.sign(diffX)*8;
+			var diffY:Number = target.top - centerY;
+			var velX:Number = FP.sign(diffX) * Math.max(Math.abs(diffX)/20, 10);
 			var c:Number = diffX / velX;
 			var velY:Number = -(triangularNumber(c) * gravity - diffY) / c;
-			bow.fire(velX, velY);
 			
-			flags &= ~Flags.ATTACKING;
-			wander.active = true;
+			bow.fire(velX, Math.min(velY,-3));
+			endAttack();
 		}
 		
 		private function triangularNumber(n:int):Number {
 			return (n * (n + 1) / 2);
-		}
-		
-		override public function runRight():void {
-			super.runRight();
-			physics.accX = 5;
-			sprites.play("run_r");
-		}
-		
-		override public function runLeft():void {
-			super.runLeft();
-			physics.accX = -5;
-			sprites.play("run_l");
 		}
 		
 		override public function idle():void {
@@ -142,6 +141,33 @@ package entities {
 			physics.accX = 0;
 			flags &= ~Flags.ATTACKING;
 			sprites.play("idle_"+direction);
+			detectEnemy.forceCheck();
+		}
+		
+		override public function runRight():void {
+			super.runRight();
+			physics.accX = 5;
+			sprites.play("run_r");
+			detectEnemy.forceCheck();
+		}
+		
+		override public function runLeft():void {
+			super.runLeft();
+			physics.accX = -5;
+			sprites.play("run_l");
+			detectEnemy.forceCheck();
+		}
+		
+		override public function die():void {
+			super.die();
+			drawArrowTimer.cancel();
+			fireArrowTimer.cancel();
+			removeComponent("wander");
+			removeComponent("detect_enemy");
+			removeComponent("weapon");
+			physics.maxVelX = 0;
+			anim.play("die_"+direction);
+			addTween(new Tween(2, Tween.ONESHOT, removeSelf), true);
 		}
 		
 	}
