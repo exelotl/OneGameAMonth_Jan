@@ -26,6 +26,7 @@ package entities {
 			setHitbox(8, 12, -12, -8);
 			health = maxHealth = 20;
 			physics.maxVelX = 0.6;
+			price = 5;
 			
 			detectFriendly = new RangeDetectAI(EntityTypes.FRIENDLY, 100, 40);
 			detectFriendly.onEnterRange = pickTarget;

@@ -3,6 +3,7 @@ package states {
 	import entities.*;
 	import entities.slots.*;
 	import net.flashpunk.FP;
+	import net.flashpunk.Signal;
 	import net.flashpunk.World;
 	import entities.ui.MenuItem;
 	import entities.ui.UpgradeMenu;
@@ -14,14 +15,18 @@ package states {
 			upgradeMenu:UpgradeMenu,
 			player:Player,
 			slots:/*Slot*/Array,
-			ui:GUI;
+			ui:GUI,
+			money:int = 50,
+			onEntityDead:Signal = new Signal();
 		
 		private var archer:Archer;
 			
 		public function PlayWorld() {
 			FP.screen.color = 0xccccff;
 			var i:int;
-			
+			onEntityDead.add(function (entity:LivingEntity):void {
+				money += entity.price;
+			});
 			add(new GUI());
 			
 			slots = [

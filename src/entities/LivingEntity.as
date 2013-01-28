@@ -5,6 +5,7 @@ package entities {
 	import net.flashpunk.Entity;
 	import net.flashpunk.FP;
 	import net.flashpunk.graphics.Image;
+	import states.PlayWorld;
 	
 	/**
 	 * Base for players, NPCs, enemies, etc.
@@ -13,6 +14,7 @@ package entities {
 		
 		public var
 			health:int = 0,
+			price:int = 0,
 			maxHealth:int = 0,
 			hitCooldown:int = 0,
 			isOnFloor:Boolean = false,
@@ -71,6 +73,7 @@ package entities {
 		
 		public function die():void {
 			type = "dead";
+			(world as PlayWorld).onEntityDead.dispatch(this);
 		}
 		
 		public function damage(damage:uint, source:Entity):void {

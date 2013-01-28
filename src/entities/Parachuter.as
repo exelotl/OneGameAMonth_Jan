@@ -24,6 +24,7 @@ package entities
 			physics.maxVelX = 0.5;
 			physics.maxVelY = 1;
 			physics.accX = FP.sign(Math.random() - 0.5) / 2;
+			price = 10;
 			if (FP.sign(physics.accX) == 1) img.flipped  = true;
 			
 			setHitbox(20, 30);

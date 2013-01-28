@@ -49,7 +49,7 @@ package entities
 		override public function update():void 
 		{
 			super.update();
-			currencyTxt.text = (world as PlayWorld).player.x + " " +(world as PlayWorld).player.y;
+			currencyTxt.text = String(p_world.money);
 		}
 	}
 
