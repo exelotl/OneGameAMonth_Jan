@@ -20,7 +20,7 @@ package entities {
 		
 		public function Arrow(x:Number, y:Number, velX:Number, velY:Number, targetTypes:Array) {
 			super(x, y);
-			setHitbox(8, 4, -4, 0);
+			setHitbox(8, 6, -4, 0);
 			this.targetTypes = targetTypes;
 			
 			physics = new Physics(EntityTypes.SOLIDS);

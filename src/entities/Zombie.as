@@ -52,7 +52,7 @@ package entities {
 		}
 		
 		override public function added():void {
-			if (centerX > 250) runLeft();
+			if (centerX > 500) runLeft();
 			else runRight();
 		}
 		

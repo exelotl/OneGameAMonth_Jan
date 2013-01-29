@@ -3,12 +3,8 @@ package entities {
 	import comps.items.Weapon;
 	import fp.MultiSpritemap;
 	import net.flashpunk.Entity;
-	import net.flashpunk.Graphic;
-	import net.flashpunk.graphics.Image;
 	import net.flashpunk.graphics.Spritemap;
-	import net.flashpunk.Mask;
 	import net.flashpunk.Tween;
-	import net.flashpunk.tweens.misc.Alarm;
 	
 	public class Player extends LivingEntity {
 		
@@ -18,7 +14,8 @@ package entities {
 		private var
 			sprites:MultiSpritemap = new MultiSpritemap(),
 			anim:Spritemap,
-			control:PlayerInput;
+			control:PlayerInput,
+			stopStrikeTimer:Tween;
 		
 		public function Player(x:Number=0, y:Number=0) {
 			super(x, y);
@@ -40,6 +37,8 @@ package entities {
 			anim.add("strike_r", [12,13,14,15], 15, false);
 			sprites.addMid(anim);
 			graphic = sprites;
+			
+			addTween(stopStrikeTimer = new Tween(0.2, 0, idle));
 			
 			layer = Layers.PLAYER;
 			name = "player";
@@ -94,7 +93,7 @@ package entities {
 			
 			sprites.play("strike_"+direction);
 			flags |= Flags.ATTACKING;
-			addTween(new Alarm(0.2, idle, Tween.ONESHOT), true);
+			stopStrikeTimer.start();
 		}
 		
 		override public function fire():void {

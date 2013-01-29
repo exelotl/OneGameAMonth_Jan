@@ -1,22 +1,18 @@
-package entities 
-{
+package entities {
 	import net.flashpunk.FP;
 	import net.flashpunk.graphics.Image;
 	import net.flashpunk.graphics.Spritemap;
-	/**
-	 * ...
-	 * @author Allyally
-	 */
-	public class Parachuter extends Enemy
-	{
+	
+	public class Parachuter extends LivingEntity {
 		[Embed(source = "../assets/parachuter_zombie.png")]
 		private var IMG_PARACHUTE:Class;
 		
 		private var img:Image;
 		
-		public function Parachuter(x:Number = 0, y:Number = 0) 
-		{
+		public function Parachuter(x:Number = 0, y:Number = 0) {
 			super(x, y);
+			setHitbox(10, 20, -10, -8);
+			health = maxHealth = 20;
 			
 			img = new Image(IMG_PARACHUTE);
 			graphic = img;
@@ -26,18 +22,17 @@ package entities
 			physics.accX = FP.sign(Math.random() - 0.5) / 2;
 			price = 10;
 			if (FP.sign(physics.accX) == 1) img.flipped  = true;
-			
-			setHitbox(20, 30);
 		}
 		
-		override public function update():void 
-		{
+		override public function update():void {
 			super.update();
 			
-			if (isOnFloor)
-			{
+			if (isOnFloor) {
+				var zombie:Zombie = new Zombie(x, y+6);
+				zombie.health = this.health;
+				zombie.maxHealth = this.maxHealth;
 				world.remove(this);
-				world.add(new Zombie(x,y));
+				world.add(zombie);
 			}
 		}
 	}

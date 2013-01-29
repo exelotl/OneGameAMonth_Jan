@@ -12,6 +12,7 @@ package states {
 		
 		public var
 			mobSpawner:MobSpawner,
+			background:Background,
 			upgradeMenu:UpgradeMenu,
 			player:Player,
 			slots:/*Slot*/Array,
@@ -23,6 +24,9 @@ package states {
 			
 		public function PlayWorld() {
 			FP.screen.color = 0xccccff;
+			
+			add(background = new Background());
+			
 			var i:int;
 			onEntityDead.add(function (entity:LivingEntity):void {
 				money += entity.price;
@@ -46,8 +50,9 @@ package states {
 			
 			add(player = new Player(80, 100));
 			player.addComponent("weapon", new Sword());
-			add(new Ninja(1000, 100));
+			
 			add(new Enemy(100, 100));
+			add(new Ninja(1000, 100));
 			add(archer = new Archer(300, 100));
 			//add(new Knight(140, 100));
 			
@@ -80,6 +85,7 @@ package states {
 			newSlot.inherit(slot);
 			newSlot.onEdit.add(openUpgradeMenu);
 			newSlot.onRequestUpgrade.add(applyUpgrade);
+			money -= u.cost;
 			
 			remove(slot);
 			add(newSlot);

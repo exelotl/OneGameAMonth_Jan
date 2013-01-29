@@ -10,6 +10,7 @@ package entities.ui {
 	import net.flashpunk.graphics.Text;
 	import net.flashpunk.Sfx;
 	import net.flashpunk.tweens.misc.NumTween;
+	import states.PlayWorld;
 	
 	public class UpgradeMenu extends Entity {
 		
@@ -22,6 +23,7 @@ package entities.ui {
 			LINE_HEIGHT:int = 17;
 		
 		private var
+			playWorld:PlayWorld,
 			currentUpgrade:Upgrade,
 			graphicList:Graphiclist,
 			background:Canvas,
@@ -31,18 +33,6 @@ package entities.ui {
 			currentLine:int = 0,
 			items:/*MenuItem*/Array = [],
 			textGraphics:/*Text*/Array = [];
-		
-		
-		// not worth setting up a sound component for these?
-		[Embed(source="../../assets/sfx_menu_open.mp3")]
-		private static const SFX_MENU_OPEN:Class;
-		[Embed(source="../../assets/sfx_menu_blip.mp3")]
-		private static const SFX_MENU_BLIP:Class;
-		
-		private static const
-			sfxMenuOpen:Sfx = new Sfx(SFX_MENU_OPEN),
-			sfxMenuBlip:Sfx = new Sfx(SFX_MENU_BLIP);
-		
 			
 		public function UpgradeMenu(slot:Slot) {
 			this.slot = slot;
@@ -85,13 +75,24 @@ package entities.ui {
 			graphicList.add(titleText);
 			graphicList.add(commentText);
 			
+			highlightLine();
+			Audio.play(Audio.MENU_OPEN);
+			addComponent("input", new UpgradeMenuInput());
+		}
+		
+		override public function added():void {
+			playWorld = world as PlayWorld;
 			for each (var u:Upgrade in slot.upgrades) {
 				addUpgrade(u);
 			}
-			
+			refresh();
+		}
+		
+		public function refresh():void {
+			for (var i:int=0; i<items.length; i++) {
+				textGraphics[i].alpha = items[i].isSelectable ? 1 : 0.5;
+			}
 			highlightLine();
-			sfxMenuOpen.play();
-			addComponent("input", new UpgradeMenuInput());
 		}
 		
 		public function get title():String {
@@ -113,7 +114,7 @@ package entities.ui {
 				currentLine = 0;
 			highlightLine();
 			
-			if (items.length > 1) sfxMenuBlip.play();
+			if (items.length > 1) Audio.play(Audio.MENU_BLIP);
 		}
 		public function prev():void {
 			currentLine--;
@@ -121,7 +122,7 @@ package entities.ui {
 				currentLine = items.length-1;
 			highlightLine();
 			
-			if (items.length > 1) sfxMenuBlip.play();
+			if (items.length > 1) Audio.play(Audio.MENU_BLIP);
 		}
 		public function select():void {
 			if (lineIsValid) items[currentLine].select();
@@ -138,13 +139,19 @@ package entities.ui {
 		private function get lineIsValid():Boolean {
 			return currentLine < items.length
 			    && currentLine >= 0
-			    && items[currentLine] != null;
+			    && items[currentLine] != null
+				&& items[currentLine].isSelectable;
 		}
 		
 		public function addUpgrade(upgrade:Upgrade):void {
-			addItem(new MenuItem(upgrade.name, function ():void {
+			var msg:String = "["+upgrade.cost+"] "+upgrade.name;
+			var item:MenuItem = new MenuItem(msg, function ():void {
 				slot.requestUpgrade(upgrade);
-			}));
+			});
+			item.cost = upgrade.cost;
+			item.isSelectable = upgrade.cost < playWorld.money;
+			addItem(item);
+			
 		}
 		
 		public function addItem(item:MenuItem):void {
