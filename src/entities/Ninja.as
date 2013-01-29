@@ -6,6 +6,7 @@ package entities {
 	import net.flashpunk.graphics.Spritemap;
 	import net.flashpunk.Tween;
 	import net.flashpunk.tweens.misc.Alarm;
+	import net.flashpunk.FP;
 	
 	public class Ninja extends LivingEntity {
 		
@@ -129,7 +130,8 @@ package entities {
 			var velX:Number = FP.sign(diffX) * Math.max(Math.abs(diffX)/20, 10);
 			var c:Number = diffX / velX;
 			var velY:Number = -(triangularNumber(c) * gravity - diffY) / c;
-			entity.world.add(new NinjaStar(entity.centerX, entity.centerY-6, velX, Math.min(velY, -3), EntityTypes.FRIENDLY));
+			world.add(new NinjaStar(this.centerX, this.centerY - 6, velX, Math.min(velY, -3), EntityTypes.FRIENDLY));
+			endAttack();
 		}
 		
 		private function triangularNumber(n:int):Number {

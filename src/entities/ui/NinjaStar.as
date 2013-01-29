@@ -1,11 +1,18 @@
 package entities.ui {
+	import comps.Physics;
+	import entities.LivingEntity;
 	import net.flashpunk.Entity;
 	import net.flashpunk.graphics.Image;
+	import net.flashpunk.Tween;
+	import net.flashpunk.FP;
 	/**
 	 * ...
 	 * @author Simon Marynissen
 	 */
 	public class NinjaStar extends Entity {
+		
+		[Embed(source="../../assets/star.png")]
+		private static var IMG_STAR:Class;
 		
 		private var
 			targetTypes:Array,
@@ -25,7 +32,7 @@ package entities.ui {
 			physics.accY = 0.5;
 			addComponent("physics", physics);
 			
-			image = new Image();
+			image = new Image(IMG_STAR);
 			image.y = 3;
 			graphic = image;
 			
@@ -36,7 +43,7 @@ package entities.ui {
 			if (inAir) {
 				if (collideTypes(EntityTypes.SOLIDS, x, y+2)) {
 					removeComponent("physics");
-					addTween(new Tween(2, Tween.ONESHOT, removeSelf), true);
+					addTween(new Tween(1.5, Tween.ONESHOT, removeSelf), true);
 					inAir = false;
 				} else {
 					image.angle = 90 + FP.DEG * Math.atan2(physics.velY, physics.velX);
