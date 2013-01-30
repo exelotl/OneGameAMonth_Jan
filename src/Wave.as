@@ -1,4 +1,7 @@
 package {
+	import net.flashpunk.Entity;
+	import net.flashpunk.Tween;
+	import states.PlayWorld;
 	
 	public class Wave {
 		
@@ -19,7 +22,7 @@ package {
 				name: "Zombies",
 				note: "Press C to swipe your sword, defend the castle!",
 				time: 60,
-				spawns: ["zombie"],
+				spawns: [{type:"zombie", amount:10}],
 				difficulty: 1
 			},
 			{
@@ -38,22 +41,28 @@ package {
 			NIGHT:uint = 1;
 		
 		public var
-			name:String,
+			title:String,
 			note:String,
 			time:Number,
 			spawns:Array,
 			difficulty:Number,
-			canSkip:Boolean;
+			canSkip:Boolean,
+			spawner:MobSpawner;
 		
-		public function Wave(data:Object=null) {
+		public function Wave(data:Object = null) {
 			if (data == null) data = {};
-			name = data.name || "";
+			title = data.name || "";
 			note = data.note || "";
 			time = data.time || 60;
 			spawns = data.spawns || [];
 			difficulty = data.difficulty || 1;
 			canSkip = data.canSkip || false;
+			spawner = new MobSpawner(spawns, this);
 		}
 		
+		public function startSpawning():void {
+			spawner.start();
+			trace("time: " + time);
+		}
 	}
 }

@@ -11,6 +11,7 @@ package states {
 	public class PlayWorld extends World {
 		
 		public var
+			waveScheduler:WaveScheduler,
 			mobSpawner:MobSpawner,
 			background:Background,
 			upgradeMenu:UpgradeMenu,
@@ -51,13 +52,12 @@ package states {
 			add(player = new Player(80, 100));
 			player.addComponent("weapon", new Sword());
 			
-			add(new Enemy(100, 100));
-			add(new Ninja(1000, 100));
 			add(archer = new Archer(300, 100));
 			//add(new Knight(140, 100));
 			
-			mobSpawner = new MobSpawner();
-			add(mobSpawner);
+			
+			waveScheduler = new WaveScheduler();
+			add(waveScheduler);
 		}
 		
 		override public function update():void {
