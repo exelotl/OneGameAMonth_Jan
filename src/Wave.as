@@ -30,6 +30,13 @@ package {
 				canSkip: true
 			},
 			{
+				name: "Giant Rats",
+				note: "We're just getting started.",
+				time: 50,
+				spawns: [{type:"rat", amount:20}],
+				difficulty: 1
+			},
+			{
 				name: "That's it for now."
 			},
 		];

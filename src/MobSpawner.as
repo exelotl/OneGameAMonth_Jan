@@ -2,6 +2,7 @@ package {
 	
 	import entities.Ninja;
 	import entities.Parachuter;
+	import entities.Rat;
 	import entities.Zombie;
 	import net.flashpunk.Entity;
 	import net.flashpunk.FP;
@@ -37,6 +38,9 @@ package {
 				switch (mobs[i].type) {
 					case "zombie":
 						spawnAtEdge(new Zombie());
+						break;
+					case "rat":
+						spawnAtEdge(new Rat());
 						break;
 					case "ninja":
 						spawnAtEdge(new Ninja());
