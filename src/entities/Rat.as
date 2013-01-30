@@ -12,8 +12,8 @@ package entities {
 		public function Rat(x:Number=0, y:Number=0) {
 			super(x, y);
 			setHitbox(12, 10, -5, -6);
+			physics.maxVelX = 5;
 			type = "rat";
-			
 			anim.add("idle_l", [0], 30, false);
 			anim.add("idle_r", [6], 30, false);
 			anim.add("run_l", [1,2,3,4,5], 30, true);
@@ -27,12 +27,12 @@ package entities {
 		
 		override public function runLeft():void {
 			anim.play("run_l");
-			physics.velX = -5;
+			physics.accX = -5;
 		}
 		
 		override public function runRight():void {
 			anim.play("run_r");
-			physics.velX = 5;
+			physics.accX = 5;
 		}
 		
 	}
