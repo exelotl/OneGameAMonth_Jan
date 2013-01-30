@@ -25,7 +25,6 @@ package states {
 			
 		public function PlayWorld() {
 			FP.screen.color = 0xccccff;
-			
 			add(background = new Background());
 			
 			var i:int;
@@ -49,11 +48,10 @@ package states {
 			for (i = -6; i < 0; i++) add(new FillerSlot(i*200, 200));
 			for (i = 5; i < 10; i++) add(new FillerSlot(i*200, 200));
 			
-			add(player = new Player(80, 100));
+			add(player = new Player(490, 160));
 			player.addComponent("weapon", new Sword());
 			
 			add(archer = new Archer(300, 100));
-			
 			
 			waveScheduler = new WaveScheduler();
 			add(waveScheduler);

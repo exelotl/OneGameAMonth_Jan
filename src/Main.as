@@ -30,7 +30,7 @@ package {
 			menuWorld = new MenuWorld();
 			playWorld = new PlayWorld();
 			menuWorld.onPlay.add(switchToPlayWorld);
-			FP.world = playWorld;
+			FP.world = menuWorld;
 		}
 		
 		private function switchToPlayWorld():void {
