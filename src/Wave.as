@@ -52,6 +52,7 @@ package {
 			title = data.name || "";
 			note = data.note || "";
 			time = data.time || 60;
+			time += 10; // to make sure all mobs reached the castle
 			spawns = data.spawns || [];
 			difficulty = data.difficulty || 1;
 			canSkip = data.canSkip || false;

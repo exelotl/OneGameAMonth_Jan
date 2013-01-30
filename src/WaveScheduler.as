@@ -35,7 +35,7 @@ package  {
 			if (waveIndex < Wave.gameSequence.length) {
 				setWave(new Wave(Wave.gameSequence[waveIndex]));
 			} else {
-				setWave(new RandomWave(waveIndex));
+				setWave(new RandomWave(waveIndex-3));
 			}
 			onEndWave = new Tween(currentWave.time, Tween.ONESHOT, startNewWave);
 			if (!onEndWave.active) addTween(onEndWave, true);
@@ -55,6 +55,7 @@ package  {
 		}
 		
 		public function setWave(wave:Wave):void {
+			currentWave = null;
 			currentWave = wave;
 			waveName.text = currentWave.title;
 			waveNote.text = currentWave.note;

@@ -25,34 +25,42 @@ package {
 				amountOfMobs += mobs[i].amount;
 			}
 			if (amountOfMobs) {
-				trace("interval: " + wave.time / amountOfMobs);
-				timer = new Tween(wave.time / amountOfMobs, Tween.LOOPING, spawn);
+				timer = new Tween((wave.time -10)/ amountOfMobs, Tween.LOOPING, spawn);
 			}
 		}
 		
 		private function spawn():void {
-			trace("trolololo");
 			var i:int = getRandomIndex();
 			if (i < 0) {
-				timer.cancel();
-				world.removeTween(timer);
-			}
-			switch (mobs[i].type) {
-				case "zombie":
-					spawnAtEdge(new Zombie());
-					break;
-				case "ninja":
-					spawnAtEdge(new Ninja());
-					break;
-				case "parachuter":
-					spawnAtTop(new Parachuter());
-					break;
+				stop();
+			} else {
+				switch (mobs[i].type) {
+					case "zombie":
+						spawnAtEdge(new Zombie());
+						break;
+					case "ninja":
+						spawnAtEdge(new Ninja());
+						break;
+					case "parachuter":
+						spawnAtTop(new Parachuter());
+						break;
+				}
+				mobs[i].amount--;
 			}
 		}	
 		
 		public function start():void {
 			if (amountOfMobs) {
 				addTween(timer, true);
+			}
+		}
+		
+		public function stop():void {
+			if (timer != null) {
+				if (timer.active) {
+					timer.cancel();
+					//removeTween(timer);
+				}
 			}
 		}
 		
@@ -71,14 +79,12 @@ package {
 		}
 		
 		private function spawnAtTop(e:Entity):void {
-			trace("finally");
 			e.x = 500 + (200 + Math.random() * 400) * FP.sign(Math.random() - 0.5);
 			e.y = -100;
 			world.add(e);
 		}
 		 
 		private function spawnAtEdge(e:Entity):void {
-			trace("finally");
 			e.x = 250 + 1400*(Math.random() < 0.5 ? 1 : -1);
 			e.y = 190-e.height;
 			world.add(e);
