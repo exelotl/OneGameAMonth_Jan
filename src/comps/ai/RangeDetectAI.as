@@ -1,6 +1,7 @@
 package comps.ai {
 	import net.flashpunk.Component;
 	import net.flashpunk.Entity;
+	import net.flashpunk.FP;
 	
 	/**
 	 * Trigger callbacks when entities of certain types are detected within a certain range.
@@ -10,11 +11,13 @@ package comps.ai {
 	public class RangeDetectAI extends Component {
 		
 		public var
+			checkPeriod:Number = 0,
 			inRange:Boolean = false,
 			onEnterRange:Function,  // called with current entity as context, nearest entity as parameter.
 			onLeaveRange:Function;
 		
 		private var
+			timer:Number = 0,
 			types:/*String*/Array,
 			width:Number,
 			height:Number;
@@ -33,12 +36,19 @@ package comps.ai {
 		/// execute onEnterRange even if the entity was already in the range.
 		public function forceCheck():void {
 			inRange = false;
-			update();
 		}
 		
 		private static var entitiesInRange:Array = [];
 		
 		override public function update():void {
+			
+			if (checkPeriod > 0) {
+				timer -= FP.elapsed;
+				if (timer <= 0) {
+					timer = checkPeriod;
+					forceCheck();
+				}
+			}
 			
 			for each (var t:String in types) {
 				entity.world.collideRectInto(t, entity.centerX-width, entity.centerY-height, width*2, height*2, entitiesInRange);
@@ -49,12 +59,12 @@ package comps.ai {
 			
 			if (e != null && !inRange) {
 				inRange = true;
-				if (onEnterRange) onEnterRange.call(entity, e);
+				if (onEnterRange != null) onEnterRange.call(entity, e);
 				return;
 			}
 			
 			if (inRange && e == null) {
-				if (onLeaveRange) onLeaveRange.call(entity);
+				if (onLeaveRange != null) onLeaveRange.call(entity);
 				inRange = false;
 			}
 		}

@@ -33,7 +33,7 @@ package entities {
 			
 			graphiclist.add(nightsky);
 			graphiclist.add(mountain);
-			graphiclist.add(nightskyOverlay);
+			//graphiclist.add(nightskyOverlay);
 			graphic = graphiclist;
 			layer = Layers.BACKGROUND;
 		}
