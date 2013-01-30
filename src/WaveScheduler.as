@@ -34,9 +34,11 @@ package  {
 			waveIndex++;
 			if (waveIndex < Wave.gameSequence.length) {
 				setWave(new Wave(Wave.gameSequence[waveIndex]));
-				onEndWave = new Tween(currentWave.time, Tween.ONESHOT, startNewWave);
-				if (!onEndWave.active) addTween(onEndWave, true);
-			} else trace("bring us the random generated waves");
+			} else {
+				setWave(new RandomWave(waveIndex));
+			}
+			onEndWave = new Tween(currentWave.time, Tween.ONESHOT, startNewWave);
+			if (!onEndWave.active) addTween(onEndWave, true);
 		}
 		
 		override public function added():void {
