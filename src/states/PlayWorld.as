@@ -53,7 +53,6 @@ package states {
 			player.addComponent("weapon", new Sword());
 			
 			add(archer = new Archer(300, 100));
-			//add(new Knight(140, 100));
 			
 			
 			waveScheduler = new WaveScheduler();

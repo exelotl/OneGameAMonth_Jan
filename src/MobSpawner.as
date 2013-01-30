@@ -27,11 +27,11 @@ package {
 			if (amountOfMobs) {
 				trace("interval: " + wave.time / amountOfMobs);
 				timer = new Tween(wave.time / amountOfMobs, Tween.LOOPING, spawn);
-				addTween(timer);
 			}
 		}
 		
 		private function spawn():void {
+			trace("trolololo");
 			var i:int = getRandomIndex();
 			if (i < 0) {
 				timer.cancel();
@@ -51,7 +51,9 @@ package {
 		}	
 		
 		public function start():void {
-			if (amountOfMobs) timer.start(); // this gets called, but the tween doesn't react or something.
+			if (amountOfMobs) {
+				addTween(timer, true);
+			}
 		}
 		
 		private function getRandomIndex():int {
@@ -69,12 +71,14 @@ package {
 		}
 		
 		private function spawnAtTop(e:Entity):void {
+			trace("finally");
 			e.x = 500 + (200 + Math.random() * 400) * FP.sign(Math.random() - 0.5);
 			e.y = -100;
 			world.add(e);
 		}
 		 
 		private function spawnAtEdge(e:Entity):void {
+			trace("finally");
 			e.x = 250 + 1400*(Math.random() < 0.5 ? 1 : -1);
 			e.y = 190-e.height;
 			world.add(e);

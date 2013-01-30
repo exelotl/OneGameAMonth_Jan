@@ -1,7 +1,5 @@
 package {
-	import net.flashpunk.Entity;
 	import net.flashpunk.Tween;
-	import states.PlayWorld;
 	
 	public class Wave {
 		
@@ -62,7 +60,6 @@ package {
 		
 		public function startSpawning():void {
 			spawner.start();
-			trace("time: " + time);
 		}
 	}
 }

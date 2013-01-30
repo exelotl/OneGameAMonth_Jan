@@ -5,6 +5,7 @@ package  {
 	import net.flashpunk.Tween;
 	import net.flashpunk.tweens.misc.NumTween;
 	import net.flashpunk.utils.Ease;
+	import states.PlayWorld;
 	
 	public class WaveScheduler extends Entity {
 		
@@ -56,6 +57,7 @@ package  {
 			waveName.text = currentWave.title;
 			waveNote.text = currentWave.note;
 			alphaTween.tween(0, 1, 2.0, Ease.backInOut);
+			world.add(currentWave.spawner);
 			currentWave.startSpawning();
 		}
 	}
