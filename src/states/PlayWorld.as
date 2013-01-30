@@ -2,6 +2,7 @@ package states {
 	import comps.items.Sword;
 	import entities.*;
 	import entities.slots.*;
+	import entities.ui.WaveClock;
 	import net.flashpunk.FP;
 	import net.flashpunk.Signal;
 	import net.flashpunk.World;
@@ -12,6 +13,7 @@ package states {
 		
 		public var
 			waveScheduler:WaveScheduler,
+			waveClock:WaveClock,
 			mobSpawner:MobSpawner,
 			background:Background,
 			upgradeMenu:UpgradeMenu,
@@ -55,6 +57,8 @@ package states {
 			
 			waveScheduler = new WaveScheduler();
 			add(waveScheduler);
+			waveClock = new WaveClock(waveScheduler, 520, 40);
+			add(waveClock);
 		}
 		
 		override public function update():void {

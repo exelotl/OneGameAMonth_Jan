@@ -9,6 +9,8 @@ package  {
 	
 	public class WaveScheduler extends Entity {
 		
+		public var timeRatio:Number = 0; /// 0 = start of wave, 1 = end of wave.
+		
 		private var
 			currentWave:Wave,
 			waveName:Text = new Text("", 10, 20),
@@ -79,6 +81,7 @@ package  {
 			}
 			if (timeTween) {
 				if (currentWave != null) {
+					timeRatio = timeTween.percent;
 					time.text = "Time left: " + Math.round((currentWave.time - currentWave.time * timeTween.value) * 10) / 10;
 					timeShade.text = time.text;
 				}

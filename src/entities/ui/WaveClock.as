@@ -15,14 +15,22 @@ package entities.ui {
 		private static var IMG_BTN_SKIP:Class;
 		
 		private var
-			_canSkip:Boolean = false,
+			scheduler:WaveScheduler,
 			clock:Spritemap = new Spritemap(IMG_CLOCK, 30, 30),
 			skipBtn:Spritemap = new Spritemap(IMG_BTN_SKIP, 40, 20);
 		
-		public function WaveClock(x:Number=0, y:Number=0) {
+		public function WaveClock(scheduler:WaveScheduler, x:Number=0, y:Number=0) {
 			super(x, y);
+			this.scheduler = scheduler;
+			
+			skipBtn.y = 40;
+			
+			clock.scrollX = clock.scrollY = 0;
+			skipBtn.scrollX = skipBtn.scrollY = 0;
+			
 			addGraphic(clock);
 			addGraphic(skipBtn);
+			layer = Layers.GUI;
 		}
 		
 		public function set canSkip(val:Boolean):void {
@@ -30,6 +38,8 @@ package entities.ui {
 		}
 		
 		override public function update():void {
+			setClockPos(scheduler.timeRatio);
+			
 			var mX:Number = Input.mouseX + x + skipBtn.x;
 			var mY:Number = Input.mouseY + y + skipBtn.y;
 			
@@ -38,6 +48,10 @@ package entities.ui {
 			} else {
 				skipBtn.frame = 0;
 			}
+		}
+		
+		public function setClockPos(proportion:Number):void {
+			clock.frame = int(proportion * 20);
 		}
 		
 	}
