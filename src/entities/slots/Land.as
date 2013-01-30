@@ -22,7 +22,7 @@ package entities.slots {
 		}
 		
 		override public function get upgrades():Array {
-			return [Upgrade.TOWER];
+			return [Upgrade.TOWER, Upgrade.TRAP];
 		}
 	}
 }
