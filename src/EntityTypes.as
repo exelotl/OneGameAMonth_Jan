@@ -9,6 +9,7 @@ package {
 			LIVING_ENTITIES:Array = ["enemy","zombie","player","knight","archer","ninja"],
 			FRIENDLY:Array = ["player","knight","archer"],
 			ENEMIES:Array = ["enemy","zombie","ninja"],
-			SOLIDS:Array = ["ground"];
+			SOLIDS:Array = ["ground","tower"],
+			PROJECTILES_SOLIDS:Array = ["ground"];
 	}
 }

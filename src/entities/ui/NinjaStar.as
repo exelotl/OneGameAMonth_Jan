@@ -25,7 +25,7 @@ package entities.ui {
 			setHitbox(4, 8, -2, -2);
 			this.targetTypes = targetTypes;
 			
-			physics = new Physics(EntityTypes.SOLIDS);
+			physics = new Physics(EntityTypes.PROJECTILES_SOLIDS);
 			physics.sweep = true;
 			physics.velX = velX;
 			physics.velY = velY;

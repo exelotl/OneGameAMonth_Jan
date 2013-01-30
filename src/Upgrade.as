@@ -12,8 +12,8 @@ package {
 			LAND:Upgrade = new Upgrade("Land", 0, "You probably want to upgrade this."),
 			CASTLE:Upgrade = new Upgrade("Castle", 0, "You probably want to defend this."),
 			TOWER:Upgrade = new Upgrade("Tower", 20, "Provides shelter for knights!"),
-			KEEP:Upgrade = new Upgrade("Keep", 100, "Provides shelter for archers!"),
-			TRAP:Upgrade = new Upgrade("Trap", 100, "Kills 20 enemies!");
+			KEEP:Upgrade = new Upgrade("Keep", 10, "Provides shelter for archers and knights!"),
+			TRAP:Upgrade = new Upgrade("Trap", 75, "Kills 20 enemies!");
 		
 		public static function createSlot(prev:Slot, upgrade:Upgrade):Slot {
 			var slot:Slot;

@@ -23,7 +23,7 @@ package entities {
 			setHitbox(8, 6, -4, 0);
 			this.targetTypes = targetTypes;
 			
-			physics = new Physics(EntityTypes.SOLIDS);
+			physics = new Physics(EntityTypes.PROJECTILES_SOLIDS);
 			physics.sweep = true;
 			physics.velX = velX;
 			physics.velY = velY;

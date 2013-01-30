@@ -55,7 +55,7 @@ package entities {
 			addComponent("weapon", bow = new Bow());
 			addComponent("wander", wander = new WanderAI());
 			
-			detectEnemy = new RangeDetectAI(EntityTypes.ENEMIES, 250, 100);
+			detectEnemy = new RangeDetectAI(EntityTypes.ENEMIES, 250, 250);
 			addComponent("detect_enemy", detectEnemy);
 			
 			detectEnemy.onEnterRange = function(e:Entity):void {
