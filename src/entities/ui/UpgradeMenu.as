@@ -149,7 +149,7 @@ package entities.ui {
 				slot.requestUpgrade(upgrade);
 			});
 			item.cost = upgrade.cost;
-			item.isSelectable = upgrade.cost < playWorld.money;
+			item.isSelectable = upgrade.cost <= playWorld.money;
 			addItem(item);
 			
 		}
