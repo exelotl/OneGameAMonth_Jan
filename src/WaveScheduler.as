@@ -20,7 +20,8 @@ package  {
 			alphaTween:NumTween,
 			timeTween:NumTween,
 			onEndWave:Tween,
-			waveIndex:int = -1;
+			waveIndex:int = 0,
+			pauseInWave:Boolean;
 		
 		public function WaveScheduler() {
 			waveName.scrollX = 0; waveName.scrollY = 0;
@@ -45,11 +46,18 @@ package  {
 			if (onEndWave) {
 				if (onEndWave.active) removeTween(onEndWave);
 			}
-			waveIndex++;
 			if (waveIndex < Wave.gameSequence.length) {
 				setWave(new Wave(Wave.gameSequence[waveIndex]));
+				waveIndex++;
 			} else {
-				setWave(new RandomWave(waveIndex-3));
+				if (pauseInWave) {
+					pauseInWave = false;
+					setWave(new PauseWave());
+				} else {
+					pauseInWave = true;
+					setWave(new RandomWave(waveIndex - 3));
+					waveIndex++;
+				}
 			}
 			onEndWave = new Tween(currentWave.time, Tween.ONESHOT, startNewWave);
 			if (!onEndWave.active) addTween(onEndWave, true);

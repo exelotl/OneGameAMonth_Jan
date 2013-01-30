@@ -7,7 +7,7 @@ package {
 			{
 				name: "Welcome",
 				note: "Arrows to move, X to jump!",
-				time: 0,
+				time: 1,
 				canSkip: true
 			},
 			{
