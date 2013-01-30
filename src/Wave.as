@@ -13,20 +13,20 @@ package {
 			{
 				name: "Build Something",
 				note: "On a patch of land, use Z to open a menu.\nPress Up/Down and Enter to select.",
-				time: 2,
+				time: 20,
 				canSkip: true
 			},
 			{
 				name: "Zombies",
 				note: "Press C to swipe your sword, defend the castle!",
-				time: 5,
+				time: 50,
 				spawns: [{type:"zombie", amount:10}],
 				difficulty: 1
 			},
 			{
 				name: "Wave over",
 				note: "Now would be a good time to apply some upgrades.",
-				time: 2,
+				time: 20,
 				canSkip: true
 			},
 			{
@@ -51,7 +51,7 @@ package {
 			if (data == null) data = {};
 			title = data.name || "";
 			note = data.note || "";
-			time = data.time || 5;
+			time = data.time || 50;
 			time += 10; // to make sure all mobs reached the castle
 			spawns = data.spawns || [];
 			difficulty = data.difficulty || 1;
