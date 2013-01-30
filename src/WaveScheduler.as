@@ -70,7 +70,7 @@ package  {
 			currentWave = wave;
 			waveName.text = currentWave.title;
 			waveNote.text = currentWave.note;
-			alphaTween.tween(0, 1, 2.0, Ease.backOut);
+			alphaTween.tween(0, 1, 2.0, Ease.expoOut);
 			alphaTween.complete = fadeBackOut;
 			timeTween.tween(0, 1, currentWave.time);
 			world.add(currentWave.spawner);
@@ -78,7 +78,7 @@ package  {
 		}
 		
 		private function fadeBackOut():void {
-			alphaTween.tween(1, 0, 2.0, Ease.backIn);
+			alphaTween.tween(1, 0, 2.0, Ease.expoIn);
 			alphaTween.complete = null;
 		}
 	}
