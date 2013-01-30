@@ -23,5 +23,8 @@ package entities.slots {
 			}
 		}
 		
+		override public function get upgrades():Array {
+			return [Upgrade.KEEP];
+		}
 	}
 }

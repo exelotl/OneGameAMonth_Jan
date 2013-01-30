@@ -11,12 +11,14 @@ package {
 		public static const
 			LAND:Upgrade = new Upgrade("Land", 0, "You probably want to upgrade this."),
 			CASTLE:Upgrade = new Upgrade("Castle", 0, "You probably want to defend this."),
-			TOWER:Upgrade = new Upgrade("Tower", 20, "Provides shelter for knights!");
+			TOWER:Upgrade = new Upgrade("Tower", 20, "Provides shelter for knights!"),
+			KEEP:Upgrade = new Upgrade("Keep", 20, "Provides shelter for archers!");
 		
 		public static function createSlot(prev:Slot, upgrade:Upgrade):Slot {
 			var slot:Slot;
 			switch (upgrade) {
 				case TOWER: slot = new Tower(); break;
+				case KEEP: slot = new Keep(); break;
 				default: return null;
 			}
 			
