@@ -29,5 +29,9 @@ package entities.slots {
 				world.add(new Archer(x+width/2, y-221));
 			}
 		}
+		
+		override public function get upgrades():Array {
+			return [];
+		}
 	}
 }
