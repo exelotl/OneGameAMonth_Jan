@@ -50,6 +50,9 @@ package states {
 			for (i = -6; i < 0; i++) add(new FillerSlot(i*200, 200));
 			for (i = 5; i < 10; i++) add(new FillerSlot(i*200, 200));
 			
+			add(new CaveLeft(-8 * 200, 200));
+			add(new CaveRight(10 * 200, 200));
+			
 			add(player = new Player(490, 160));
 			player.addComponent("weapon", new Sword());
 			
