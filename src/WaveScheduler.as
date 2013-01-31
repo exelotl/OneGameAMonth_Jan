@@ -9,16 +9,20 @@ package  {
 	
 	public class WaveScheduler extends Entity {
 		
-		public var timeRatio:Number = 0; /// 0 = start of wave, 1 = end of wave.
+		public var currentWave:Wave;
+		
+		public var
+			onWaveComplete:Signal = new Signal(),
+			onWaveBegin:Signal = new Signal();
+		
+		/// 0 = start of wave, 1 = end of wave.
+		public var timeRatio:Number = 0;
 		
 		private var
-			currentWave:Wave,
 			waveName:Text = new Text("", 10, 20),
 			nameShade:Text = new Text("", 12, 22),
 			waveNote:Text = new Text("", 10, 40),
 			noteShade:Text = new Text("", 12, 42),
-			time:Text = new Text("Time left: ", 450, 0),
-			timeShade:Text = new Text("Time left: ", 452, 2),
 			alphaTween:NumTween,
 			timeTween:NumTween,
 			onEndWave:Tween,
@@ -30,21 +34,35 @@ package  {
 			waveNote.scrollX = 0; waveNote.scrollY = 0;
 			nameShade.scrollX = 0; nameShade.scrollY = 0;
 			noteShade.scrollX = 0; noteShade.scrollY = 0;
-			time.scrollX = 0; time.scrollY = 0;
-			timeShade.scrollX = 0; timeShade.scrollY = 0;
 			waveName.alpha = 0; nameShade.alpha = waveName.alpha;
 			waveNote.alpha = 0; noteShade.alpha = waveNote.alpha;
 			nameShade.color = 0x000000;
 			noteShade.color = 0x000000;
-			timeShade.color = 0x000000;
 			alphaTween = new NumTween();
 			timeTween = new NumTween();
 			addTween(alphaTween);
 			addTween(timeTween);
 		}
 		
+		override public function added():void {
+			addGraphic(nameShade); addGraphic(waveName);
+			addGraphic(noteShade); addGraphic(waveNote);
+			startNextWave();
+		}
 		
-		private function startNewWave():void {
+		override public function update():void {
+			if (alphaTween) {
+				waveName.alpha = alphaTween.value;
+				waveNote.alpha = alphaTween.value;
+				nameShade.alpha = waveName.alpha;
+				noteShade.alpha = waveNote.alpha;
+			}
+			if (timeTween && currentWave != null) {
+				timeRatio = timeTween.percent;
+			}
+		}
+		
+		public function startNextWave():void {
 			if (onEndWave) {
 				if (onEndWave.active) removeTween(onEndWave);
 			}
@@ -61,36 +79,15 @@ package  {
 					waveIndex++;
 				}
 			}
-			onEndWave = new Tween(currentWave.time, Tween.ONESHOT, startNewWave);
+			onEndWave = new Tween(currentWave.time, Tween.ONESHOT, startNextWave);
 			if (!onEndWave.active) addTween(onEndWave, true);
 		}
 		
-		override public function added():void {
-			addGraphic(nameShade); addGraphic(waveName);
-			addGraphic(noteShade); addGraphic(waveNote);
-			addGraphic(timeShade); addGraphic(time);
-			startNewWave();
-		}
-		
-		override public function update():void {
-			if (alphaTween) {
-				waveName.alpha = alphaTween.value;
-				waveNote.alpha = alphaTween.value;
-				nameShade.alpha = waveName.alpha;
-				noteShade.alpha = waveNote.alpha;
-			}
-			if (timeTween) {
-				if (currentWave != null) {
-					timeRatio = timeTween.percent;
-					time.text = "Time left: " + Math.round((currentWave.time - currentWave.time * timeTween.value) * 10) / 10;
-					timeShade.text = time.text;
-				}
-			}
-		}
-		
 		public function setWave(wave:Wave):void {
-			currentWave = null;
+			if (currentWave) onWaveComplete.dispatch(currentWave);
 			currentWave = wave;
+			onWaveBegin.dispatch(currentWave);
+			
 			waveName.text = currentWave.title;
 			waveNote.text = currentWave.note;
 			nameShade.text = waveName.text;

@@ -15,6 +15,7 @@ package entities.ui {
 		private static var IMG_BTN_SKIP:Class;
 		
 		private var
+			currentWave:Wave,
 			scheduler:WaveScheduler,
 			clock:Spritemap = new Spritemap(IMG_CLOCK, 30, 30),
 			skipBtn:Spritemap = new Spritemap(IMG_BTN_SKIP, 40, 20);
@@ -23,7 +24,12 @@ package entities.ui {
 			super(x, y);
 			this.scheduler = scheduler;
 			
-			skipBtn.y = 40;
+			//scheduler.onWaveBegin.add(function (wave:Wave):void {
+			//	skipBtn.visible = wave.canSkip;
+			//});
+			
+			skipBtn.x = 36;
+			skipBtn.y = 5;
 			
 			clock.scrollX = clock.scrollY = 0;
 			skipBtn.scrollX = skipBtn.scrollY = 0;
@@ -33,25 +39,25 @@ package entities.ui {
 			layer = Layers.GUI;
 		}
 		
-		public function set canSkip(val:Boolean):void {
-			skipBtn.visible = val;
-		}
-		
 		override public function update():void {
 			setClockPos(scheduler.timeRatio);
 			
-			var mX:Number = Input.mouseX + x + skipBtn.x;
-			var mY:Number = Input.mouseY + y + skipBtn.y;
-			
-			if (mX > 0 && mY > 0 && mX < skipBtn.width && mY < skipBtn.height) {
-				skipBtn.frame = 1;
-			} else {
-				skipBtn.frame = 0;
+			if (skipBtn.visible) {
+				var mX:Number = Input.mouseX - x - skipBtn.x;
+				var mY:Number = Input.mouseY - y - skipBtn.y;
+				
+				if (mX > 0 && mY > 0 && mX < skipBtn.width && mY < skipBtn.height) {
+					skipBtn.frame = 1;
+					if (Input.mousePressed)
+						scheduler.startNextWave();
+				} else {
+					skipBtn.frame = 0;
+				}
 			}
 		}
 		
 		public function setClockPos(proportion:Number):void {
-			clock.frame = int(proportion * 20);
+			clock.frame = int(proportion * 40);
 		}
 		
 	}

@@ -20,7 +20,7 @@ package states {
 			player:Player,
 			slots:/*Slot*/Array,
 			ui:GUI,
-			money:int = 50,
+			money:int = 500,
 			onEntityDead:Signal = new Signal();
 		
 		private var archer:Archer;
@@ -57,7 +57,7 @@ package states {
 			
 			waveScheduler = new WaveScheduler();
 			add(waveScheduler);
-			waveClock = new WaveClock(waveScheduler, 520, 40);
+			waveClock = new WaveClock(waveScheduler, 518, 6);
 			add(waveClock);
 		}
 		
