@@ -6,14 +6,14 @@ package {
 		public static var gameSequence:Array = [
 			{
 				name: "Welcome",
-				note: "Arrows to move, X to jump!",
+				note: "You are the king of a small town.\nArrows to move, X to jump!",
 				time: 1,
 				canSkip: true,
 				timeOfDay: DAY
 			},
 			{
 				name: "Build Something",
-				note: "On a patch of land, use Z to open a menu.\nPress Up/Down and Enter to select.",
+				note: "Over a patch of land, use Z to open a menu.\nPress Up/Down and Enter to select.",
 				time: 20,
 				canSkip: true,
 				timeOfDay: DAY

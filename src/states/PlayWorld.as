@@ -2,6 +2,7 @@ package states {
 	import comps.items.Sword;
 	import entities.*;
 	import entities.slots.*;
+	import entities.ui.PlayerHealthBar;
 	import entities.ui.WaveClock;
 	import net.flashpunk.FP;
 	import net.flashpunk.Signal;
@@ -18,9 +19,10 @@ package states {
 			background:Background,
 			upgradeMenu:UpgradeMenu,
 			player:Player,
+			playerHealthBar:PlayerHealthBar,
 			slots:/*Slot*/Array,
 			ui:GUI,
-			money:int = 500,
+			money:int = 50,
 			onEntityDead:Signal = new Signal();
 			
 		public function PlayWorld() {
@@ -53,6 +55,8 @@ package states {
 			
 			add(player = new Player(490, 160));
 			player.addComponent("weapon", new Sword());
+			
+			add(playerHealthBar = new PlayerHealthBar(80, 0, player));
 			
 			waveScheduler = new WaveScheduler();
 			add(waveScheduler);

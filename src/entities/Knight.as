@@ -18,6 +18,9 @@ package entities {
 		[Embed(source="../assets/knight.png")]
 		private static const IMG_KNIGHT:Class;
 		
+		public var
+			accuracy:Number = 0.7;
+		
 		private var
 			wander:WanderAI,
 			attackNearest:AttackNearestAI,
@@ -31,6 +34,7 @@ package entities {
 			setHitbox(8, 12, -12, -8);
 			physics.maxVelX = 1;
 			this.tower = tower;
+			health = maxHealth = 20;
 			
 			wander = new WanderAI();
 			addComponent("wander", wander);
@@ -109,12 +113,15 @@ package entities {
 		}
 		
 		override public function strike():void {
-			var weapon:Weapon = getComponent("weapon");
-			if (weapon) weapon.strike();
-			
 			sprites.play("strike_"+direction);
-			flags |= Flags.ATTACKING;
-			addTween(new Alarm(0.2, idle, Tween.ONESHOT), true);
+			
+			if (Math.random() < accuracy) {
+				var weapon:Weapon = getComponent("weapon");
+				if (weapon) weapon.strike();
+				
+				flags |= Flags.ATTACKING;
+				addTween(new Alarm(0.2, idle, Tween.ONESHOT), true);
+			}
 		}
 		
 		override public function die():void {
@@ -127,6 +134,7 @@ package entities {
 			removeComponent("shield");
 			physics.maxVelX = 0;
 			anim.play("die_"+direction);
+			clearTweens();
 			addTween(new Tween(2, Tween.ONESHOT, removeSelf), true);
 		}
 		

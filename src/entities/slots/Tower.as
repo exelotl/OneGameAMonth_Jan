@@ -6,11 +6,12 @@ package entities.slots {
 		
 		[Embed(source="../../assets/tower.png")]
 		private static const IMG_TOWER:Class;
-		private static const maxKnights:uint = 5;
-		private var amountOfKnights:uint = 0;
+		protected static const maxKnights:uint = 5;
+		protected var amountOfKnights:uint = 0;
 		
-		public function Tower(x:Number = 0, y:Number = 0, health:uint = 0) {
-			super(x, y, health);
+		public function Tower(x:Number = 0, y:Number = 0) {
+			super(x, y);
+			health = maxHealth = 100;
 			currentUpgrade = Upgrade.TOWER;
 			graphic = new Image(IMG_TOWER);
 			graphic.y = -200;
@@ -19,7 +20,6 @@ package entities.slots {
 		}
 		
 		override public function update():void {
-			super.update();
 			if (amountOfKnights < maxKnights) {
 				if (Math.random() < 0.001) {
 					world.add(new Knight(x + width / 2, y - 21, this));
@@ -29,7 +29,7 @@ package entities.slots {
 		}
 		
 		override public function get upgrades():Array {
-			return [Upgrade.KEEP];
+			return [Upgrade.KEEP, Upgrade.BATTLE_TOWER];
 		}
 		
 		public function knightIsKilled():void {

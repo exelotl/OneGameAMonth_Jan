@@ -62,7 +62,7 @@ package entities {
 			if (flags & Flags.ATTACKING) {
 				var e:Entity = collideTypes(EntityTypes.FRIENDLY, x, y);
 				if (e is LivingEntity) {
-					(e as LivingEntity).damage(10, this);
+					(e as LivingEntity).damage(20, this);
 				}
 			}
 			if (!(flags & Flags.RUNNING)) {

@@ -97,7 +97,7 @@ package  {
 			waveNote.text = currentWave.note;
 			nameShade.text = waveName.text;
 			noteShade.text = waveNote.text;
-			alphaTween.tween(0, 1, 4.0, Ease.expoOut);
+			alphaTween.tween(0, 1, 5.0, Ease.expoOut);
 			alphaTween.complete = fadeBackOut;
 			timeTween.tween(0, 1, currentWave.time);
 			world.add(currentWave.spawner);

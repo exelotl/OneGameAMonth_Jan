@@ -29,7 +29,7 @@ package {
 				amountOfMobs += mobs[i].amount;
 			}
 			if (amountOfMobs) {
-				timer = new Tween((wave.time -10)/ amountOfMobs, Tween.LOOPING, spawn);
+				timer = new Tween((wave.time-10) / (amountOfMobs*2), Tween.LOOPING, spawn);
 			}
 		}
 		

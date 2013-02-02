@@ -19,8 +19,9 @@ package entities.slots {
 			amountOfArchers:uint = 0,
 			amountOfArchersOnGround:uint = 0;
 		
-		public function Keep(x:Number = 0, y:Number = 0, health:uint = 0) {
-			super(x, y, health);
+		public function Keep(x:Number = 0, y:Number = 0) {
+			super(x, y);
+			health = maxHealth = 80;
 			currentUpgrade = Upgrade.KEEP;
 			graphic = new Image(IMG_KEEP);
 			graphic.y = -200;

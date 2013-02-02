@@ -1,4 +1,5 @@
 package entities {
+	import net.flashpunk.Entity;
 	import net.flashpunk.graphics.Spritemap;
 	import net.flashpunk.Tween;
 	
@@ -14,6 +15,7 @@ package entities {
 			super(x, y);
 			setHitbox(12, 10, -5, -6);
 			physics.maxVelX = 3;
+			price = 20;
 			type = "rat";
 			anim.add("idle_r", [0], 30, false);
 			anim.add("idle_l", [6], 30, false);
@@ -29,6 +31,19 @@ package entities {
 			else runLeft();
 		}
 		
+		override public function update():void {
+			super.update();
+			if (Math.abs(physics.velX) == physics.maxVelX) {
+				collideEach(EntityTypes.FRIENDLY, x, y, onCollideFriendly);
+			}
+		}
+		
+		public function onCollideFriendly(e:Entity):void {
+			var friendly:LivingEntity = e as LivingEntity;
+			friendly.damage(10, this);
+			physics.velX = 0;
+		}
+		
 		override public function idle():void {
 			anim.play("idle_"+direction);
 			physics.accX = 0;
@@ -36,12 +51,12 @@ package entities {
 		
 		override public function runLeft():void {
 			anim.play("run_l");
-			physics.accX = -5;
+			physics.accX = -0.1;
 		}
 		
 		override public function runRight():void {
 			anim.play("run_r");
-			physics.accX = 5;
+			physics.accX = 0.1;
 		}
 		
 		override public function die():void {
