@@ -87,6 +87,11 @@ package  {
 			if (currentWave) onWaveComplete.dispatch(currentWave);
 			currentWave = wave;
 			onWaveBegin.dispatch(currentWave);
+			if (wave.timeOfDay) {
+				(world as PlayWorld).background.setDaytime();
+			} else {
+				(world as PlayWorld).background.setNighttime();
+			}
 			
 			waveName.text = currentWave.title;
 			waveNote.text = currentWave.note;

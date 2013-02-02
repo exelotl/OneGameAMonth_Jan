@@ -20,6 +20,8 @@ package entities {
 			anim.add("run_r", [1,2,3,4,5], 30, true);
 			anim.add("run_l", [7,8,9,10,11], 30, true);
 			graphic = anim;
+			maxHealth = 5;
+			health = maxHealth;
 		}
 		
 		override public function added():void {

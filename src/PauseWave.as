@@ -7,7 +7,8 @@ package {
 				name: "Rest time",
 				note: "Have a cup of tea.",
 				time: 10,
-				canSkip: true
+				canSkip: true,
+				timeOfDay: Wave.DAY
 			});
 		}
 	}

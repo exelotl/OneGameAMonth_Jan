@@ -15,12 +15,12 @@ package entities.slots {
 			graphic.y = -200;
 			width = 200;
 			height = 200;
+			type = "tower";
 			mask = masks;
 			masks.add(new Hitbox(1, 1,61, -162));
 			masks.add(new Hitbox(1, 1, 143, -162));
 			masks.add(new Hitbox(80, 20, 62, -161));
 			masks.add(new Hitbox(200, 20, 0, 0));
-			type = "tower";
 		}
 		
 		override public function update():void {

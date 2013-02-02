@@ -68,7 +68,7 @@ package entities {
 			dayskyOverlay.visible = true;
 		}
 		
-		public function setNightime():void {
+		public function setNighttime():void {
 			daysky.visible = false;
 			nightsky.visible = true;
 			mountain.visible = true;

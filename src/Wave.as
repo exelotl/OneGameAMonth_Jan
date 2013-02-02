@@ -8,13 +8,15 @@ package {
 				name: "Welcome",
 				note: "Arrows to move, X to jump!",
 				time: 1,
-				canSkip: true
+				canSkip: true,
+				timeOfDay: DAY
 			},
 			{
 				name: "Build Something",
 				note: "On a patch of land, use Z to open a menu.\nPress Up/Down and Enter to select.",
 				time: 20,
-				canSkip: true
+				canSkip: true,
+				timeOfDay: DAY
 			},
 			{
 				name: "Zombies",
@@ -27,7 +29,8 @@ package {
 				name: "Wave over",
 				note: "Now would be a good time to apply some upgrades.",
 				time: 20,
-				canSkip: true
+				canSkip: true,
+				timeOfDay: DAY
 			},
 			{
 				name: "Giant Rats",
@@ -43,9 +46,10 @@ package {
 		
 		public static const
 			DAY:uint = 1,
-			NIGHT:uint = 1;
+			NIGHT:uint = 0;
 		
 		public var
+			timeOfDay:uint,
 			title:String,
 			note:String,
 			time:Number,
@@ -59,6 +63,7 @@ package {
 			title = data.name || "";
 			note = data.note || "";
 			time = data.time || 50;
+			timeOfDay = data.timeOfDay || NIGHT;
 			time += 10; // to make sure all mobs reached the castle
 			spawns = data.spawns || [];
 			difficulty = data.difficulty || 1;
