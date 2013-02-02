@@ -20,9 +20,9 @@ package  {
 		
 		private var
 			waveName:Text = new Text("", 10, 20),
-			nameShade:Text = new Text("", 12, 22),
+			nameShade:Text = new Text("", 11, 21),
 			waveNote:Text = new Text("", 10, 40),
-			noteShade:Text = new Text("", 12, 42),
+			noteShade:Text = new Text("", 11, 41),
 			alphaTween:NumTween,
 			timeTween:NumTween,
 			onEndWave:Tween,
@@ -92,7 +92,7 @@ package  {
 			waveNote.text = currentWave.note;
 			nameShade.text = waveName.text;
 			noteShade.text = waveNote.text;
-			alphaTween.tween(0, 1, 2.0, Ease.expoOut);
+			alphaTween.tween(0, 1, 4.0, Ease.expoOut);
 			alphaTween.complete = fadeBackOut;
 			timeTween.tween(0, 1, currentWave.time);
 			world.add(currentWave.spawner);
@@ -100,7 +100,7 @@ package  {
 		}
 		
 		private function fadeBackOut():void {
-			alphaTween.tween(1, 0, 2.0, Ease.expoIn);
+			alphaTween.tween(1, 0, 4.0, Ease.expoIn);
 			alphaTween.complete = null;
 		}
 	}

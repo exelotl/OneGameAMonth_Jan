@@ -1,17 +1,16 @@
-package entities 
-{
+package entities {
 	import net.flashpunk.Entity;
 	import net.flashpunk.FP;
 	import net.flashpunk.graphics.Image;
 	import net.flashpunk.graphics.Spritemap;
 	import net.flashpunk.graphics.Text;
 	import states.PlayWorld;
+	
 	/**
 	 * ...
 	 * @author Allyally
 	 */
-	public class GUI extends Entity
-	{
+	public class GUI extends Entity {
 		[Embed(source = "../assets/coin_spin.png")]
 		private var coin_spin:Class;
 		
@@ -21,12 +20,11 @@ package entities
 		private var currencyShade:Text;
 		private var currencyImg:Spritemap;
 		
-		public function GUI() 
-		{
+		public function GUI() {
 			currencyTxt = new Text("Money: ", 20, 0);
 			currencyTxt.scrollX = 0;
 			currencyTxt.scrollY = 0;
-			currencyShade = new Text("Money: ", 22, 2, { color:0 } );
+			currencyShade = new Text("Money: ", 21, 1, { color:0 } );
 			currencyShade.scrollX = 0;
 			currencyShade.scrollY = 0;
 			currencyImg = new Spritemap(coin_spin, 12, 12);

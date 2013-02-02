@@ -41,7 +41,6 @@ package entities.slots {
 			var enemy:LivingEntity;
 			
 			spikeImg.y = spikeTween.value;
-			trace(timer.remaining);
 			
 			for (var i:int = 0; i < EntityTypes.ENEMIES.length; i++) {
 				enemy = world.collideRect(EntityTypes.ENEMIES[i], x+20, y, 160, 200) as LivingEntity;

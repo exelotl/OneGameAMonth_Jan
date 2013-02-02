@@ -3,6 +3,8 @@ package {
 	import entities.Ninja;
 	import entities.Parachuter;
 	import entities.Rat;
+	import entities.slots.CaveLeft;
+	import entities.slots.CaveRight;
 	import entities.Zombie;
 	import net.flashpunk.Entity;
 	import net.flashpunk.FP;
@@ -20,6 +22,7 @@ package {
 			amountOfMobs:int = 0;
 			
 		public function MobSpawner(entities:Array, wave:Wave) {
+			trace("Spawner created");
 			mobs = entities;
 			this.wave = wave;
 			for (var i:int = 0; i < mobs.length; i++) {
@@ -37,17 +40,13 @@ package {
 			} else {
 				switch (mobs[i].type) {
 					case "zombie":
-						spawnAtEdge(new Zombie());
-						break;
+						spawnAtEdge(new Zombie()); break;
 					case "rat":
-						spawnAtEdge(new Rat());
-						break;
+						spawnAtEdge(new Rat()); break;
 					case "ninja":
-						spawnAtEdge(new Ninja());
-						break;
+						spawnAtEdge(new Ninja()); break;
 					case "parachuter":
-						spawnAtTop(new Parachuter());
-						break;
+						spawnAtTop(new Parachuter()); break;
 				}
 				mobs[i].amount--;
 			}
@@ -66,6 +65,8 @@ package {
 					//removeTween(timer);
 				}
 			}
+			world.remove(this);
+			trace("Spawner removed");
 		}
 		
 		private function getRandomIndex():int {
@@ -89,8 +90,15 @@ package {
 		}
 		 
 		private function spawnAtEdge(e:Entity):void {
-			e.x = 250 + 1400*(Math.random() < 0.5 ? 1 : -1);
-			e.y = 190-e.height;
+			if (Math.random() < 0.5) {
+				var caveL:CaveLeft = world.getInstance("cave_l");
+				e.x = caveL.spawnX;
+				e.y = caveL.spawnY - e.height;
+			} else {
+				var caveR:CaveRight = world.getInstance("cave_r");
+				e.x = caveR.spawnX;
+				e.y = caveR.spawnY - e.height;
+			}
 			world.add(e);
 		}
 	}

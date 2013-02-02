@@ -24,9 +24,9 @@ package entities.ui {
 			super(x, y);
 			this.scheduler = scheduler;
 			
-			//scheduler.onWaveBegin.add(function (wave:Wave):void {
-			//	skipBtn.visible = wave.canSkip;
-			//});
+			scheduler.onWaveBegin.add(function (wave:Wave):void {
+				skipBtn.visible = wave.canSkip;
+			});
 			
 			skipBtn.x = 36;
 			skipBtn.y = 5;

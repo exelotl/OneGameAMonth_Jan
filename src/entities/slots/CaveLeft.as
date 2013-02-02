@@ -12,6 +12,13 @@ package entities.slots {
 		
 		private var masks:Masklist = new Masklist();
 		
+		public function get spawnX():Number {
+			return x + 176;
+		}
+		public function get spawnY():Number {
+			return y - 8;
+		}
+		
 		public function CaveLeft(x:Number=0, y:Number=0) {
 			super(x, y);
 			graphic = new Image(IMG_CAVE_L);
@@ -36,7 +43,7 @@ package entities.slots {
 			var player:Player = world.getInstance("player");
 			if (player && player.centerX < x+180) {
 				var caveRight:CaveRight = world.getInstance("cave_r");
-				player.x = caveRight.x+200;
+				player.x = caveRight.spawnX;
 			}
 		}
 		
