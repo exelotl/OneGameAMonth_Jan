@@ -5,8 +5,13 @@ package entities.slots {
 
 	public class Keep extends Tower {
 		
+		private static const
+			maxArchers:uint = 2,
+			maxArchersOnGround:uint = 4;
 		private var
-			masks:Masklist = new Masklist()
+			masks:Masklist = new Masklist(),
+			amountOfArchers:uint = 0,
+			amountOfArchersOnGround:uint = 0;
 		
 		public function Keep(x:Number = 0, y:Number = 0, health:uint = 0) {
 			super(x, y, health);
@@ -25,13 +30,30 @@ package entities.slots {
 		
 		override public function update():void {
 			super.update();
-			if (Math.random() < 0.001) {
-				world.add(new Archer(x+width/2, y-221));
+			if (amountOfArchers < maxArchers) {
+				if (Math.random() < 0.001) {
+					world.add(new Archer(x + width / 2, y - 221, this));
+					amountOfArchers++;
+				}
+			}
+			if (amountOfArchersOnGround < maxArchersOnGround) {
+				if (Math.random() < 0.001) {
+					world.add(new Archer(x + width / 2, y - 21, this, true));
+					amountOfArchersOnGround++;
+				}
 			}
 		}
 		
 		override public function get upgrades():Array {
 			return [];
+		}
+		
+		public function archerIsKilled(onGround:Boolean):void {
+			if (onGround) {
+				amountOfArchersOnGround--;
+			} else {
+				amountOfArchers--;
+			}
 		}
 	}
 }

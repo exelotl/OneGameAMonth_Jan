@@ -5,6 +5,7 @@ package entities {
 	import comps.items.Shield;
 	import comps.items.Sword;
 	import comps.items.Weapon;
+	import entities.slots.Tower;
 	import fp.MultiSpritemap;
 	import net.flashpunk.FP;
 	import net.flashpunk.graphics.Spritemap;
@@ -22,12 +23,14 @@ package entities {
 			attackNearest:AttackNearestAI,
 			detectEnemy:RangeDetectAI,
 			anim:Spritemap = new Spritemap(IMG_KNIGHT, 20, 20),
-			sprites:MultiSpritemap = new MultiSpritemap();
+			sprites:MultiSpritemap = new MultiSpritemap(),
+			tower:Tower;
 		
-		public function Knight(x:Number=0, y:Number=0) {
+		public function Knight(x:Number=0, y:Number=0, tower:Tower=null) {
 			super(x, y);
 			setHitbox(8, 12, -12, -8);
 			physics.maxVelX = 1;
+			this.tower = tower;
 			
 			wander = new WanderAI();
 			addComponent("wander", wander);
@@ -116,6 +119,7 @@ package entities {
 		
 		override public function die():void {
 			super.die();
+			if (tower) tower.knightIsKilled();
 			removeComponent("wander");
 			removeComponent("attack_nearest");
 			removeComponent("detect_enemy");

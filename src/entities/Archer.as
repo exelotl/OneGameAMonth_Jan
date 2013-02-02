@@ -5,6 +5,7 @@ package entities {
 	import comps.items.Bow;
 	import comps.ai.WanderAI;
 	import comps.items.Bow;
+	import entities.slots.Keep;
 	import fp.MultiSpritemap;
 	import net.flashpunk.Entity;
 	import net.flashpunk.FP;
@@ -29,13 +30,17 @@ package entities {
 		
 		private var
 			drawArrowTimer:Tween,
-			fireArrowTimer:Tween;
+			fireArrowTimer:Tween,
+			keep:Keep,
+			onGround:Boolean;
 		
-		public function Archer(x:Number=0, y:Number=0) {
+		public function Archer(x:Number=0, y:Number=0, keep:Keep=null, onGround:Boolean=false) {
 			super(x, y);
 			setHitbox(8, 12, -12, -8);
 			physics.maxVelX = 1.4;
 			health = maxHealth = 10;
+			this.keep = keep;
+			this.onGround = onGround;
 			
 			anim.add("idle_l", [0], 30, false);
 			anim.add("idle_r", [4], 30, false);
@@ -160,6 +165,7 @@ package entities {
 		
 		override public function die():void {
 			super.die();
+			if (keep) keep.archerIsKilled(onGround);
 			drawArrowTimer.cancel();
 			fireArrowTimer.cancel();
 			removeComponent("wander");

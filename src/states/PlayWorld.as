@@ -22,8 +22,6 @@ package states {
 			ui:GUI,
 			money:int = 500,
 			onEntityDead:Signal = new Signal();
-		
-		private var archer:Archer;
 			
 		public function PlayWorld() {
 			FP.screen.color = 0xccccff;
@@ -55,8 +53,6 @@ package states {
 			
 			add(player = new Player(490, 160));
 			player.addComponent("weapon", new Sword());
-			
-			add(archer = new Archer(300, 100));
 			
 			waveScheduler = new WaveScheduler();
 			add(waveScheduler);
