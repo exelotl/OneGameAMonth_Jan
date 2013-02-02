@@ -1,5 +1,6 @@
 package entities.slots {
 	import entities.Archer;
+	import net.flashpunk.Entity;
 	import net.flashpunk.graphics.Image;
 	import net.flashpunk.masks.Hitbox;
 	import net.flashpunk.masks.Masklist;
@@ -12,8 +13,9 @@ package entities.slots {
 		private static const
 			maxArchers:uint = 2,
 			maxArchersOnGround:uint = 4;
+			
 		private var
-			masks:Masklist = new Masklist(),
+			roof:KeepRoof,
 			amountOfArchers:uint = 0,
 			amountOfArchersOnGround:uint = 0;
 		
@@ -24,19 +26,25 @@ package entities.slots {
 			graphic.y = -200;
 			width = 200;
 			height = 200;
-			type = "tower";
-			mask = masks;
-			masks.add(new Hitbox(1, 1,61, -162));
-			masks.add(new Hitbox(1, 1, 143, -162));
-			masks.add(new Hitbox(80, 20, 62, -161));
-			masks.add(new Hitbox(200, 20, 0, 0));
+			type = "ground";
+		}
+		
+		override public function added():void {
+			roof = new KeepRoof(this);
+			world.add(roof);
+		}
+		
+		override public function removed():void {
+			world.remove(roof);
 		}
 		
 		override public function update():void {
 			super.update();
 			if (amountOfArchers < maxArchers) {
 				if (Math.random() < 0.001) {
-					world.add(new Archer(x + width / 2, y - 221, this));
+					var archer:Archer = new Archer(roof.spawnX, roof.spawnY, this);
+					archer.layer = Layers.BEHIND_ROOF;
+					world.add(archer);
 					amountOfArchers++;
 				}
 			}

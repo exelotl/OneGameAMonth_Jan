@@ -50,7 +50,7 @@ package entities {
 			anim.scaleY = -1;
 			anim.y = 22;
 			anim.alpha = 0.6;
-			addTween(new Tween(1, 0, removeSelf));
+			addTween(new Tween(1, 0, removeSelf), true);
 		}
 		
 	}

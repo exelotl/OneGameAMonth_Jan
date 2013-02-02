@@ -1,16 +1,18 @@
 package {
 	public class Layers {
 		
-		private static var enum:int = 0;
+		private static var n:int = 0;
 		
 		public static const
-			GUI:int = enum++,
-			FOREGROUND:int = enum++,
-			PLAYER:int = enum++,
-			LIVING_ENTITIES:int = enum++,
-			SLOT:int = enum++,
-			BACKGROUND:int = enum++;
-			
+			GUI                     :int = n++,
+			OVERLAY                 :int = n++,
+			FOREGROUND              :int = n++,
+			PLAYER                  :int = n++,
+			LIVING_ENTITIES         :int = n++,
+			ROOF                    :int = n++,
+			BEHIND_ROOF             :int = n++,
+			SLOT                    :int = n++,
+			BACKGROUND              :int = n++;
 		
 	}
 }
