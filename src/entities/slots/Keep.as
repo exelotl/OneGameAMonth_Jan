@@ -1,9 +1,13 @@
 package entities.slots {
 	import entities.Archer;
+	import net.flashpunk.graphics.Image;
 	import net.flashpunk.masks.Hitbox;
 	import net.flashpunk.masks.Masklist;
 
 	public class Keep extends Tower {
+		
+		[Embed(source="../../assets/keep.png")]
+		private static const IMG_KEEP:Class;
 		
 		private static const
 			maxArchers:uint = 2,
@@ -16,7 +20,7 @@ package entities.slots {
 		public function Keep(x:Number = 0, y:Number = 0, health:uint = 0) {
 			super(x, y, health);
 			currentUpgrade = Upgrade.KEEP;
-			//graphic = new Image(IMG_KEEP);
+			graphic = new Image(IMG_KEEP);
 			graphic.y = -200;
 			width = 200;
 			height = 200;
