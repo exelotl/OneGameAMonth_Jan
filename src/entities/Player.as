@@ -1,5 +1,6 @@
 package entities {
 	import comps.input.PlayerInput;
+	import comps.items.Crown;
 	import comps.items.Weapon;
 	import fp.MultiSpritemap;
 	import net.flashpunk.Entity;
@@ -26,6 +27,7 @@ package entities {
 			control = new PlayerInput();
 			addComponent("control", control);
 			
+			
 			anim = new Spritemap(IMG_PLAYER, 20, 20);
 			anim.add("idle_l", [0], 30, false);
 			anim.add("idle_r", [4], 30, false);
@@ -34,9 +36,11 @@ package entities {
 			anim.add("jump_l", [1], 30, false);
 			anim.add("jump_r", [5], 30, false);
 			anim.add("strike_l", [8,9,10,11], 15, false);
-			anim.add("strike_r", [12,13,14,15], 15, false);
+			anim.add("strike_r", [12, 13, 14, 15], 15, false);
+			
 			sprites.addMid(anim);
 			graphic = sprites;
+			addComponent("crown", new Crown());
 			
 			addTween(stopStrikeTimer = new Tween(0.2, 0, idle));
 			
