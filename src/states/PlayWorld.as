@@ -4,8 +4,11 @@ package states {
 	import entities.slots.*;
 	import entities.ui.PlayerHealthBar;
 	import entities.ui.WaveClock;
+	import net.flashpunk.Entity;
 	import net.flashpunk.FP;
 	import net.flashpunk.Signal;
+	import net.flashpunk.utils.Input;
+	import net.flashpunk.utils.Key;
 	import net.flashpunk.World;
 	import entities.ui.MenuItem;
 	import entities.ui.UpgradeMenu;
@@ -13,6 +16,8 @@ package states {
 	public class PlayWorld extends World {
 		
 		public var
+			onGameOver:Signal = new Signal(),
+			onEntityDead:Signal = new Signal(),
 			waveScheduler:WaveScheduler,
 			waveClock:WaveClock,
 			mobSpawner:MobSpawner,
@@ -22,17 +27,11 @@ package states {
 			playerHealthBar:PlayerHealthBar,
 			slots:/*Slot*/Array,
 			ui:GUI,
-			money:int = 50,
-			onEntityDead:Signal = new Signal();
+			money:int = 500;
 			
 		public function PlayWorld() {
 			FP.screen.color = 0xccccff;
 			add(background = new Background());
-			
-			var i:int;
-			onEntityDead.add(function (entity:LivingEntity):void {
-				money += entity.price;
-			});
 			add(new GUI());
 			
 			slots = [
@@ -47,6 +46,7 @@ package states {
 				slot.onRequestUpgrade.add(applyUpgrade);
 				add(slot);
 			}
+			var i:int;
 			for (i = -6; i < 0; i++) add(new FillerSlot(i*200, 200));
 			for (i = 5; i < 10; i++) add(new FillerSlot(i*200, 200));
 			
@@ -62,12 +62,22 @@ package states {
 			add(waveScheduler);
 			waveClock = new WaveClock(waveScheduler, 518, 6);
 			add(waveClock);
+			onEntityDead.add(entityDied);
+		}
+		
+		private function entityDied(entity:LivingEntity):void {
+			money += entity.price;
+			if (entity.name == "player")
+				onGameOver.dispatch();
 		}
 		
 		override public function update():void {
 			super.update();
 			FP.camera.x = Math.floor(FP.camera.x - ((FP.camera.x+FP.halfWidth) - player.x) / 14);
 			FP.camera.y = Math.floor(FP.camera.y - ((FP.camera.y+FP.halfHeight) - player.y) / 80);
+			if (Input.pressed(Key.SPACE)) {
+				slots[2].damage(10);
+			}
 		}
 		
 		private function openUpgradeMenu(slot:Slot):void {
@@ -93,7 +103,12 @@ package states {
 			
 			remove(slot);
 			add(newSlot);
-			openUpgradeMenu(newSlot);
+			
+			if (upgradeMenu) openUpgradeMenu(newSlot);
+			
+			if (slot.name == "castle" && u == Upgrade.LAND) {
+				onGameOver.dispatch();
+			}
 		}
 	}
 }

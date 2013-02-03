@@ -15,7 +15,7 @@ package entities {
 			super(x, y);
 			setHitbox(12, 10, -5, -6);
 			physics.maxVelX = 3;
-			price = 20;
+			price = 5;
 			type = "rat";
 			anim.add("idle_r", [0], 30, false);
 			anim.add("idle_l", [6], 30, false);

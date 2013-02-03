@@ -53,7 +53,7 @@ package entities {
 		
 		private function onHit(e:Entity):void {
 			if (e is LivingEntity)
-				(e as LivingEntity).damage(20, this);
+				(e as LivingEntity).damage(15, this);
 		}
 		
 		private function removeSelf():void {

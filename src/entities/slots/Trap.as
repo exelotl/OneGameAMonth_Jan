@@ -19,12 +19,12 @@ package entities.slots {
 			spikeImg:Image,
 			image:Image,
 			spikeTween:NumTween = new NumTween(),
-			timer:Alarm = new Alarm(2),
-			killsLeft:int = 20;
+			timer:Alarm = new Alarm(2);
 			
-		public function Trap(x:Number = 0, y:Number = 0, health:uint = 0) {
+		public function Trap(x:Number = 0, y:Number = 0) {
 			super(x, y);
 			setHitbox(200, 200);
+			health = maxHealth = 10;
 			
 			currentUpgrade = Upgrade.TRAP;
 			spikeImg = new Image(IMG_TRAP_SPIKES);
@@ -35,9 +35,12 @@ package entities.slots {
 			spikeTween.value = -3;
 			addTween(spikeTween);
 			addTween(timer, true);
+			removeTween(flashTween);
 		}
 		
 		override public function update():void {
+			super.update();
+			
 			var enemy:LivingEntity;
 			
 			spikeImg.y = spikeTween.value;
@@ -85,8 +88,7 @@ package entities.slots {
 		private function killEnemy(enemy:LivingEntity):void {
 			enemy.die();
 			nudgeEnemy(enemy);
-			if (--killsLeft <= 0)
-				requestUpgrade(Upgrade.LAND);
+			damage(1);
 		}
 	}
 }

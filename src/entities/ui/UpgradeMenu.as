@@ -41,6 +41,7 @@ package entities.ui {
 			height = 160;
 			graphicList = new Graphiclist();
 			graphic = graphicList;
+			layer = Layers.SLOT_GUI;
 			
 			background = new Canvas(width, height);
 			background.fill(new Rectangle(0,0,width,height), 0xaaaaff, 0.9);

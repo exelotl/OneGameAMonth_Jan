@@ -6,6 +6,7 @@ package entities {
 		
 		public function ProKnight(x:Number=0, y:Number=0, tower:Tower=null) {
 			super(x, y, tower);
+			health = maxHealth = 40;
 			accuracy = 1;
 			addComponent("helmet", new Helmet());
 		}

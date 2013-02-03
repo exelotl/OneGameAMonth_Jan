@@ -24,7 +24,7 @@ package entities {
 		public function Zombie(x:Number=0, y:Number=0) {
 			super(x, y);
 			setHitbox(8, 12, -12, -8);
-			health = maxHealth = 20;
+			health = maxHealth = 15;
 			physics.maxVelX = 0.6;
 			price = 5;
 			

@@ -61,7 +61,7 @@ package entities {
 		}
 		public function knockback(amount:int, source:Entity):void {
 			var forceX:Number = FP.sign(centerX - source.centerX) * amount;
-			addComponent("knockback", new Impulse(forceX*0.5, -amount*0.5, 0.3, 0.2));
+			addComponent("knockback", new Impulse(forceX*0.3, -amount*0.3, 0.3, 0.2));
 		}
 		
 		public function strike():void { } /// Use a melee weapon

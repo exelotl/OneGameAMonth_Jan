@@ -6,8 +6,10 @@ package entities.slots {
 		
 		[Embed(source="../../assets/tower.png")]
 		private static const IMG_TOWER:Class;
-		protected static const maxKnights:uint = 5;
-		protected var amountOfKnights:uint = 0;
+		
+		protected var
+			maxKnights:uint = 5,
+			amountOfKnights:uint = 0;
 		
 		public function Tower(x:Number = 0, y:Number = 0) {
 			super(x, y);

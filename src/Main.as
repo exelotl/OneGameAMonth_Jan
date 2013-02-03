@@ -1,8 +1,10 @@
 package {
+	import entities.LivingEntity;
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import net.flashpunk.Engine;
 	import net.flashpunk.FP;
+	import states.GameOverWorld;
 	import states.MenuWorld;
 	import states.PlayWorld;
 	
@@ -20,7 +22,8 @@ package {
 		
 		private var
 			menuWorld:MenuWorld,
-			playWorld:PlayWorld;
+			playWorld:PlayWorld,
+			gameOverWorld:GameOverWorld;
 		
 		public function Main() {
 			super(600, 400, 60);
@@ -29,12 +32,18 @@ package {
 		override public function init():void {
 			menuWorld = new MenuWorld();
 			playWorld = new PlayWorld();
+			gameOverWorld = new GameOverWorld();
 			menuWorld.onPlay.add(switchToPlayWorld);
+			playWorld.onGameOver.add(switchToGameOver);
 			FP.world = menuWorld;
 		}
 		
 		private function switchToPlayWorld():void {
 			FP.world = playWorld;
+		}
+		
+		private function switchToGameOver():void {
+			FP.world = gameOverWorld;
 		}
 	}
 }

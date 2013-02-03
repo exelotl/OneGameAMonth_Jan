@@ -40,6 +40,20 @@ package {
 				difficulty: 1
 			},
 			{
+				name: "Rest",
+				note: "",
+				time: 20,
+				canSkip: true,
+				timeOfDay: DAY
+			},
+			{
+				name: "Parachuting zombies?",
+				note: "What is this madness?",
+				time: 50,
+				spawns: [{type:"parachuter", amount:8}, {type:"zombie", amount:8}],
+				difficulty: 1
+			},
+			{
 				name: "That's it for now."
 			},
 		];

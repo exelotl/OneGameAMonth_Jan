@@ -31,11 +31,13 @@ package entities.slots {
 		}
 		
 		override public function added():void {
+			super.added();
 			roof = new KeepRoof(this);
 			world.add(roof);
 		}
 		
 		override public function removed():void {
+			super.removed();
 			world.remove(roof);
 		}
 		
