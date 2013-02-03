@@ -133,7 +133,7 @@ package entities.ui {
 		}
 		
 		private function highlightLine():void {
-			highlight.visible = lineIsValid;
+			highlight.alpha = lineIsValid ? 1 : 0.5;
 			highlight.y = MARGIN_TOP + currentLine*LINE_HEIGHT;
 		}
 		

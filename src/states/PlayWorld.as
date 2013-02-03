@@ -4,7 +4,9 @@ package states {
 	import entities.slots.*;
 	import entities.ui.MoneySplash;
 	import entities.ui.PlayerHealthBar;
+	import entities.ui.ScreenFade;
 	import entities.ui.WaveClock;
+	import flash.display.BlendMode;
 	import net.flashpunk.Entity;
 	import net.flashpunk.FP;
 	import net.flashpunk.Signal;
@@ -66,12 +68,18 @@ package states {
 			onEntityDead.add(entityDied);
 		}
 		
+		private function gameOver():void {
+			var fade:ScreenFade = new ScreenFade(2, 0x000000, 0xffffff, 1, 1, onGameOver.dispatch);
+			fade.blend = BlendMode.SUBTRACT;
+			add(fade);
+		}
+		
 		private function entityDied(entity:LivingEntity):void {
 			money += entity.price;
 			if (entity.price > 0) 
 				add(new MoneySplash(entity));
 			if (entity.name == "player")
-				onGameOver.dispatch();
+				gameOver();
 		}
 		
 		override public function update():void {
@@ -110,7 +118,7 @@ package states {
 			if (upgradeMenu) openUpgradeMenu(newSlot);
 			
 			if (slot.name == "castle" && u == Upgrade.LAND) {
-				onGameOver.dispatch();
+				gameOver
 			}
 		}
 	}

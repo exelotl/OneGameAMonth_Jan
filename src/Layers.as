@@ -4,6 +4,7 @@ package {
 		private static var n:int = 0;
 		
 		public static const
+			SCREEN_PROCESSING :int = n++,
 			GUI               :int = n++,
 			SLOT_GUI          :int = n++,
 			OVERLAY           :int = n++,
