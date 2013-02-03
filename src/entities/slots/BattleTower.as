@@ -34,6 +34,10 @@ package entities.slots {
 			return [];
 		}
 		
+		override public function knightIsKilled():void {
+			amountOfProKnights--;
+		}
+		
 	}
 
 }

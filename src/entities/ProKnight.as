@@ -11,6 +11,9 @@ package entities {
 			addComponent("helmet", new Helmet());
 		}
 		
+		override public function die():void {
+			super.die();
+			removeComponent("helmet");
+		}
 	}
-
 }
