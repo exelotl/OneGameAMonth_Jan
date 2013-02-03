@@ -16,7 +16,8 @@ package entities {
 			sprites:MultiSpritemap = new MultiSpritemap(),
 			anim:Spritemap,
 			control:PlayerInput,
-			stopStrikeTimer:Tween;
+			stopStrikeTimer:Tween,
+			regenHealthTimer:Tween;
 		
 		public function Player(x:Number=0, y:Number=0) {
 			super(x, y);
@@ -43,10 +44,15 @@ package entities {
 			addComponent("crown", new Crown());
 			
 			addTween(stopStrikeTimer = new Tween(0.2, 0, idle));
+			addTween(regenHealthTimer = new Tween(0.6, Tween.LOOPING, regenHealth), true);
 			
 			layer = Layers.PLAYER;
 			name = "player";
 			type = "player";
+		}
+		
+		private function regenHealth():void {
+			repair(1);
 		}
 		
 		override public function jump():void {

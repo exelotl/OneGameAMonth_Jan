@@ -12,8 +12,8 @@ package {
 				timeOfDay: DAY
 			},
 			{
-				name: "Build Something",
-				note: "Over a patch of land, use Z to open a menu.\nPress Up/Down and Enter to select.",
+				name: "Build Something!",
+				note: "Press Z to open an upgrade menu.\nUse Up/Down and Enter to choose an upgrade.",
 				time: 20,
 				canSkip: true,
 				timeOfDay: DAY
@@ -40,19 +40,40 @@ package {
 				difficulty: 1
 			},
 			{
-				name: "Rest",
-				note: "",
+				name: "Wave over",
+				note: "Give yourself a pat on the back.",
 				time: 20,
 				canSkip: true,
 				timeOfDay: DAY
 			},
 			{
-				name: "Parachuting zombies?",
+				name: "Parachuting zombies!",
 				note: "What is this madness?",
 				time: 50,
 				spawns: [{type:"parachuter", amount:8}, {type:"zombie", amount:8}],
 				difficulty: 1
 			},
+			{
+				name: "Wave complete",
+				note: "Your knights have spotted some pirates in the distance",
+				time: 20,
+				canSkip: true,
+				timeOfDay: DAY
+			},
+			{
+				name: "Ninja ambush!",
+				note: "Those sneaky bastards.",
+				time: 50,
+				spawns: [{type:"ninja", amount:10}],
+				difficulty: 1
+			},
+			//{
+				//name: "Wave complete",
+				//note: "Shiver me timbers!",
+				//time: 20,
+				//canSkip: true,
+				//timeOfDay: DAY
+			//},
 			{
 				name: "That's it for now."
 			},
