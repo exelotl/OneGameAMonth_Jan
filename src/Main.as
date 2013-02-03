@@ -35,6 +35,7 @@ package {
 			gameOverWorld = new GameOverWorld();
 			menuWorld.onPlay.add(switchToPlayWorld);
 			playWorld.onGameOver.add(switchToGameOver);
+			gameOverWorld.onPlayAgain.add(switchToPlayWorld);
 			FP.world = menuWorld;
 		}
 		
