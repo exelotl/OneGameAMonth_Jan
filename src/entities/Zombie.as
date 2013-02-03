@@ -1,5 +1,6 @@
 package entities {
 	import comps.ai.RangeDetectAI;
+	import entities.slots.Slot;
 	import fp.MultiSpritemap;
 	import net.flashpunk.Entity;
 	import net.flashpunk.graphics.Spritemap;
@@ -17,6 +18,7 @@ package entities {
 		private var
 			sprites:MultiSpritemap = new MultiSpritemap(),
 			detectFriendly:RangeDetectAI,
+			detectSlot:RangeDetectAI,
 			anim:Spritemap = new Spritemap(IMG_ZOMBIE, 20, 20),
 			strikeTimer:Tween,
 			idleTimer:Tween;
@@ -31,6 +33,10 @@ package entities {
 			detectFriendly = new RangeDetectAI(EntityTypes.FRIENDLY, 100, 40);
 			detectFriendly.onEnterRange = pickTarget;
 			addComponent("detect_friendly", detectFriendly);
+			
+			detectSlot = new RangeDetectAI(EntityTypes.ATTACKABLE_SLOTS, 50, 40);
+			detectSlot.onEnterRange = pickSlot;
+			addComponent("detect_slot", detectSlot);
 			
 			anim.add("idle_l", [0], 30, false);
 			anim.add("idle_r", [4], 30, false);
@@ -101,6 +107,10 @@ package entities {
 			}
 		}
 		
+		private function pickSlot(target:Entity):void {
+			
+		}
+		
 		// Chaaarge!
 		override public function strike():void {
 			sprites.play("strike_"+direction);
@@ -123,6 +133,7 @@ package entities {
 			anim.play("die_"+direction);
 			clearTweens();
 			removeComponent("detect_friendly");
+			removeComponent("detect_slot");
 			addTween(new Alarm(2, removeSelf), true);
 		}
 		

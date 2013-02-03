@@ -19,6 +19,7 @@ package entities.slots {
 			var image:Image = new Image(IMG_BATTLE_TOWER);
 			image.y = -200;
 			graphic = image;
+			type = "battle tower";
 		}
 		
 		override public function update():void {

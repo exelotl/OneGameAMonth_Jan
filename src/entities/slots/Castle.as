@@ -15,6 +15,7 @@ package entities.slots {
 			width = 200;
 			height = 200;
 			name = "castle";
+			type = "castle";
 		}
 		
 	}

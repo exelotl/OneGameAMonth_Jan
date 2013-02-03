@@ -19,6 +19,7 @@ package entities.slots {
 			graphic.y = -200;
 			width = 200;
 			height = 200;
+			type = "tower";
 		}
 		
 		override public function update():void {
