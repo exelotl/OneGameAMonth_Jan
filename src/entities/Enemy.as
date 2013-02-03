@@ -1,6 +1,7 @@
 package entities {
 	import comps.ai.WanderAI;
 	import comps.Physics;
+	import entities.ui.MoneySplash;
 	import net.flashpunk.graphics.Image;
 
 	public class Enemy extends LivingEntity {

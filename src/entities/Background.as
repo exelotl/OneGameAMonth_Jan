@@ -46,9 +46,9 @@ package entities {
 			
 			graphiclist.add(daysky);
 			graphiclist.add(nightsky);
-			graphiclist.add(nightskyOverlay);
 			graphiclist.add(dayskyOverlay);
 			graphiclist.add(mountain);
+			graphiclist.add(nightskyOverlay);
 			
 			setDaytime();
 			
@@ -57,11 +57,11 @@ package entities {
 		}
 		
 		override public function update():void {
-			daysky.x += 0.05;
+			daysky.x += 0.1;
 		}
 		
 		public function setDaytime():void {
-			daysky.visible = true;
+			//daysky.visible = true;
 			nightsky.visible = false;
 			mountain.visible = true;
 			nightskyOverlay.visible = false;
@@ -69,7 +69,7 @@ package entities {
 		}
 		
 		public function setNighttime():void {
-			daysky.visible = false;
+			//daysky.visible = true;
 			nightsky.visible = true;
 			mountain.visible = true;
 			nightskyOverlay.visible = true;

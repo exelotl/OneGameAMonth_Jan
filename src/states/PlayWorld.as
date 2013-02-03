@@ -2,6 +2,7 @@ package states {
 	import comps.items.Sword;
 	import entities.*;
 	import entities.slots.*;
+	import entities.ui.MoneySplash;
 	import entities.ui.PlayerHealthBar;
 	import entities.ui.WaveClock;
 	import net.flashpunk.Entity;
@@ -67,6 +68,8 @@ package states {
 		
 		private function entityDied(entity:LivingEntity):void {
 			money += entity.price;
+			if (entity.price > 0) 
+				add(new MoneySplash(entity));
 			if (entity.name == "player")
 				onGameOver.dispatch();
 		}

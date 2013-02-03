@@ -18,6 +18,8 @@ package states {
 		private var splashScreenText:Text;
 		
 		public function MenuWorld() {
+			
+			addGraphic(Image.createRect(600, 400, 0x386D6D));
 			addGraphic(new Image(IMG_NIGHT_SKY));
 			splashScreenText = new Text("Press X to play");
 			splashScreenText.x = (600 - splashScreenText.width) / 2;
