@@ -22,7 +22,7 @@ package entities {
 		
 		public function Ninja(x:Number=0, y:Number=0) {
 			super(x, y);
-			setHitbox(8, 12, -12, -8);
+			setHitbox(8, 14, -12, -6);
 			health = maxHealth = 30;
 			physics.maxVelX = 1.8;
 			price = 15;

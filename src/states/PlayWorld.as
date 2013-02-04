@@ -68,6 +68,10 @@ package states {
 			onEntityDead.add(entityDied);
 		}
 		
+		public function getSlotAt(entity:Entity):Slot {
+			return slots[Math.floor(entity.centerX / 200)];
+		}
+		
 		private function gameOver():void {
 			var fade:ScreenFade = new ScreenFade(2, 0x000000, 0xffffff, 1, 1, onGameOver.dispatch);
 			fade.blend = BlendMode.SUBTRACT;
@@ -86,9 +90,6 @@ package states {
 			super.update();
 			FP.camera.x = Math.floor(FP.camera.x - ((FP.camera.x+FP.halfWidth) - player.x) / 14);
 			FP.camera.y = Math.floor(FP.camera.y - ((FP.camera.y+FP.halfHeight) - player.y) / 80);
-			if (Input.pressed(Key.SPACE)) {
-				slots[2].damage(10);
-			}
 		}
 		
 		private function openUpgradeMenu(slot:Slot):void {
@@ -118,7 +119,7 @@ package states {
 			if (upgradeMenu) openUpgradeMenu(newSlot);
 			
 			if (slot.name == "castle" && u == Upgrade.LAND) {
-				gameOver
+				gameOver();
 			}
 		}
 	}

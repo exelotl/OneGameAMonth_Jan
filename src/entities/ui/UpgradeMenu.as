@@ -1,5 +1,6 @@
 package entities.ui {
 	import comps.input.UpgradeMenuInput;
+	import entities.Player;
 	import entities.slots.Slot;
 	import flash.geom.Rectangle;
 	import net.flashpunk.Entity;
@@ -9,7 +10,6 @@ package entities.ui {
 	import net.flashpunk.graphics.Graphiclist;
 	import net.flashpunk.graphics.Text;
 	import net.flashpunk.Sfx;
-	import net.flashpunk.tweens.misc.NumTween;
 	import states.PlayWorld;
 	
 	public class UpgradeMenu extends Entity {
@@ -89,6 +89,11 @@ package entities.ui {
 			refresh();
 		}
 		
+		override public function update():void {
+			super.update();
+			if (!onCamera) world.remove(this);
+		}
+		
 		public function refresh():void {
 			for (var i:int=0; i<items.length; i++) {
 				textGraphics[i].alpha = items[i].isSelectable ? 1 : 0.5;
@@ -120,7 +125,7 @@ package entities.ui {
 		public function prev():void {
 			currentLine--;
 			if (currentLine < 0)
-				currentLine = items.length-1;
+				currentLine = Math.max(0, items.length-1);
 			highlightLine();
 			
 			if (items.length > 1) Audio.play(Audio.MENU_BLIP);

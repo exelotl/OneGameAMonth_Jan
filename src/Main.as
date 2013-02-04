@@ -31,15 +31,15 @@ package {
 		
 		override public function init():void {
 			menuWorld = new MenuWorld();
-			playWorld = new PlayWorld();
+			menuWorld.onPlay.add(startNewGame);
 			gameOverWorld = new GameOverWorld();
-			menuWorld.onPlay.add(switchToPlayWorld);
-			playWorld.onGameOver.add(switchToGameOver);
-			gameOverWorld.onPlayAgain.add(switchToPlayWorld);
+			gameOverWorld.onPlayAgain.add(startNewGame);
 			FP.world = menuWorld;
 		}
 		
-		private function switchToPlayWorld():void {
+		private function startNewGame():void {
+			playWorld = new PlayWorld();
+			playWorld.onGameOver.add(switchToGameOver);
 			FP.world = playWorld;
 		}
 		

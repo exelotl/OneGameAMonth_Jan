@@ -1,4 +1,5 @@
 package entities {
+	import flash.display.BlendMode;
 	import net.flashpunk.Entity;
 	import net.flashpunk.graphics.Backdrop;
 	import net.flashpunk.graphics.Graphiclist;
@@ -61,15 +62,17 @@ package entities {
 		}
 		
 		public function setDaytime():void {
-			//daysky.visible = true;
+			daysky.blend = BlendMode.NORMAL;
 			nightsky.visible = false;
+			daysky.color = 0xffffff;
 			mountain.visible = true;
 			nightskyOverlay.visible = false;
 			dayskyOverlay.visible = true;
 		}
 		
 		public function setNighttime():void {
-			//daysky.visible = true;
+			daysky.blend = BlendMode.SUBTRACT;
+			daysky.color = 0xffffcc;
 			nightsky.visible = true;
 			mountain.visible = true;
 			nightskyOverlay.visible = true;

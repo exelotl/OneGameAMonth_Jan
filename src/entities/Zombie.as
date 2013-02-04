@@ -1,4 +1,5 @@
 package entities {
+	import comps.ai.AIUtils;
 	import comps.ai.RangeDetectAI;
 	import entities.slots.Slot;
 	import fp.MultiSpritemap;
@@ -6,6 +7,7 @@ package entities {
 	import net.flashpunk.graphics.Spritemap;
 	import net.flashpunk.Tween;
 	import net.flashpunk.tweens.misc.Alarm;
+	import states.PlayWorld;
 	
 	/**
 	 * braaaaaaaains
@@ -21,11 +23,12 @@ package entities {
 			detectSlot:RangeDetectAI,
 			anim:Spritemap = new Spritemap(IMG_ZOMBIE, 20, 20),
 			strikeTimer:Tween,
-			idleTimer:Tween;
+			idleTimer:Tween,
+			jumpTimer:Tween;
 		
 		public function Zombie(x:Number=0, y:Number=0) {
 			super(x, y);
-			setHitbox(8, 12, -12, -8);
+			setHitbox(8, 14, -12, -6);
 			health = maxHealth = 15;
 			physics.maxVelX = 0.6;
 			price = 5;
@@ -53,6 +56,7 @@ package entities {
 			
 			addTween(strikeTimer = new Tween(0.5, 0, strike));
 			addTween(idleTimer = new Tween(1.6, 0, idle));
+			addTween(jumpTimer = new Tween(1, 0, jump));
 			
 			type = "zombie";
 		}
@@ -83,6 +87,20 @@ package entities {
 			physics.accX = 0;
 			physics.maxVelX = 0.6;
 			detectFriendly.forceCheck();
+		}
+		
+		override public function jump():void {
+			idle();
+			super.jump();
+			physics.velY = -3;
+		}
+		
+		override public function land():void {
+			super.land();
+			var slot:Slot = (world as PlayWorld).getSlotAt(this);
+			if (EntityTypes.LIVING_ENTITIES.indexOf(slot.type) != -1) {
+				slot.damage(10);
+			}
 		}
 		
 		override public function runRight():void {
