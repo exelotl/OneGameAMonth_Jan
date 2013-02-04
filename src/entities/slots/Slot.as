@@ -79,9 +79,9 @@ package entities.slots {
 		
 		public function damage(damage:uint):void {
 			health -= damage;
-			flashTween.tween(1, 0, 1, Ease.expoOut);
+			flashTween.tween(0.8, 0.0, 1, Ease.expoOut);
 			if (health <= 0)
-				requestUpgrade(Upgrade.LAND);
+				requestUpgrade(Upgrade.DESTROY);
 		}
 		
 		public function repair(repair:uint):void {

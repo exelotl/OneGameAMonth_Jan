@@ -101,7 +101,7 @@ package entities {
 			
 			var diffX:Number = target.centerX - centerX;
 			var diffY:Number = target.top - centerY;
-			var velX:Number = AIUtils.cap(diffX/8, -6, 6);
+			var velX:Number = FP.clamp(diffX/8, -6, 6);
 			var velY:Number = -Math.random() - 2;
 			world.add(new NinjaStar(centerX, centerY-4, velX, velY, EntityTypes.FRIENDLY));
 			

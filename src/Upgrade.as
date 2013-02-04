@@ -9,6 +9,7 @@ package {
 			description:String;
 		
 		public static const
+			DESTROY:Upgrade = new Upgrade("Destroy", 0, ""),
 			LAND:Upgrade = new Upgrade("Land", 0, "You probably want to upgrade this."),
 			CASTLE:Upgrade = new Upgrade("Castle", 0, "You probably want to defend this."),
 			TOWER:Upgrade = new Upgrade("Tower", 20, "Provides shelter for knights!"),
@@ -19,11 +20,12 @@ package {
 		public static function createSlot(prev:Slot, upgrade:Upgrade):Slot {
 			var slot:Slot;
 			switch (upgrade) {
+				case DESTROY: slot = new Land(); break;
+				case LAND: slot = new Land(); break;
 				case TOWER: slot = new Tower(); break;
+				case BATTLE_TOWER: slot = new BattleTower(); break;
 				case KEEP: slot = new Keep(); break;
 				case TRAP: slot = new Trap(); break;
-				case LAND: slot = new Land(); break;
-				case BATTLE_TOWER: slot = new BattleTower(); break;
 				default: throw new Error("No class exists for upgrade '"+upgrade.name+"'.");
 			}
 			

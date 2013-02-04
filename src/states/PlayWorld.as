@@ -73,7 +73,7 @@ package states {
 		}
 		
 		private function gameOver():void {
-			var fade:ScreenFade = new ScreenFade(2, 0x000000, 0xffffff, 1, 1, onGameOver.dispatch);
+			var fade:ScreenFade = new ScreenFade(3, 0x000000, 0xffffff, 1, 1, onGameOver.dispatch);
 			fade.blend = BlendMode.SUBTRACT;
 			add(fade);
 		}
@@ -116,10 +116,18 @@ package states {
 			remove(slot);
 			add(newSlot);
 			
-			if (upgradeMenu) openUpgradeMenu(newSlot);
+			var index:int = slots.indexOf(slot);
+			slots[index] = newSlot;
 			
-			if (slot.name == "castle" && u == Upgrade.LAND) {
-				gameOver();
+			if (u == Upgrade.DESTROY) {
+				if (slot.type == "castle") {
+					gameOver();
+					add(new Explosion(slot.centerX, slot.y-40, 140, 4, 25));
+				} else {
+					add(new Explosion(slot.centerX, slot.y-40));
+				}
+			} else if (upgradeMenu) {
+				openUpgradeMenu(newSlot);
 			}
 		}
 	}

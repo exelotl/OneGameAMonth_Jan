@@ -1,7 +1,9 @@
 package entities {
+	import entities.slots.Slot;
 	import net.flashpunk.Entity;
 	import net.flashpunk.graphics.Spritemap;
 	import net.flashpunk.Tween;
+	import states.PlayWorld;
 	
 	public class Rat extends LivingEntity {
 		
@@ -35,6 +37,14 @@ package entities {
 			super.update();
 			if (Math.abs(physics.velX) == physics.maxVelX) {
 				collideEach(EntityTypes.FRIENDLY, x, y, onCollideFriendly);
+			}
+			
+			var slot:Slot = (world as PlayWorld).getSlotAt(this);
+			
+			if (slot && EntityTypes.ATTACKABLE_SLOTS.indexOf[slot.type] != -1) {
+				physics.velX = 0;
+				physics.velY = -1;
+				slot.damage(2);
 			}
 		}
 		

@@ -25,13 +25,5 @@ package comps.ai {
 			return diffX*diffX + diffY*diffY;
 		}
 		
-		/**
-		 * Ensure a variable is between a range.
-		 * equivalent to Math.min(Math.max(n, max), min);
-		 */
-		public static function cap(n:Number, min:Number, max:Number):Number {
-			return n < min ? min : (n > max ? max : n);
-		}
 	}
-
 }

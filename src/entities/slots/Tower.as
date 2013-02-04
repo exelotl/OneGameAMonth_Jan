@@ -23,6 +23,7 @@ package entities.slots {
 		}
 		
 		override public function update():void {
+			super.update();
 			if (amountOfKnights < maxKnights) {
 				if (Math.random() < 0.001) {
 					world.add(new Knight(x + width / 2, y - 21, this));

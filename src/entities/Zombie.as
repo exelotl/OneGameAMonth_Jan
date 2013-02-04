@@ -22,6 +22,7 @@ package entities {
 			detectFriendly:RangeDetectAI,
 			detectSlot:RangeDetectAI,
 			anim:Spritemap = new Spritemap(IMG_ZOMBIE, 20, 20),
+			currentSlot:Slot,
 			strikeTimer:Tween,
 			idleTimer:Tween,
 			jumpTimer:Tween;
@@ -56,7 +57,7 @@ package entities {
 			
 			addTween(strikeTimer = new Tween(0.5, 0, strike));
 			addTween(idleTimer = new Tween(1.6, 0, idle));
-			addTween(jumpTimer = new Tween(1, 0, jump));
+			addTween(jumpTimer = new Tween(1, 0, jump)).percent = 1;
 			
 			type = "zombie";
 		}
@@ -78,6 +79,13 @@ package entities {
 			if (!(flags & Flags.RUNNING)) {
 				added();
 			}
+			
+			currentSlot = (world as PlayWorld).getSlotAt(this);
+			
+			if (canAttackCurrentSlot && jumpTimer.percent == 1) {
+				jumpTimer.start();
+			}
+			
 		}
 		
 		override public function idle():void {
@@ -89,6 +97,11 @@ package entities {
 			detectFriendly.forceCheck();
 		}
 		
+		public function get canAttackCurrentSlot():Boolean {
+			return currentSlot != null
+				&& EntityTypes.ATTACKABLE_SLOTS.indexOf(currentSlot.type) != -1;
+		}
+		
 		override public function jump():void {
 			idle();
 			super.jump();
@@ -97,9 +110,8 @@ package entities {
 		
 		override public function land():void {
 			super.land();
-			var slot:Slot = (world as PlayWorld).getSlotAt(this);
-			if (EntityTypes.LIVING_ENTITIES.indexOf(slot.type) != -1) {
-				slot.damage(10);
+			if (canAttackCurrentSlot) {
+				currentSlot.damage(5);
 			}
 		}
 		
