@@ -89,7 +89,6 @@ package states {
 		override public function update():void {
 			super.update();
 			FP.camera.x = Math.floor(FP.camera.x - ((FP.camera.x+FP.halfWidth) - player.x) / 14);
-			FP.camera.y = Math.floor(FP.camera.y - ((FP.camera.y+FP.halfHeight) - player.y) / 80);
 		}
 		
 		private function openUpgradeMenu(slot:Slot):void {

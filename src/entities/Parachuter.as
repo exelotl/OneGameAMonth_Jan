@@ -13,6 +13,7 @@ package entities {
 			super(x, y);
 			setHitbox(10, 20, -10, -8);
 			health = maxHealth = 20;
+			type = "parachuter";
 			
 			img = new Image(IMG_PARACHUTE);
 			graphic = img;

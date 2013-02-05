@@ -8,12 +8,12 @@ package entities.slots {
 		private static const IMG_TOWER:Class;
 		
 		protected var
-			maxKnights:uint = 5,
+			maxKnights:uint = 4,
 			amountOfKnights:uint = 0;
 		
 		public function Tower(x:Number = 0, y:Number = 0) {
 			super(x, y);
-			health = maxHealth = 100;
+			health = maxHealth = 50;
 			currentUpgrade = Upgrade.TOWER;
 			graphic = new Image(IMG_TOWER);
 			graphic.y = -200;
@@ -25,7 +25,7 @@ package entities.slots {
 		override public function update():void {
 			super.update();
 			if (amountOfKnights < maxKnights) {
-				if (Math.random() < 0.001) {
+				if (Math.random() < 0.002) {
 					world.add(new Knight(x + width / 2, y - 21, this));
 					amountOfKnights++;
 				}

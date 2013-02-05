@@ -24,7 +24,7 @@ package entities.slots {
 		public function Trap(x:Number = 0, y:Number = 0) {
 			super(x, y);
 			setHitbox(200, 200);
-			health = maxHealth = 10;
+			health = maxHealth = 5;
 			
 			currentUpgrade = Upgrade.TRAP;
 			spikeImg = new Image(IMG_TRAP_SPIKES);
@@ -41,9 +41,9 @@ package entities.slots {
 		override public function update():void {
 			super.update();
 			
-			var enemy:LivingEntity;
-			
 			spikeImg.y = spikeTween.value;
+			
+			var enemy:LivingEntity;
 			
 			for (var i:int = 0; i < EntityTypes.ENEMIES.length; i++) {
 				enemy = world.collideRect(EntityTypes.ENEMIES[i], x+20, y, 160, 200) as LivingEntity;
@@ -55,7 +55,7 @@ package entities.slots {
 					retractSpikes();
 				if (spikesExposed && enemy != null) {
 					if (Math.random()<0.06) nudgeEnemy(enemy);
-					if (Math.random()<0.015) killEnemy(enemy);
+					if (Math.random()<0.03) killEnemy(enemy);
 				}
 			} else if (timer.remaining == 0 && enemy != null) {
 				exposeSpikes();
@@ -79,8 +79,8 @@ package entities.slots {
 		private function onSpikesExposed():void { spikesExposed = true; }
 		
 		private function nudgeEnemy(enemy:LivingEntity):void {
-			var physics:Physics = enemy.getComponent("physics");
 			Audio.play(Audio.ENEMY_HURT, 0.5);
+			var physics:Physics = enemy.getComponent("physics");
 			if (physics)
 				physics.velY = -3;
 		}

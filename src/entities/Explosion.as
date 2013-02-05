@@ -24,6 +24,7 @@ package entities {
 			addTween(tween = new NumTween(removeSelf));
 			tween.tween(1, 0, time, Ease.sineOut);
 			layer = Layers.FOREGROUND;
+			Audio.play(time > 1 ? Audio.EXPLOSION_BIG : Audio.EXPLOSION_SMALL, 0.8);
 		}
 		
 		private var offsetX:int=0, offsetY:int=0;

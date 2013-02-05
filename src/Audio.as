@@ -33,16 +33,26 @@ package {
 		[Embed(source="assets/sfx_enemy_hurt_0.mp3")] private static const SFX_ENEMY_HURT_0:Class;
 		[Embed(source="assets/sfx_enemy_hurt_1.mp3")] private static const SFX_ENEMY_HURT_1:Class;
 		[Embed(source="assets/sfx_enemy_hurt_2.mp3")] private static const SFX_ENEMY_HURT_2:Class;
+		[Embed(source="assets/sfx_rat_hurt_0.mp3")] private static const SFX_RAT_HURT_0:Class;
+		[Embed(source="assets/sfx_rat_hurt_1.mp3")] private static const SFX_RAT_HURT_1:Class;
+		[Embed(source="assets/sfx_rat_hurt_2.mp3")] private static const SFX_RAT_HURT_2:Class;
 		[Embed(source="assets/sfx_swipe_0.mp3")] private static const SFX_SWIPE_0:Class;
 		[Embed(source="assets/sfx_swipe_1.mp3")] private static const SFX_SWIPE_1:Class;
 		[Embed(source="assets/sfx_swipe_2.mp3")] private static const SFX_SWIPE_2:Class;
 		[Embed(source="assets/sfx_swipe_3.mp3")] private static const SFX_SWIPE_3:Class;
 		[Embed(source="assets/sfx_spikes_expose.mp3")] private static const SFX_SPIKES_EXPOSE:Class;
+		[Embed(source="assets/sfx_explosion_small.mp3")] private static const SFX_EXPLOSION_SMALL:Class;
+		[Embed(source="assets/sfx_explosion_big.mp3")] private static const SFX_EXPLOSION_BIG:Class;
 		
 		public static const ENEMY_HURT:Array = [
 			new Sfx(SFX_ENEMY_HURT_0),
 			new Sfx(SFX_ENEMY_HURT_1),
 			new Sfx(SFX_ENEMY_HURT_2) ];
+			
+		public static const RAT_HURT:Array = [
+			new Sfx(SFX_RAT_HURT_0),
+			new Sfx(SFX_RAT_HURT_1),
+			new Sfx(SFX_RAT_HURT_2) ];
 			
 		public static const SWIPE:Array = [
 			new Sfx(SFX_SWIPE_0),
@@ -56,6 +66,8 @@ package {
 		public static const MENU_BLIP:Sfx = new Sfx(SFX_MENU_BLIP);
 		public static const PLAYER_HURT:Sfx = new Sfx(SFX_PLAYER_HURT);
 		public static const SPIKES_EXPOSE:Sfx = new Sfx(SFX_SPIKES_EXPOSE);
+		public static const EXPLOSION_SMALL:Sfx = new Sfx(SFX_EXPLOSION_SMALL);
+		public static const EXPLOSION_BIG:Sfx = new Sfx(SFX_EXPLOSION_BIG);
 		
 	}
 }

@@ -62,6 +62,13 @@ package entities {
 				&& Math.abs(physics.velX) == physics.maxVelX;
 		}
 		
+		override public function damage(amount:uint, source:Entity):void {
+			if (!getComponent("knockback")) {
+				super.damage(amount, source);
+				Audio.play(Audio.RAT_HURT, 0.8);
+			}
+		}
+		
 		override public function idle():void {
 			anim.play("idle_"+direction);
 			physics.accX = 0;

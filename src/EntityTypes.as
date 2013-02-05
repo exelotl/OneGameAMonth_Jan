@@ -6,9 +6,10 @@ package {
 	public class EntityTypes {
 		
 		public static const
-			LIVING_ENTITIES:Array = ["enemy","zombie","player","knight","archer","ninja"],
+			LIVING_ENTITIES:Array = ["zombie","player","parachuter","knight","archer","ninja","dragon"],
 			FRIENDLY:Array = ["player","knight","archer"],
-			ENEMIES:Array = ["enemy","zombie","ninja","rat"],
+			ENEMIES:Array = ["zombie","parachuter","ninja","rat","dragon"],
+			TRAPPABLE:Array = ["zombie","ninja","rat"],
 			SOLIDS:Array = ["ground","roof","tower","keep","battle tower","castle"],
 			PROJECTILES_SOLIDS:Array = ["ground"],
 			ATTACKABLE_SLOTS:Array = ["tower","keep","battle tower","castle"];

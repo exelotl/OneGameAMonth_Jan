@@ -12,7 +12,7 @@ package entities.slots {
 		
 		private static const
 			maxArchers:uint = 2,
-			maxArchersOnGround:uint = 4;
+			maxArchersOnGround:uint = 3;
 			
 		private var
 			roof:KeepRoof,
@@ -21,8 +21,9 @@ package entities.slots {
 		
 		public function Keep(x:Number = 0, y:Number = 0) {
 			super(x, y);
-			health = maxHealth = 80;
+			health = maxHealth = 70;
 			currentUpgrade = Upgrade.KEEP;
+			maxKnights = 2;
 			graphic = new Image(IMG_KEEP);
 			graphic.y = -200;
 			width = 200;
@@ -44,7 +45,7 @@ package entities.slots {
 		override public function update():void {
 			super.update();
 			if (amountOfArchers < maxArchers) {
-				if (Math.random() < 0.001) {
+				if (Math.random() < 0.002) {
 					var archer:Archer = new Archer(roof.spawnX, roof.spawnY, this);
 					archer.layer = Layers.BEHIND_ROOF;
 					world.add(archer);
