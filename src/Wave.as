@@ -67,16 +67,65 @@ package {
 				spawns: [{type:"ninja", amount:10}],
 				difficulty: 1
 			},
-			//{
-				//name: "Wave complete",
-				//note: "Shiver me timbers!",
-				//time: 20,
-				//canSkip: true,
-				//timeOfDay: DAY
-			//},
 			{
-				name: "That's it for now."
+				name: "The pirates were a lie.",
+				note: "At least you killed the ninjas.",
+				time: 20,
+				canSkip: true,
+				timeOfDay: DAY
 			},
+			{
+				name: "Rats and zombies?",
+				note: "Who's idea was this?",
+				time: 50,
+				spawns: [
+					{type:"rat", amount:12},
+					{type:"parachuter", amount:6},
+					{type:"zombie", amount:10}
+				],
+				difficulty: 1
+			},
+			{
+				name: "Wave complete",
+				note: "Your knights can see some delicious cake in the distance",
+				time: 20,
+				canSkip: true,
+				timeOfDay: DAY
+			},
+			{
+				name: "Ninja revenge!",
+				note: "Shiver me timbers!",
+				time: 60,
+				spawns: [{type:"ninja", amount:20}, {type:"rat", amount:6}],
+				difficulty: 1
+			},
+			{
+				name: "The cake is a lie. (see what I did there?)",
+				note: "Your soliders have spotted a dragon in the distance.",
+				time: 20,
+				canSkip: true,
+				timeOfDay: DAY
+			},
+			{
+				name: "THE DRAGON WAS NOT A LIE!",
+				note: "You're all doomed.",
+				time: 60,
+				spawns: [{type:"dragon", amount:1}],
+				difficulty: 1
+			},
+			{
+				name: "Wave complete!",
+				note: "Oh, you're still here?",
+				time: 20,
+				canSkip: true,
+				timeOfDay: DAY
+			},
+			{
+				name: "Story mode over.",
+				note: "Now see how far you can get with the random waves.",
+				time: 5,
+				timeOfDay: DAY
+			}
 		];
 		
 		public static const

@@ -15,8 +15,9 @@ package entities {
 		
 		public function Rat(x:Number=0, y:Number=0) {
 			super(x, y);
-			setHitbox(12, 10, -5, -6);
+			setHitbox(10, 10, -12, -5);
 			physics.maxVelX = 3;
+			physics.accY = 0.2;
 			price = 5;
 			type = "rat";
 			anim.add("idle_r", [0], 30, false);
@@ -41,7 +42,7 @@ package entities {
 			
 			var slot:Slot = (world as PlayWorld).getSlotAt(this);
 			
-			if (slot && EntityTypes.ATTACKABLE_SLOTS.indexOf[slot.type] != -1) {
+			if (canDamageSlot(slot)) {
 				physics.velX = 0;
 				physics.velY = -1;
 				slot.damage(2);
@@ -52,6 +53,13 @@ package entities {
 			var friendly:LivingEntity = e as LivingEntity;
 			friendly.damage(10, this);
 			physics.velX = 0;
+		}
+		
+		private function canDamageSlot(slot:Slot):Boolean {
+			return slot != null
+				&& isOnFloor
+				&& EntityTypes.ATTACKABLE_SLOTS.indexOf(slot.type) != -1
+				&& Math.abs(physics.velX) == physics.maxVelX;
 		}
 		
 		override public function idle():void {

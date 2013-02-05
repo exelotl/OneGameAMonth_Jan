@@ -23,7 +23,7 @@ package entities {
 		public function Ninja(x:Number=0, y:Number=0) {
 			super(x, y);
 			setHitbox(8, 14, -12, -6);
-			health = maxHealth = 30;
+			health = maxHealth = 20;
 			physics.maxVelX = 1.8;
 			price = 15;
 			anim = new Spritemap(IMG_NINJA, 20, 20);
@@ -49,7 +49,7 @@ package entities {
 				}
 			};
 			
-			addTween(runTimer = new Tween(0.5, 0, added));
+			addTween(runTimer = new Tween(1, 0, added));
 			
 			type = "ninja";
 		}
@@ -57,12 +57,6 @@ package entities {
 		override public function update():void {
 			super.update();
 			if (dead) return;
-			//if (flags & Flags.ATTACKING) {
-				//var e:Entity = collideTypes(EntityTypes.FRIENDLY, x, y);
-				//if (e is LivingEntity) {
-					//(e as LivingEntity).damage(10, this);
-				//}
-			//}
 			if (!(flags & Flags.RUNNING)) {
 				added();
 			}
@@ -101,9 +95,9 @@ package entities {
 			
 			var diffX:Number = target.centerX - centerX;
 			var diffY:Number = target.top - centerY;
-			var velX:Number = FP.clamp(diffX/8, -6, 6);
+			var velX:Number = FP.clamp(diffX/12, -7, 7);
 			var velY:Number = -Math.random() - 2;
-			world.add(new NinjaStar(centerX, centerY-4, velX, velY, EntityTypes.FRIENDLY));
+			world.add(new NinjaStar(centerX, centerY-1, velX, velY, EntityTypes.FRIENDLY));
 			
 			runTimer.start();
 		}

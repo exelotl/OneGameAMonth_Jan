@@ -40,7 +40,7 @@ package comps.ai {
 			}
 			
 			if (target && target.y < entity.y+20 && target.y > entity.y-10) {
-				if (Math.abs(entity.centerX - target.centerX) < 20) {
+				if (Math.abs(entity.centerX - target.centerX) < 16) {
 					livingEntity.idle();
 					livingEntity.strike();
 					delay = Math.random()*40;

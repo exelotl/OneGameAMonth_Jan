@@ -1,6 +1,7 @@
 package entities.ui {
 	import comps.Physics;
 	import entities.LivingEntity;
+	import entities.slots.Slot;
 	import net.flashpunk.Entity;
 	import net.flashpunk.graphics.Image;
 	import net.flashpunk.Tween;
@@ -22,7 +23,7 @@ package entities.ui {
 		
 		public function NinjaStar(x:Number, y:Number, velX:Number, velY:Number, targetTypes:Array){
 			super(x, y);
-			setHitbox(4, 8, -2, -2);
+			setHitbox(4, 4, -2, -2);
 			this.targetTypes = targetTypes;
 			
 			physics = new Physics(EntityTypes.PROJECTILES_SOLIDS);
@@ -33,9 +34,8 @@ package entities.ui {
 			addComponent("physics", physics);
 			
 			image = new Image(IMG_STAR);
-			image.centerOrigin();
-			image.x = 4;
-			image.y = 4;
+			image.originX = image.originY = 4;
+			image.x = image.y = 4
 			graphic = image;
 			
 			type = "ninjastar";
@@ -43,7 +43,11 @@ package entities.ui {
 		
 		override public function update():void {
 			if (inAir) {
-				if (collideTypes(EntityTypes.SOLIDS, x, y+2)) {
+				var hitSolid:Entity = collideTypes(EntityTypes.SOLIDS, x, y+2);
+				if (hitSolid) {
+					if (EntityTypes.ATTACKABLE_SLOTS.indexOf(hitSolid.type) != -1) {
+						(hitSolid as Slot).damage(5);
+					}
 					removeComponent("physics");
 					addTween(new Tween(1.5, Tween.ONESHOT, removeSelf), true);
 					inAir = false;

@@ -22,7 +22,6 @@ package {
 			amountOfMobs:int = 0;
 			
 		public function MobSpawner(entities:Array, wave:Wave) {
-			trace("Spawner created");
 			mobs = entities;
 			this.wave = wave;
 			for (var i:int = 0; i < mobs.length; i++) {
@@ -66,7 +65,6 @@ package {
 				}
 			}
 			world.remove(this);
-			trace("Spawner removed");
 		}
 		
 		private function getRandomIndex():int {

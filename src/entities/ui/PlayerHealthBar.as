@@ -27,7 +27,7 @@ package entities.ui {
 		}
 		
 		override public function update():void {
-			var visibleHearts:Number = Math.round(5 * player.health/player.maxHealth);
+			var visibleHearts:Number = Math.ceil(5 * player.health/player.maxHealth);
 			for (var i:int=0; i<5; i++) {
 				hearts[i].visible = i < visibleHearts;
 			}
