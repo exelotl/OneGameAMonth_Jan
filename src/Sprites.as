@@ -4,6 +4,7 @@ package  {
 	
 	public class Sprites {
 		
+		[Embed(source="assets/100x100_strip.png")] private static const IMG_FLASHPUNK:Class;
 		[Embed(source="assets/battle_tower.png")] private static const IMG_BATTLE_TOWER:Class;
 		[Embed(source="assets/bow.png")] private static const IMG_BOW:Class;
 		[Embed(source="assets/btn_skip.png")] private static const IMG_BTN_SKIP:Class;
@@ -42,7 +43,8 @@ package  {
 		[Embed(source="assets/trap_spikes.png")] private static const IMG_TRAP_SPIKES:Class;
 		[Embed(source="assets/webtreats-seamless-cloud-1.jpg")] private static const IMG_CLOUDS:Class;
 		[Embed(source="assets/zombie.png")] private static const IMG_ZOMBIE:Class;
-
+		
+		public static var FLASHPUNK:BitmapData = new IMG_FLASHPUNK().bitmapData;
 		public static var BATTLE_TOWER:BitmapData = new IMG_BATTLE_TOWER().bitmapData;
 		public static var BOW:BitmapData = new IMG_BOW().bitmapData;
 		public static var BTN_SKIP:BitmapData = new IMG_BTN_SKIP().bitmapData;

@@ -30,7 +30,7 @@ package states {
 			playerHealthBar:PlayerHealthBar,
 			slots:/*Slot*/Array,
 			ui:GUI,
-			money:int = 500;
+			money:int = 50;
 			
 		public function PlayWorld() {
 			FP.screen.color = 0xccccff;
@@ -89,6 +89,10 @@ package states {
 		override public function update():void {
 			super.update();
 			FP.camera.x = Math.floor(FP.camera.x - ((FP.camera.x+FP.halfWidth) - player.x) / 14);
+		}
+		
+		public function endWave():void {
+			waveScheduler.startNextWave();
 		}
 		
 		private function openUpgradeMenu(slot:Slot):void {

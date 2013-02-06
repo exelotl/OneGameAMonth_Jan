@@ -19,7 +19,9 @@ package entities {
 			hitCooldown:int = 0,
 			isOnFloor:Boolean = false,
 			wasOnFloor:Boolean = false,
-			direction:String = "r",
+			direction:String = "r";
+		
+		protected var 
 			physics:Physics;
 		
 		public function LivingEntity(x:Number = 0, y:Number = 0) {

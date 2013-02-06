@@ -1,24 +1,11 @@
 package {
+	import flash.utils.ByteArray;
 	import net.flashpunk.Tween;
 	
 	public class Wave {
 		
 		public static var gameSequence:Array = [
 			{
-				name: "Welcome",
-				note: "You are the king of a small town.\nArrows to move, X to jump!",
-				time: 30,
-				canSkip: true,
-				timeOfDay: DAY
-			},
-			{
-				name: "Parachuting zombies!",
-				note: "What is this madness?",
-				time: 50,
-				spawns: [{type:"parachuter", amount:20}],
-				difficulty: 1
-			}
-			/*{
 				name: "Welcome",
 				note: "You are the king of a small town.\nArrows to move, X to jump!",
 				time: 1,
@@ -123,7 +110,7 @@ package {
 			{
 				name: "THE DRAGON WAS NOT A LIE!",
 				note: "You're all doomed.",
-				time: 60,
+				time: 300,
 				spawns: [{type:"dragon", amount:1}],
 				difficulty: 1
 			},
@@ -139,7 +126,7 @@ package {
 				note: "Now see how far you can get with the random waves.",
 				time: 5,
 				timeOfDay: DAY
-			}*/
+			}
 		];
 		
 		public static const
@@ -157,7 +144,14 @@ package {
 			spawner:MobSpawner;
 		
 		public function Wave(data:Object = null) {
-			if (data == null) data = {};
+			if (data == null) {
+				data = {};
+			} else {
+				var bytes:ByteArray = new ByteArray();
+				bytes.writeObject(data);
+				bytes.position = 0;
+				data = bytes.readObject();
+			}
 			title = data.name || "";
 			note = data.note || "";
 			time = data.time || 50;

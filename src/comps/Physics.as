@@ -81,6 +81,10 @@ package comps {
 				collideTypes.splice(index, 1);
 		}
 		
+		public function removeAllCollideTypes():void {
+			collideTypes = [];
+		}
+		
 		public function collidesWithType(type:String):Boolean {
 			return collideTypes.indexOf(type) !== -1;
 		}

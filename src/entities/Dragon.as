@@ -1,6 +1,7 @@
 package entities {
 	import comps.ai.RangeDetectAI;
 	import comps.Impulse;
+	import comps.Physics;
 	import entities.slots.Slot;
 	import net.flashpunk.Entity;
 	import net.flashpunk.graphics.Spritemap;
@@ -25,7 +26,7 @@ package entities {
 		
 		public function Dragon(x:Number=0, y:Number=0) {
 			super(x, y);
-			health = maxHealth = 700;
+			health = maxHealth = 500;
 			
 			setHitbox(30, 20, -16, -10);
 			type = "dragon";
@@ -124,6 +125,13 @@ package entities {
 					runTimer.start();
 					break;
 			}
+		}
+		
+		override public function die():void {
+			physics.removeAllCollideTypes();
+			type = "dead";
+			addTween(new Tween(2, 0, removeSelf));
+			(world as PlayWorld).endWave();
 		}
 		
 	}

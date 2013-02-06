@@ -8,6 +8,7 @@ package {
 	import states.GameOverWorld;
 	import states.MenuWorld;
 	import states.PlayWorld;
+	import states.SplashWorld;
 	
 	[SWF(width='600', height='400', frameRate='60')]
 	
@@ -22,6 +23,7 @@ package {
 		public static const NORMAL_FONT:String;
 		
 		private var
+			splashWorld:SplashWorld,
 			menuWorld:MenuWorld,
 			playWorld:PlayWorld,
 			gameOverWorld:GameOverWorld;
@@ -32,17 +34,27 @@ package {
 		
 		override public function init():void {
 			stage.quality = StageQuality.LOW;
+			
+			splashWorld = new SplashWorld();
+			splashWorld.onComplete.add(switchToMenu);
+			
 			menuWorld = new MenuWorld();
 			menuWorld.onPlay.add(startNewGame);
+			
 			gameOverWorld = new GameOverWorld();
 			gameOverWorld.onPlayAgain.add(startNewGame);
-			FP.world = menuWorld;
+			
+			FP.world = splashWorld;
 		}
 		
 		private function startNewGame():void {
 			playWorld = new PlayWorld();
 			playWorld.onGameOver.add(switchToGameOver);
 			FP.world = playWorld;
+		}
+		
+		private function switchToMenu():void {
+			FP.world = menuWorld;
 		}
 		
 		private function switchToGameOver():void {
