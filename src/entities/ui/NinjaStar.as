@@ -39,6 +39,7 @@ package entities.ui {
 			graphic = image;
 			
 			type = "ninjastar";
+			layer = Layers.PROJECTILES;
 		}
 		
 		override public function update():void {

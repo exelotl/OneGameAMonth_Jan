@@ -35,6 +35,7 @@ package entities {
 			graphic = image;
 			
 			type = "arrow";
+			layer = Layers.PROJECTILES;
 		}
 		
 		override public function update():void {

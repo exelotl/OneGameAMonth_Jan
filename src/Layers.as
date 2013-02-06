@@ -9,6 +9,7 @@ package {
 			SLOT_GUI          :int = n++,
 			OVERLAY           :int = n++,
 			FOREGROUND        :int = n++,
+			PROJECTILES       :int = n++,
 			PLAYER            :int = n++,
 			LIVING_ENTITIES   :int = n++,
 			ROOF              :int = n++,

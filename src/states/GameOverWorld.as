@@ -40,6 +40,10 @@ package states {
 			addGraphic(splashScreenText);
 		}
 		
+		override public function begin():void {
+			Audio.stop(Audio.FOOTSTEP);
+		}
+		
 		override public function update():void {
 			super.update();
 			if (Input.pressed(Key.X)) onPlayAgain.dispatch();

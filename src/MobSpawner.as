@@ -1,5 +1,6 @@
 package {
 	
+	import entities.Dragon;
 	import entities.Ninja;
 	import entities.Parachuter;
 	import entities.Rat;
@@ -27,8 +28,10 @@ package {
 			for (var i:int = 0; i < mobs.length; i++) {
 				amountOfMobs += mobs[i].amount;
 			}
-			if (amountOfMobs) {
+			if (amountOfMobs > 1) {
 				timer = new Tween((wave.time-10) / (amountOfMobs*2), Tween.LOOPING, spawn);
+			} else if (amountOfMobs == 1) {
+				timer = new Tween(0.1, Tween.LOOPING, spawn);
 			}
 		}
 		
@@ -46,6 +49,9 @@ package {
 						spawnAtEdge(new Ninja()); break;
 					case "parachuter":
 						spawnAtTop(new Parachuter()); break;
+					case "dragon":
+						world.add(new Dragon(1900, -1000)); break;
+						//world.add(new Dragon(1060, -1000)); break;
 				}
 				mobs[i].amount--;
 			}
@@ -61,7 +67,6 @@ package {
 			if (timer != null) {
 				if (timer.active) {
 					timer.cancel();
-					//removeTween(timer);
 				}
 			}
 			world.remove(this);

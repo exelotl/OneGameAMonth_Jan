@@ -17,8 +17,8 @@ package entities.slots {
 			currentUpgrade:Upgrade,
 			onEdit:Signal = new Signal(),
 			onRequestUpgrade:Signal = new Signal(),
-			health:uint = 0,
-			maxHealth:uint = 0;
+			health:int = 0,
+			maxHealth:int = 0;
 			
 		protected var
 			flashTween:NumTween,
@@ -77,7 +77,7 @@ package entities.slots {
 			onRequestUpgrade.dispatch(this, u);
 		}
 		
-		public function damage(damage:uint):void {
+		public function damage(damage:int):void {
 			health -= damage;
 			flashTween.tween(0.7, 0.0, 1, Ease.expoOut);
 			if (health <= 0)
