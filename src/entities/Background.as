@@ -7,27 +7,12 @@ package entities {
 	
 	public class Background extends Entity {
 			
-		[Embed(source="../assets/mountain.png")]
-		private static const IMG_MOUNTAIN:Class;
-		
-		[Embed(source="../assets/webtreats-seamless-cloud-1.jpg")]
-		private static const IMG_DAY_SKY:Class;
-		
-		[Embed(source="../assets/daysky_overlay.png")]
-		private static const IMG_DAY_SKY_OVERLAY:Class;
-		
-		[Embed(source="../assets/nightsky.png")]
-		private static const IMG_NIGHTSKY:Class;
-		
-		[Embed(source="../assets/nightsky_overlay.png")]
-		private static const IMG_NIGHTSKY_OVERLAY:Class;
-		
 		private var
-			daysky:Backdrop = new Backdrop(IMG_DAY_SKY),
-			nightsky:Image = new Image(IMG_NIGHTSKY),
-			mountain:Backdrop = new Backdrop(IMG_MOUNTAIN),
-			nightskyOverlay:Image = new Image(IMG_NIGHTSKY_OVERLAY),
-			dayskyOverlay:Image = new Image(IMG_DAY_SKY_OVERLAY),
+			daysky:Backdrop = new Backdrop(Sprites.CLOUDS),
+			nightsky:Image = new Image(Sprites.NIGHTSKY),
+			mountain:Backdrop = new Backdrop(Sprites.MOUNTAIN),
+			nightskyOverlay:Image = new Image(Sprites.NIGHTSKY_OVERLAY),
+			dayskyOverlay:Image = new Image(Sprites.DAYSKY_OVERLAY),
 			graphiclist:Graphiclist = new Graphiclist();
 		
 		public function Background() {

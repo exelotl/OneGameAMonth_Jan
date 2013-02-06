@@ -10,12 +10,9 @@ package entities {
 	
 	public class Ninja extends LivingEntity {
 		
-		[Embed(source="../assets/ninja.png")]
-		private static var IMG_NINJA:Class;
-		
 		private var
 			target:LivingEntity,
-			anim:Spritemap = new Spritemap(IMG_NINJA, 20, 20),
+			anim:Spritemap = new Spritemap(Sprites.NINJA, 20, 20),
 			sprites:MultiSpritemap = new MultiSpritemap(),
 			detectFriendly:RangeDetectAI,
 			runTimer:Tween;
@@ -26,7 +23,6 @@ package entities {
 			health = maxHealth = 20;
 			physics.maxVelX = 1.8;
 			price = 15;
-			anim = new Spritemap(IMG_NINJA, 20, 20);
 			anim.add("idle_l", [0], 30, false);
 			anim.add("idle_r", [4], 30, false);
 			anim.add("run_l", [0,1,2,3], 15, true);

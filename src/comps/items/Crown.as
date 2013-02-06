@@ -5,11 +5,8 @@ package comps.items {
 
 	public class Crown extends Component {
 		
-		[Embed(source = "../../assets/crown_sheet.png")]
-		private static const IMG_CROWN:Class;
-		
 		private var
-			anim:Spritemap = new Spritemap(IMG_CROWN, 20,20);
+			anim:Spritemap = new Spritemap(Sprites.CROWN, 20,20);
 		
 		public function Crown() {
 			anim.y = -6;

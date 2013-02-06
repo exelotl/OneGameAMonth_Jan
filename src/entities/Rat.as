@@ -7,11 +7,8 @@ package entities {
 	
 	public class Rat extends LivingEntity {
 		
-		[Embed(source="../assets/rat.png")]
-		private static const IMG_RAT:Class;
-		
 		private var
-			anim:Spritemap = new Spritemap(IMG_RAT, 22, 16);
+			anim:Spritemap = new Spritemap(Sprites.RAT, 22, 16);
 		
 		public function Rat(x:Number=0, y:Number=0) {
 			super(x, y);

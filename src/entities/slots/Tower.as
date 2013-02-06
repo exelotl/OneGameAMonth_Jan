@@ -4,9 +4,6 @@ package entities.slots {
 
 	public class Tower extends Slot {
 		
-		[Embed(source="../../assets/tower.png")]
-		private static const IMG_TOWER:Class;
-		
 		protected var
 			maxKnights:uint = 4,
 			amountOfKnights:uint = 0;
@@ -15,7 +12,7 @@ package entities.slots {
 			super(x, y);
 			health = maxHealth = 50;
 			currentUpgrade = Upgrade.TOWER;
-			graphic = new Image(IMG_TOWER);
+			graphic = new Image(Sprites.TOWER);
 			graphic.y = -200;
 			width = 200;
 			height = 200;

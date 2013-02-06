@@ -6,11 +6,8 @@ package comps.items {
 	
 	public class Shield extends Component {
 		
-		[Embed(source="../../assets/shield.png")]
-		private static const IMG_SHIELD:Class;
-		
 		private var
-			anim:Spritemap = new Spritemap(IMG_SHIELD, 20, 20);
+			anim:Spritemap = new Spritemap(Sprites.SHIELD, 20, 20);
 		
 		public function Shield() {
 			anim.add("idle_l", [0], 30, false);

@@ -7,16 +7,13 @@ package entities.slots {
 	 */
 	public class Land extends Slot {
 		
-		[Embed(source="../../assets/land.png")]
-		private static const IMG_LAND_SLOT:Class;
-		
 		private var
 			image:Image;
 		
 		public function Land(x:Number = 0, y:Number = 0, health:uint = 0) {
 			super(x, y);
 			currentUpgrade = Upgrade.LAND;
-			image = new Image(IMG_LAND_SLOT);
+			image = new Image(Sprites.LAND);
 			graphic = image;
 			setHitbox(200, 200);
 		}

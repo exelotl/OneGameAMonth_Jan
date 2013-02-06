@@ -72,6 +72,7 @@ package entities {
 		}
 		
 		public function die():void {
+			health = 0;
 			type = "dead";
 			(world as PlayWorld).onEntityDead.dispatch(this);
 		}
@@ -82,7 +83,6 @@ package entities {
 			hitCooldown = 10;
 			health -= damage;
 			if (health <= 0) {
-				health = 0;
 				die();
 			}
 			knockback(damage, source);

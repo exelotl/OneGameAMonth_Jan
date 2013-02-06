@@ -6,9 +6,6 @@ package entities.slots {
 	
 	public class KeepRoof extends Entity {
 		
-		[Embed(source="../../assets/keep_roof.png")]
-		private static const IMG_KEEP_ROOF:Class;
-		
 		public function get spawnX():Number {
 			return x + 100;
 		}
@@ -21,7 +18,7 @@ package entities.slots {
 			masks:Masklist = new Masklist();
 		
 		public function KeepRoof(keep:Keep) {
-			super(keep.x, keep.y-200, new Image(IMG_KEEP_ROOF), masks);
+			super(keep.x, keep.y-200, new Image(Sprites.KEEP_ROOF), masks);
 			this.keep = keep;
 			type = "roof";
 			layer = Layers.ROOF;

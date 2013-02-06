@@ -10,9 +10,6 @@ package states {
 	
 	public class MenuWorld extends World {
 		
-		[Embed(source="../assets/title_screen.png")]
-		private static const IMG_TITLE:Class;
-		
 		public var onPlay:Signal = new Signal();
 		
 		private var
@@ -30,7 +27,7 @@ package states {
 			gameNameShade:Text = new Text("Lies TD", 412, 92,{size:32,color:0});
 			
 		public function MenuWorld() {
-			addGraphic(new Image(IMG_TITLE));
+			addGraphic(new Image(Sprites.TITLE_SCREEN));
 			addGraphic(madeByShade);
 			addGraphic(madeBy);
 			addGraphic(geckojscShade);

@@ -17,15 +17,12 @@ package entities {
 	
 	public class Archer extends LivingEntity {
 		
-		[Embed(source="../assets/knight.png")]
-		private static const IMG_KNIGHT:Class;
-		
 		private var
 			target:LivingEntity,
 			bow:Bow,
 			detectEnemy:RangeDetectAI,
 			wander:WanderAI,
-			anim:Spritemap = new Spritemap(IMG_KNIGHT, 20, 20),
+			anim:Spritemap = new Spritemap(Sprites.KNIGHT, 20, 20),
 			sprites:MultiSpritemap = new MultiSpritemap();
 		
 		private var

@@ -10,11 +10,8 @@ package comps.items {
 	 */
 	public class Sword extends Weapon {
 		
-		[Embed(source="../../assets/sword.png")]
-		private static const IMG_SWORD:Class;
-		
 		private var
-			anim:Spritemap = new Spritemap(IMG_SWORD, 20, 20);
+			anim:Spritemap = new Spritemap(Sprites.SWORD, 20, 20);
 		
 		public function Sword() {
 			anim.add("idle_l", [0], 30, false);

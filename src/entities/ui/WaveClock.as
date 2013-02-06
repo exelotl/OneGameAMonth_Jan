@@ -8,17 +8,11 @@ package entities.ui {
 	
 	public class WaveClock extends Entity {
 		
-		[Embed(source="../../assets/clock.png")]
-		private static var IMG_CLOCK:Class;
-		
-		[Embed(source="../../assets/btn_skip.png")]
-		private static var IMG_BTN_SKIP:Class;
-		
 		private var
 			currentWave:Wave,
 			scheduler:WaveScheduler,
-			clock:Spritemap = new Spritemap(IMG_CLOCK, 30, 30),
-			skipBtn:Spritemap = new Spritemap(IMG_BTN_SKIP, 40, 20);
+			clock:Spritemap = new Spritemap(Sprites.CLOCK, 30, 30),
+			skipBtn:Spritemap = new Spritemap(Sprites.BTN_SKIP, 40, 20);
 		
 		public function WaveClock(scheduler:WaveScheduler, x:Number=0, y:Number=0) {
 			super(x, y);

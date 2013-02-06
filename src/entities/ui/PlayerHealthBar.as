@@ -6,9 +6,6 @@ package entities.ui {
 	
 	public class PlayerHealthBar extends Entity {
 		
-		[Embed(source="../../assets/heart.png")]
-		private static const IMG_HEART:Class;
-		
 		private var
 			hearts:/*Image*/Array = [],
 			player:Player;
@@ -18,7 +15,7 @@ package entities.ui {
 			this.player = player;
 			layer = Layers.GUI;
 			for (var i:int=0; i<5; i++) {
-				var heart:Image = new Image(IMG_HEART);
+				var heart:Image = new Image(Sprites.HEART);
 				heart.x = i*heart.width;
 				heart.scrollX = heart.scrollY = 0;
 				hearts.push(heart);

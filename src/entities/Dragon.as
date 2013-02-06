@@ -12,9 +12,6 @@ package entities {
 	 */
 	public class Dragon extends LivingEntity {
 		
-		[Embed(source="../assets/dragon.png")]
-		private static const IMG_DRAGON:Class;
-		
 		private var
 			attackTimer:Tween = new Tween(8, Tween.LOOPING, randomAttack),
 			jumpTimer:Tween = new Tween(1.4, Tween.PERSIST, jump),
@@ -24,7 +21,7 @@ package entities {
 			remainingJumps:int = 0,
 			remainingFires:int = 0,
 			detectFriendly:RangeDetectAI = new RangeDetectAI(EntityTypes.FRIENDLY, 100, 40),
-			anim:Spritemap = new Spritemap(IMG_DRAGON, 50, 30);
+			anim:Spritemap = new Spritemap(Sprites.DRAGON, 50, 30);
 		
 		public function Dragon(x:Number=0, y:Number=0) {
 			super(x, y);

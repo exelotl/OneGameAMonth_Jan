@@ -11,8 +11,6 @@ package entities {
 	 * @author Allyally
 	 */
 	public class GUI extends Entity {
-		[Embed(source = "../assets/coin_spin.png")]
-		private var coin_spin:Class;
 		
 		private var p_world:PlayWorld;
 		
@@ -27,7 +25,7 @@ package entities {
 			currencyShade = new Text("Money: ", 21, 1, { color:0 } );
 			currencyShade.scrollX = 0;
 			currencyShade.scrollY = 0;
-			currencyImg = new Spritemap(coin_spin, 12, 12);
+			currencyImg = new Spritemap(Sprites.COIN_SPIN, 12, 12);
 			currencyImg.add("spin", FP.frames(1, 6), 10);
 			currencyImg.play("spin");
 			currencyImg.scrollX = 0;

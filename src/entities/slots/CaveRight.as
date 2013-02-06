@@ -7,9 +7,6 @@ package entities.slots {
 	
 	public class CaveRight extends Slot {
 		
-		[Embed(source="../../assets/cave_r.png")] private static var IMG_CAVE_R:Class;
-		[Embed(source="../../assets/cave_r_overlay.png")] private static var IMG_CAVE_R_OVERLAY:Class;
-		
 		private var masks:Masklist = new Masklist();
 		
 		public function get spawnX():Number {
@@ -22,7 +19,7 @@ package entities.slots {
 			
 		public function CaveRight(x:Number=0, y:Number=0) {
 			super(x, y);
-			graphic = new Image(IMG_CAVE_R);
+			graphic = new Image(Sprites.CAVE_R);
 			graphic.y -= 400;
 			
 			masks.add(new Hitbox(400, 200, 0, 0));
@@ -36,7 +33,7 @@ package entities.slots {
 		}
 		
 		override public function added():void {
-			world.addGraphic(new Image(IMG_CAVE_R_OVERLAY), Layers.FOREGROUND, x+200, y-400);
+			world.addGraphic(new Image(Sprites.CAVE_R_OVERLAY), Layers.FOREGROUND, x+200, y-400);
 		}
 		
 		override public function update():void {

@@ -8,12 +8,6 @@ package entities.slots {
 
 	public class Trap extends Slot {
 		
-		[Embed(source="../../assets/trap.png")]
-		private static const IMG_TRAP_SLOT:Class;
-		
-		[Embed(source="../../assets/trap_spikes.png")]
-		private static const IMG_TRAP_SPIKES:Class;
-		
 		private var
 			spikesExposed:Boolean = false,
 			spikeImg:Image,
@@ -25,10 +19,11 @@ package entities.slots {
 			super(x, y);
 			setHitbox(200, 200);
 			health = maxHealth = 5;
+			type = "trap";
 			
 			currentUpgrade = Upgrade.TRAP;
-			spikeImg = new Image(IMG_TRAP_SPIKES);
-			image = new Image(IMG_TRAP_SLOT);
+			spikeImg = new Image(Sprites.TRAP_SPIKES);
+			image = new Image(Sprites.TRAP);
 			addGraphic(spikeImg);
 			addGraphic(image);
 			

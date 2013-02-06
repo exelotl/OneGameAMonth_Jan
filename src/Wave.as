@@ -7,6 +7,20 @@ package {
 			{
 				name: "Welcome",
 				note: "You are the king of a small town.\nArrows to move, X to jump!",
+				time: 30,
+				canSkip: true,
+				timeOfDay: DAY
+			},
+			{
+				name: "Parachuting zombies!",
+				note: "What is this madness?",
+				time: 50,
+				spawns: [{type:"parachuter", amount:20}],
+				difficulty: 1
+			}
+			/*{
+				name: "Welcome",
+				note: "You are the king of a small town.\nArrows to move, X to jump!",
 				time: 1,
 				canSkip: true,
 				timeOfDay: DAY
@@ -125,7 +139,7 @@ package {
 				note: "Now see how far you can get with the random waves.",
 				time: 5,
 				timeOfDay: DAY
-			}
+			}*/
 		];
 		
 		public static const

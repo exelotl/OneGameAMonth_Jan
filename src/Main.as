@@ -30,6 +30,7 @@ package {
 		}
 		
 		override public function init():void {
+			FP.console.enable();
 			menuWorld = new MenuWorld();
 			menuWorld.onPlay.add(startNewGame);
 			gameOverWorld = new GameOverWorld();

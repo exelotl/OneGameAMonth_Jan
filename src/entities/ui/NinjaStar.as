@@ -12,9 +12,6 @@ package entities.ui {
 	 */
 	public class NinjaStar extends Entity {
 		
-		[Embed(source="../../assets/star.png")]
-		private static var IMG_STAR:Class;
-		
 		private var
 			targetTypes:Array,
 			inAir:Boolean = true,
@@ -33,7 +30,7 @@ package entities.ui {
 			physics.accY = 0.2;
 			addComponent("physics", physics);
 			
-			image = new Image(IMG_STAR);
+			image = new Image(Sprites.STAR);
 			image.originX = image.originY = 4;
 			image.x = image.y = 4
 			graphic = image;

@@ -14,14 +14,11 @@ package entities {
 	 */
 	public class Zombie extends LivingEntity {
 		
-		[Embed(source="../assets/zombie.png")]
-		private static const IMG_ZOMBIE:Class;
-		
 		private var
 			sprites:MultiSpritemap = new MultiSpritemap(),
 			detectFriendly:RangeDetectAI,
 			detectSlot:RangeDetectAI,
-			anim:Spritemap = new Spritemap(IMG_ZOMBIE, 20, 20),
+			anim:Spritemap = new Spritemap(Sprites.ZOMBIE, 20, 20),
 			currentSlot:Slot,
 			strikeTimer:Tween,
 			idleTimer:Tween,

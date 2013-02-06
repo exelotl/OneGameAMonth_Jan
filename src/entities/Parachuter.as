@@ -4,18 +4,14 @@ package entities {
 	import net.flashpunk.graphics.Spritemap;
 	
 	public class Parachuter extends LivingEntity {
-		[Embed(source = "../assets/parachuter_zombie.png")]
-		private var IMG_PARACHUTE:Class;
 		
-		private var img:Image;
+		private var img:Image = new Image(Sprites.PARACHUTER_ZOMBIE);
 		
 		public function Parachuter(x:Number = 0, y:Number = 0) {
 			super(x, y);
 			setHitbox(10, 20, -10, -8);
 			health = maxHealth = 20;
 			type = "parachuter";
-			
-			img = new Image(IMG_PARACHUTE);
 			graphic = img;
 			
 			physics.maxVelX = 0.5;

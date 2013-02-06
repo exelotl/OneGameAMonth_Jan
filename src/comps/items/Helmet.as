@@ -6,11 +6,8 @@ package comps.items {
 	
 	public class Helmet extends Component {
 		
-		[Embed(source="../../assets/helmet.png")]
-		private static const IMG_HELMET:Class;
-		
 		private var
-			anim:Spritemap = new Spritemap(IMG_HELMET, 20, 20);
+			anim:Spritemap = new Spritemap(Sprites.HELMET, 20, 20);
 		
 		public function Helmet() {
 			anim.y = -3;

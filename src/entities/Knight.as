@@ -15,9 +15,6 @@ package entities {
 	
 	public class Knight extends LivingEntity {
 		
-		[Embed(source="../assets/knight.png")]
-		private static const IMG_KNIGHT:Class;
-		
 		public var
 			accuracy:Number = 0.7;
 		
@@ -25,7 +22,7 @@ package entities {
 			wander:WanderAI,
 			attackNearest:AttackNearestAI,
 			detectEnemy:RangeDetectAI,
-			anim:Spritemap = new Spritemap(IMG_KNIGHT, 20, 20),
+			anim:Spritemap = new Spritemap(Sprites.KNIGHT, 20, 20),
 			sprites:MultiSpritemap = new MultiSpritemap(),
 			tower:Tower;
 		

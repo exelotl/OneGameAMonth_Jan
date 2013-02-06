@@ -7,12 +7,9 @@ package entities {
 	
 	public class Fireball extends Entity {
 		
-		[Embed(source="../assets/fireball.png")]
-		private static const IMG_FIREBALL:Class;
-		
 		private var
 			numBounces:Number = 0,
-			anim:Spritemap = new Spritemap(IMG_FIREBALL, 8, 8),
+			anim:Spritemap = new Spritemap(Sprites.FIREBALL, 8, 8),
 			physics:Physics = new Physics(EntityTypes.SOLIDS);
 		
 		public function Fireball(x:Number, y:Number, velX:Number, velY:Number) {

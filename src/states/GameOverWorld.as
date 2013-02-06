@@ -8,9 +8,6 @@ package states {
 	
 	public class GameOverWorld extends World {
 		
-		[Embed(source="../assets/gameover.png")]
-		private static const BG_IMG:Class;
-		
 		public var
 			onPlayAgain:Signal = new Signal();
 		
@@ -33,7 +30,7 @@ package states {
 			splashScreenShade.x = splashScreenText.x + 1;
 			splashScreenShade.y = splashScreenText.y + 1;
 			splashScreenShade.color = 0;
-			addGraphic(new Image(BG_IMG));
+			addGraphic(new Image(Sprites.GAMEOVER));
 			addGraphic(gameOverShade);
 			addGraphic(gameOver);
 			addGraphic(splashScreenShade);

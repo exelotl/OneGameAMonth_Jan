@@ -7,9 +7,6 @@ package entities.slots {
 
 	public class Keep extends Tower {
 		
-		[Embed(source="../../assets/keep.png")]
-		private static const IMG_KEEP:Class;
-		
 		private static const
 			maxArchers:uint = 2,
 			maxArchersOnGround:uint = 3;
@@ -24,7 +21,7 @@ package entities.slots {
 			health = maxHealth = 70;
 			currentUpgrade = Upgrade.KEEP;
 			maxKnights = 2;
-			graphic = new Image(IMG_KEEP);
+			graphic = new Image(Sprites.KEEP);
 			graphic.y = -200;
 			width = 200;
 			height = 200;

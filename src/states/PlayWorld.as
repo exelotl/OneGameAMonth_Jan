@@ -30,7 +30,7 @@ package states {
 			playerHealthBar:PlayerHealthBar,
 			slots:/*Slot*/Array,
 			ui:GUI,
-			money:int = 50;
+			money:int = 500;
 			
 		public function PlayWorld() {
 			FP.screen.color = 0xccccff;

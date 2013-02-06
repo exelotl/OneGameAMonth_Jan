@@ -9,9 +9,6 @@ package entities {
 	
 	public class Player extends LivingEntity {
 		
-		[Embed(source="../assets/player.png")]
-		private static const IMG_PLAYER:Class;
-		
 		private var
 			sprites:MultiSpritemap = new MultiSpritemap(),
 			anim:Spritemap,
@@ -29,7 +26,7 @@ package entities {
 			addComponent("control", control);
 			
 			
-			anim = new Spritemap(IMG_PLAYER, 20, 20);
+			anim = new Spritemap(Sprites.PLAYER, 20, 20);
 			anim.add("idle_l", [0], 30, false);
 			anim.add("idle_r", [4], 30, false);
 			anim.add("run_l", [0,1,2,3], 15, true);

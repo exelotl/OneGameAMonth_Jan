@@ -6,13 +6,10 @@ package entities.slots {
 	 */
 	public class FillerSlot extends Slot {
 		
-		[Embed(source="../../assets/land_empty.png")]
-		private static const IMG_LAND_EMPTY:Class;
-		
 		public function FillerSlot(x:Number, y:Number) {
 			super(x, y)
 			setHitbox(200, 200);
-			graphic = new Image(IMG_LAND_EMPTY);
+			graphic = new Image(Sprites.LAND_EMPTY);
 		}
 		
 	}

@@ -5,13 +5,10 @@ package comps.items {
 	
 	public class Bow extends Weapon {
 		
-		[Embed(source="../../assets/bow.png")]
-		private static const IMG_BOW:Class;
-		
 		private var
 			sprites:MultiSpritemap,
 			inBg:Boolean = true,
-			anim:Spritemap = new Spritemap(IMG_BOW, 20, 20);
+			anim:Spritemap = new Spritemap(Sprites.BOW, 20, 20);
 		
 		public function Bow() {
 			super();

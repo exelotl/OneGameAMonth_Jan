@@ -4,9 +4,6 @@ package entities.slots {
 	
 	public class BattleTower extends Tower {
 		
-		[Embed(source="../../assets/battle_tower.png")]
-		private static const IMG_BATTLE_TOWER:Class;
-		
 		private var
 			maxProKnights:int = 4,
 			amountOfProKnights:int = 0;
@@ -16,7 +13,7 @@ package entities.slots {
 			maxKnights = 2;
 			health = maxHealth = 100;
 			currentUpgrade = Upgrade.BATTLE_TOWER;
-			var image:Image = new Image(IMG_BATTLE_TOWER);
+			var image:Image = new Image(Sprites.BATTLE_TOWER);
 			image.y = -200;
 			graphic = image;
 			type = "battle tower";
