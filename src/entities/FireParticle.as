@@ -5,10 +5,10 @@ package entities {
 
 	public class FireParticle extends Entity {
 		
-		private static var bitmap:BitmapData = new BitmapData(2, 2, false, 0xffff5500);
+		private static var img:Image = new Image(new BitmapData(2, 2, false, 0xffff5500));
 		
 		public function FireParticle(x:Number, y:Number) {
-			super(x, y, new Image(bitmap));
+			super(x, y, img);
 		}
 		
 		override public function update():void {

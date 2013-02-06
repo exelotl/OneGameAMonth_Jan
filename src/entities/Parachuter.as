@@ -32,6 +32,12 @@ package entities {
 				world.add(zombie);
 			}
 		}
+		
+		override public function die():void {
+			super.die();
+			world.remove(this);
+			
+		}
 	}
 
 }

@@ -1,6 +1,7 @@
 package {
 	import entities.LivingEntity;
 	import flash.display.Sprite;
+	import flash.display.StageQuality;
 	import flash.events.Event;
 	import net.flashpunk.Engine;
 	import net.flashpunk.FP;
@@ -31,6 +32,7 @@ package {
 		
 		override public function init():void {
 			FP.console.enable();
+			stage.quality = StageQuality.LOW;
 			menuWorld = new MenuWorld();
 			menuWorld.onPlay.add(startNewGame);
 			gameOverWorld = new GameOverWorld();
