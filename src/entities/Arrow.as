@@ -36,18 +36,20 @@ package entities {
 			
 			type = "arrow";
 			layer = Layers.PROJECTILES;
+			addTween(new Tween(2, Tween.ONESHOT, removeSelf), true);
 		}
 		
 		override public function update():void {
 			if (inAir) {
-				if (collideTypes(EntityTypes.SOLIDS, x, y+2)) {
+				if (collideTypes(EntityTypes.PROJECTILES_SOLIDS, x, y+2)) {
 					removeComponent("physics");
-					addTween(new Tween(2, Tween.ONESHOT, removeSelf), true);
 					inAir = false;
 				} else {
 					image.angle = 90 + FP.DEG * Math.atan2(physics.velY, physics.velX);
-					collideEach(targetTypes, x, y, onHit);
-					collideEach(targetTypes, x+physics.velX*0.5, y+physics.velY*0.5, onHit);
+					var e:Entity = collideTypes(targetTypes, x, y)
+						|| collideTypes(targetTypes, x+physics.velX*0.5, y+physics.velY*0.5);
+					if (e is LivingEntity)
+						(e as LivingEntity).damage(15, this);
 				}
 			}
 		}

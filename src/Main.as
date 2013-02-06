@@ -31,7 +31,6 @@ package {
 		}
 		
 		override public function init():void {
-			FP.console.enable();
 			stage.quality = StageQuality.LOW;
 			menuWorld = new MenuWorld();
 			menuWorld.onPlay.add(startNewGame);

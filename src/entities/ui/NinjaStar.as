@@ -37,22 +37,21 @@ package entities.ui {
 			
 			type = "ninjastar";
 			layer = Layers.PROJECTILES;
+			addTween(new Tween(1.6, Tween.ONESHOT, removeSelf), true);
 		}
 		
 		override public function update():void {
 			if (inAir) {
-				var hitSolid:Entity = collideTypes(EntityTypes.SOLIDS, x, y+2);
+				var hitSolid:Entity = collideTypes(EntityTypes.PROJECTILES_SOLIDS, x, y+2);
 				if (hitSolid) {
 					if (EntityTypes.ATTACKABLE_SLOTS.indexOf(hitSolid.type) != -1) {
 						(hitSolid as Slot).damage(5);
 					}
 					removeComponent("physics");
-					addTween(new Tween(1.5, Tween.ONESHOT, removeSelf), true);
 					inAir = false;
 				} else {
 					image.angle = Math.random() * 360;
 					collideEach(targetTypes, x, y, onHit);
-					collideEach(targetTypes, x + physics.velX * 0.5, y + physics.velY * 0.5, onHit);
 				}
 			}
 		}

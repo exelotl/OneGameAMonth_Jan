@@ -1,9 +1,11 @@
 package entities {
 	import comps.Physics;
+	import flash.utils.Timer;
 	import net.flashpunk.Entity;
 	import net.flashpunk.Graphic;
 	import net.flashpunk.graphics.Spritemap;
 	import net.flashpunk.Mask;
+	import net.flashpunk.Tween;
 	
 	public class Fireball extends Entity {
 		
@@ -24,6 +26,7 @@ package entities {
 			physics.accY = Math.random()*0.5 + 0.3;
 			physics.bounce = 5 + Math.random() * 2;
 			setHitbox(10, 12, -2, 4);
+			addTween(new Tween(10, 0, explode), true);
 		}
 		
 		override public function update():void {
