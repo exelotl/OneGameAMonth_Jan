@@ -110,7 +110,6 @@ package entities {
 		}
 		
 		private function randomAttack():void {
-			trace(health);
 			switch (int(Math.random()*3)) {
 				case 0:
 					remainingJumps = 3;
@@ -128,9 +127,9 @@ package entities {
 		}
 		
 		override public function die():void {
+			super.die();
 			physics.removeAllCollideTypes();
-			type = "dead";
-			addTween(new Tween(2, 0, removeSelf));
+			addTween(new Tween(2, 0, removeSelf), true);
 			(world as PlayWorld).endWave();
 		}
 		
