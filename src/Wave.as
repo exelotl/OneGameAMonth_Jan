@@ -102,7 +102,7 @@ package {
 			},
 			{
 				name: "The cake is a lie. (see what I did there?)",
-				note: "Your soliders have spotted a dragon in the distance.",
+				note: "Your soldiers have spotted a dragon in the distance.",
 				time: 20,
 				canSkip: true,
 				timeOfDay: DAY
